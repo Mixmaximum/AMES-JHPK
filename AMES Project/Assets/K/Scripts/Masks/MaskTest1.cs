@@ -5,6 +5,8 @@ public class MaskTest1 : Mask
 
     public MaskTest1() // Constructor for the variables of the mask.
     {
+        maskName = "Legally Distinct DebugLog Mask";
+        maskDesc = "A mask used for testing the mask system, sends different things to the Unity console.";
         maxUses = 1; // The maximum amount of uses this mask has
         currentUses = 1; // The current amount of uses this mask has, generally in the constructor this always wants to be set to the maxUses.
         cooldown = 5f; // The cooldown of this mask.
@@ -16,7 +18,7 @@ public class MaskTest1 : Mask
         if (currentUses != 0) // If you have mask uses
         {
             Debug.Log("Legally Distinct Ability"); // Do something
-            currentUses--;
+            base.MaskAbility();
         }
     }
        
