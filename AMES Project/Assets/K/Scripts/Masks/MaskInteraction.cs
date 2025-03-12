@@ -8,17 +8,12 @@ public class MaskInteraction : MonoBehaviour
     // THIS IS A TEST SCRIPT TO TEST THE ABILITIES OF THE MASK.
     // THIS SCRIPT GOES ON THE PLAYER OBJECT
 
-    List<Mask> maskInventory = new List<Mask>(); // A list that holds mask objects, think of this like an inventory
+    public List<Mask> maskInventory = new List<Mask>(); // A list that holds mask objects, think of this like an inventory
 
     int cycleCount = 0; // the integer that controls the index of the maskInventory list, starts out at zero aka top of the list
 
     Mask equippedMask; // The current mask the player has equipped.
 
-    void Start()
-    {
-        maskInventory.Add(ScriptableObject.CreateInstance<MaskTest>()); // Add a mask to the mask inventory
-        maskInventory.Add(ScriptableObject.CreateInstance<MaskTest1>());
-    }
 
     void Update()
     {
