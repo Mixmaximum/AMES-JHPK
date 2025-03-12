@@ -3,9 +3,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     float playerHeight = 2f;
+    [SerializeField] Transform orientation;
+
     [Header("Movement")]
     [SerializeField] float moveSpeed = 6f;
     [SerializeField] float movementMultiplier = 10f;
+    [SerializeField] float airMovementMultiplier = 0.4f;
     [Space(5)]
 
     [Header("Keybinds")]
@@ -50,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalMovement = Input.GetAxisRaw("Horizontal");
         verticalMovement = Input.GetAxisRaw("Vertical");
 
-        moveDirection = transform.forward * verticalMovement + transform.right * horizontalMovement;
+        moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
     }
 
     private void Jump()
@@ -77,6 +80,13 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePLayer()
     {
-        rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+        if (isGrounded)
+        {
+            rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+        }
+        if (!isGrounded)
+        {
+            rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMovementMultiplier, ForceMode.Acceleration);
+        }
     }
 }
