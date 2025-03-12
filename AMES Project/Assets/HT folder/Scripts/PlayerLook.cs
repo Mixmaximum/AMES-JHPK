@@ -6,7 +6,8 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
 
-    Camera cam;
+    [SerializeField] Transform cam;
+    [SerializeField] Transform orientation;
 
     float mouseX;
     float mouseY;
@@ -18,7 +19,6 @@ public class PlayerLook : MonoBehaviour
 
     private void Start()
     {
-        cam = GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -26,8 +26,6 @@ public class PlayerLook : MonoBehaviour
     private void Update()
     {
         MyInput();
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
     private void MyInput()
@@ -39,5 +37,8 @@ public class PlayerLook : MonoBehaviour
         xRotation -= mouseY * sensY * multiplier;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        cam.transform.rotation = Quaternion.Euler(xRotation, 0, 0);
+        orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 }
