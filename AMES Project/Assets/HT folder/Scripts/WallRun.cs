@@ -31,6 +31,7 @@ public class WallRun : MonoBehaviour
     RaycastHit rightWallHit;
 
     private Rigidbody rb;
+    public bool wallRunning = false;
 
 
     private void Start()
@@ -89,6 +90,9 @@ public class WallRun : MonoBehaviour
         // Change fov to wall run fov over time
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFov, wallRunFovTime * Time.deltaTime);
 
+        // set wall running bool to true to adjust gravity in player move script
+        wallRunning = true;
+
         // if the wall is on the left the camera tilts negative to go away from the wall
         if (wallLeft)
         {
@@ -123,6 +127,8 @@ public class WallRun : MonoBehaviour
 
     private void StopWallRun()
     {
+        //Deactivate wall running bool
+        wallRunning = false;
         // Reset grav to normal after wall run stops
         rb.useGravity = true;
         // Reset to normal fov
