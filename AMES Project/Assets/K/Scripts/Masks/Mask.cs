@@ -11,7 +11,6 @@ public class Mask : ScriptableObject
     public int currentUses; // The uses a mask currently has available, so if maxUses == 3 and you use the ability once, then currentUses == 2 because currentUses == maxUses.
                             // after a cooldown currentUses = maxUses to reset the available uses.
 
-
 	public virtual void MaskAbility()
 	{
         currentUses--; // Every mask loses a use upon.. using it. Instead of adding currentUses--; to every MaskAbility function, just call base.MaskAbility();
@@ -47,5 +46,10 @@ public class Mask : ScriptableObject
             currentUses = maxUses; // Reset the uses
             currentCooldown = 0f; // Set the cooldown build up to zero.
         }
+    }
+
+    public virtual void OnUnequip()
+    {
+        // place code here that you want the mask to do when it is unequipped, like resetting the players speed for example.
     }
 }
