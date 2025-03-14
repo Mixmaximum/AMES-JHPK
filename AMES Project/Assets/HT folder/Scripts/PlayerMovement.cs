@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Keybinds")]
     [SerializeField] KeyCode jumpkey = KeyCode.Space;
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] KeyCode crouchKey = KeyCode.LeftControl;
     [Space(5)]
 
     [Header("Jumping/ground")]
@@ -38,9 +39,23 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float fallingGrav;
     [Space(5)]
 
+    [Header("Crouch settings")]
+    [SerializeField] private Vector3 crouchHeight;
+    [SerializeField] private float crouchMoveSpeed;
+    [SerializeField] private float crouchSprintSpeed;
+    [SerializeField] private float crouchFloorDetectDist;
+    [Space(5)]
+
+    [Header("Slide settings")]
+    [SerializeField] Vector3 requiredSlideSpeed; // how fast you have to be to start sliding
+    [Space(5)]
+
     float horizontalMovement;
     float verticalMovement;
     bool isGrounded;
+    bool isCrouching;
+    bool ableToCrouch;
+    int impulseCounter;
     Rigidbody rb;
 
     Vector3 moveDirection;
@@ -75,12 +90,13 @@ public class PlayerMovement : MonoBehaviour
     {
         //checks for ground
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, ground);
-        
+        ableToCrouch = Physics.CheckSphere(groundCheck.position, crouchFloorDetectDist, ground);
 
         MyInput();
         ControlDrag();
         ControlSpeed();
         FallingGrav();
+        Crouch();
 
         //Jumps
         if (Input.GetKeyDown(jumpkey) && isGrounded)
@@ -114,14 +130,23 @@ public class PlayerMovement : MonoBehaviour
     private void ControlSpeed()
     {
         // changes movespeed between sprint and walk over time if the player is grounded
-        if (Input.GetKey(sprintKey) && isGrounded)
+        if (Input.GetKey(sprintKey) && isGrounded && !isCrouching)
         {
             moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
+        }
+        else if (isCrouching && !Input.GetKey(sprintKey))
+        {
+            moveSpeed = Mathf.Lerp(moveSpeed, crouchMoveSpeed, acceleration * Time.deltaTime);
+        }
+        else if (Input.GetKey(sprintKey) && isCrouching)
+        {
+            moveSpeed = Mathf.Lerp(moveSpeed, crouchSprintSpeed, acceleration * Time.deltaTime);
         }
         else
         {
             moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
         }
+        
     }
 
     void ControlDrag()
@@ -161,11 +186,37 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Make the player fall heavier
     void FallingGrav()
     {
         if (!isGrounded && !wallrun.wallRunning)
         {
             rb.AddForce(Vector3.down * fallingGrav, ForceMode.Force);
         }
+    }
+
+    void Crouch()
+    {
+        if (Input.GetKey(crouchKey) && ableToCrouch)
+        {
+            transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
+            isCrouching = true;
+            if (impulseCounter < 1)
+            {
+                rb.AddForce(Vector3.down * 5, ForceMode.Impulse);
+                impulseCounter = 1;
+            }
+        }
+        else
+        {
+            transform.localScale = new Vector3(1,1,1);
+            isCrouching = false;
+            impulseCounter = 0;
+        }
+    }
+    private void Slide()
+    {
+        
+        
     }
 }

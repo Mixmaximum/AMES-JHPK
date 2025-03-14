@@ -1595,6 +1595,7 @@ MonoBehaviour:
   acceleration: 10
   jumpkey: 32
   sprintKey: 304
+  crouchKey: 306
   jumpForce: 12
   groundDistance: 0.4
   groundCheck: {fileID: 1276638537}
@@ -1604,6 +1605,11 @@ MonoBehaviour:
   groundDrag: 6
   airDrag: 1.2
   fallingGrav: 1.5
+  crouchHeight: {x: 1, y: 0.5, z: 1}
+  crouchMoveSpeed: 1
+  crouchSprintSpeed: 2
+  crouchFloorDetectDist: 0.4
+  requiredSlideSpeed: {x: 0, y: 0, z: 0}
 --- !u!54 &1368670011
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1903,7 +1909,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 14.3010435
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -2000,7 +2006,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789121807}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
