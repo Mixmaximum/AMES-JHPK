@@ -10,13 +10,12 @@ public class Mask : ScriptableObject
     public int maxUses; // The uses a given mask has.
     public int currentUses; // The uses a mask currently has available, so if maxUses == 3 and you use the ability once, then currentUses == 2 because currentUses == maxUses.
                             // after a cooldown currentUses = maxUses to reset the available uses.
-
 	public virtual void MaskAbility()
 	{
-        currentUses--; // Every mask loses a use upon.. using it. Instead of adding currentUses--; to every MaskAbility function, just call base.MaskAbility();
+        currentUses--; // Every mask loses a use upon.. using it. Instead of adding currentUses--; to every MaskAbility() function, just call base.MaskAbility(); It should automatically
 		// Ability code would go here for each individual mask.
-		// Call this function when you want the player to use the ability of a mask, ex: press E to use mask ability
-        // To put this in a new mask script, you would write "public override void MaskAbility()" and it should autofill it for you.
+		// Call this function when you want the player to use the ability of a mask that shouldn't be always active. Ex: Press F to use shockwave ability
+        // To put this in a new mask script, you would write "public override void MaskAbility()" and it should autofill it for you. (This goes for all of the methods here)
         // ^ If that does not work, make sure that the script has "Mask" where "Monobehaviour" would usually be on the script. 
 	}
 
@@ -24,8 +23,7 @@ public class Mask : ScriptableObject
     {
         // This function would be called when the player has the mask currently equipped.
         // Basically this function would be useful for when you want to have a mask with an ability that you dont want the player to constantly activate.
-        // For example, if you want the player to have a double jump mask, you could write it so that when the player has the mask equipped they have a double jump.
-        // If you want the player to increase their speed when they have it equipped, you would write it here.
+        // this function would go into update(), so it would be called every frame. Write using this wisely.
     }
 
     public virtual void AbilityOnPickup()
@@ -38,7 +36,7 @@ public class Mask : ScriptableObject
 
     public void ResetUses()
     {
-        if (currentCooldown < cooldown && currentUses == 0) // if there are no uses left and the currentCooldown hasn't met the maximum cooldown
+        if (currentCooldown < cooldown && currentUses == 0 && maxUses != 0) // if there are no uses left and the currentCooldown hasn't met the maximum cooldown, as well as if the mask as any uses AT ALL
             currentCooldown += Time.deltaTime; // add to it incrementally using the time.
 
         if (currentCooldown >= cooldown) // if the cooldown has built up to the maximum cooldown
@@ -46,6 +44,11 @@ public class Mask : ScriptableObject
             currentUses = maxUses; // Reset the uses
             currentCooldown = 0f; // Set the cooldown build up to zero.
         }
+    }
+
+    public virtual void OnEquip()
+    {
+        // place code here that you want toe mask to do when it is equipped, like increasing the players speed for example.
     }
 
     public virtual void OnUnequip()

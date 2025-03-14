@@ -8,6 +8,7 @@ public class BaseMaskPickup : MonoBehaviour
     public void OnPickup()
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<MaskInteraction>().maskInventory.Add(maskToGive); // find the player and add the mask to his inventory
+        maskToGive.AbilityOnPickup(); // calls the masks ability that you receive on pickup, if there is one. If there isn't one then nothing happens here.
         Destroy(this.gameObject); // destroy yourself
     }
 }
