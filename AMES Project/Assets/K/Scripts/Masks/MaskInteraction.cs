@@ -21,26 +21,31 @@ public class MaskInteraction : MonoBehaviour
 
     public void MaskControl()
     {
-        if (Input.GetKeyDown(KeyCode.F) && maskInventory.Count != 0 && maskInventory[cycleCount] != null) // hitting f activates the mask ability, also equippedMask must not equal null (without this there would be an reference error)
+        if (Input.GetKeyDown(KeyCode.F) && maskInventory.Count != 0 && maskInventory[cycleCount] != null && equippedMask.currentUses != 0) // hitting f activates the mask ability, also equippedMask must not equal null (without this there would be an reference error)
             equippedMask.MaskAbility(); // the masks ability if it has one
         if (maskInventory.Count != 0 && maskInventory[cycleCount] != null) // error prevention
         {
-            equippedMask.EquippedAbility(); // Runs the function for the masks equipped ability, if the mask has no function for it then it does nothing (theres no error). Maybe wouldnt want this in update
-            equippedMask.ResetUses(); // Uses check for the mask, i don't know if I want to put this here in update but this is for testing soooooo
+            foreach (Mask mask in maskInventory)
+                mask.ResetUses(); // manages the cooldown for all of the masks in the list, so that even when you unequip a mask the cooldown still ticks down, or up I guess.
+            equippedMask.EquippedAbility(); // Runs the function for a masks ability that would constantly update, if it has none nothing happens.
         }
     }
 
     public void CycleMasks()
     {
 
-        if(maskInventory.Count != 0 && maskInventory.Count < 2)
-        equippedMask = maskInventory[cycleCount];
+        if(maskInventory.Count != 0 && maskInventory.Count < 2) // These lines are basically placeholders for equipping a mask if you have none
+        {
+            equippedMask = maskInventory[cycleCount]; 
+            equippedMask.OnEquip();
+        }
 
         if (Input.GetKeyDown(KeyCode.Z) && cycleCount + 1 <= maskInventory.Count - 1 && maskInventory.Count > 1) // the second part is "If adding to the index wouldnt go over the number of items in the list"
         {
-            equippedMask.OnUnequip(); // Runs the unequip method for the mask
+            equippedMask.OnUnequip(); // Runs the unequip method for the currently equipped mask, if it has one.
             cycleCount++;
             equippedMask = maskInventory[cycleCount]; // set the equipped mask to what the index is set to
+            equippedMask.OnEquip(); // runs the equip method for the new currently equipped mask, if it has one.
             Debug.Log($"the cycleCount is currently {cycleCount}"); // sanity check
         }
         else if (Input.GetKeyDown(KeyCode.Z) && cycleCount + 1 > maskInventory.Count - 1 && maskInventory.Count > 1) // if adding to the index WOULD go over the number of items in the list
@@ -49,6 +54,7 @@ public class MaskInteraction : MonoBehaviour
             equippedMask.OnUnequip();
             cycleCount = 0; // reset the count to zero
             equippedMask = maskInventory[cycleCount];
+            equippedMask.OnEquip();
             Debug.Log($"the cycleCount is currently {cycleCount}, and it has been reset.");
         }
 
@@ -57,6 +63,7 @@ public class MaskInteraction : MonoBehaviour
             maskInventory[cycleCount].OnUnequip();
             cycleCount--;
             equippedMask = maskInventory[cycleCount];
+            equippedMask.OnEquip();
             Debug.Log($"the cycleCount is currently {cycleCount}");
         }
         else if (Input.GetKeyDown(KeyCode.X) && cycleCount - 1 < 0 && maskInventory.Count > 1) //if it would be reset it to zero
@@ -65,6 +72,7 @@ public class MaskInteraction : MonoBehaviour
             maskInventory[cycleCount].OnUnequip();
             cycleCount = 0;
             equippedMask = maskInventory[cycleCount];
+            equippedMask.OnEquip();
             Debug.Log($"the cycleCount is currently {cycleCount}, and it has been reset.");
         }
     }

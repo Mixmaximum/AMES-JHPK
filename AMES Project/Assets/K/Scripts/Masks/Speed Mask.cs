@@ -8,11 +8,13 @@ public class SpeedMask : Mask
         maskDesc = "A mask that boosts your speed as long as you have it equipped.";
     }
 
-    public override void EquippedAbility()
+    public override void OnEquip()
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().walkSpeed = 7;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().sprintSpeed = 9;
-    }
+    } 
+    
+        
 
     public override void OnUnequip()
     {
@@ -20,3 +22,4 @@ public class SpeedMask : Mask
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().sprintSpeed = 6;
     }
 }
+
