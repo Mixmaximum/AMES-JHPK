@@ -19,7 +19,7 @@ public class Mask : ScriptableObject
         // ^ If that does not work, make sure that the script has "Mask" where "Monobehaviour" would usually be on the script. 
 	}
 
-    public virtual void EquippedAbility()
+    public virtual void EquippedUpdate()
     {
         // This function would be called when the player has the mask currently equipped.
         // Basically this function would be useful for when you want to have a mask with an ability that you dont want the player to constantly activate.
@@ -54,5 +54,11 @@ public class Mask : ScriptableObject
     public virtual void OnUnequip()
     {
         // place code here that you want the mask to do when it is unequipped, like resetting the players speed for example.
+    }
+
+    public virtual void MaskUpdate()
+    {
+        // this goes in update, and it goes for ALL masks. Put stuff in here that you want to be running all the time, regardless of whether it is equipped.
+        // I'm mostly aiming to use this just for checks like "If time is stopped, then don't run down the cooldown!"
     }
 }

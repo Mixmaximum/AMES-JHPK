@@ -33,11 +33,9 @@ public class SlowTimeMask : Mask
         GameObject.Find("Data Handler").GetComponent<DataHandler>().StartCoroutine(GameObject.Find("Data Handler").GetComponent<DataHandler>().SlowTime());
     }
 
-    public override void EquippedAbility()
+    public override void MaskUpdate() // checks if time is slowed, if it is then the cooldown doesn't start resetting
     {
-        // this isn't even an ability at all, I'm just leveraging the fact that there's a function that runs in update
-        // so that the cooldown doesn't immediately start after you have zero uses but AFTER time unslows
-        if (GameObject.Find("Data Handler").GetComponent<DataHandler>().timeMultiplier == 0.5f) 
+        if (GameObject.Find("Data Handler").GetComponent<DataHandler>().timeMultiplier == 0.5f)
             currentCooldown = 0f;
     }
 }
