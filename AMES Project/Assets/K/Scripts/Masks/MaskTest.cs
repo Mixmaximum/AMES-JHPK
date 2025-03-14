@@ -22,9 +22,9 @@ public class MaskTest : Mask // Inherits from the mask script so that it can hav
         }
     }
 
-    public override void EquippedAbility()
+    public override void EquippedUpdate()
     {
-        Debug.Log("Ability When Equipped"); // This is always running when you have the mask equipped, when you take it off it ceases.
+        Debug.Log("Ability When Equipped Always Updating"); // This is always running when you have the mask equipped, when you take it off it ceases.
     }
 
 }

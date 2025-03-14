@@ -22,12 +22,15 @@ public class MaskInteraction : MonoBehaviour
     public void MaskControl()
     {
         if (Input.GetKeyDown(KeyCode.F) && maskInventory.Count != 0 && maskInventory[cycleCount] != null && equippedMask.currentUses != 0) // hitting f activates the mask ability, also equippedMask must not equal null (without this there would be an reference error)
-            equippedMask.MaskAbility(); // the masks ability if it has one
+            equippedMask.MaskAbility(); // runs the masks F ability, if it has one
         if (maskInventory.Count != 0 && maskInventory[cycleCount] != null) // error prevention
         {
             foreach (Mask mask in maskInventory)
+            {
                 mask.ResetUses(); // manages the cooldown for all of the masks in the list, so that even when you unequip a mask the cooldown still ticks down, or up I guess.
-            equippedMask.EquippedAbility(); // Runs the function for a masks ability that would constantly update, if it has none nothing happens.
+                mask.MaskUpdate(); // manages code for masks that is supposed to be always running, even if its not equipped
+            }
+            equippedMask.EquippedUpdate(); // Runs the function for an equipped masks ability that would constantly update, if it has none nothing happens.
         }
     }
 
@@ -43,10 +46,10 @@ public class MaskInteraction : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z) && cycleCount + 1 <= maskInventory.Count - 1 && maskInventory.Count > 1) // the second part is "If adding to the index wouldnt go over the number of items in the list"
         {
             equippedMask.OnUnequip(); // Runs the unequip method for the currently equipped mask, if it has one.
-            cycleCount++;
+            cycleCount++; // cycles the count up, so that you can switch masks. It works the same way when you subtract
             equippedMask = maskInventory[cycleCount]; // set the equipped mask to what the index is set to
             equippedMask.OnEquip(); // runs the equip method for the new currently equipped mask, if it has one.
-            Debug.Log($"the cycleCount is currently {cycleCount}"); // sanity check
+            Debug.Log($"the cycleCount is currently {cycleCount}, the mask selected is the {equippedMask.maskName}"); // sanity check
         }
         else if (Input.GetKeyDown(KeyCode.Z) && cycleCount + 1 > maskInventory.Count - 1 && maskInventory.Count > 1) // if adding to the index WOULD go over the number of items in the list
         {
@@ -55,7 +58,7 @@ public class MaskInteraction : MonoBehaviour
             cycleCount = 0; // reset the count to zero
             equippedMask = maskInventory[cycleCount];
             equippedMask.OnEquip();
-            Debug.Log($"the cycleCount is currently {cycleCount}, and it has been reset.");
+            Debug.Log($"the cycleCount is currently {cycleCount}, and it has been reset. The mask selected is the {equippedMask.maskName}");
         }
 
         if (Input.GetKeyDown(KeyCode.X) && cycleCount - 1 >= 0 && maskInventory.Count > 1) // if subtracting from the index wouldnt be less than zero
@@ -64,7 +67,7 @@ public class MaskInteraction : MonoBehaviour
             cycleCount--;
             equippedMask = maskInventory[cycleCount];
             equippedMask.OnEquip();
-            Debug.Log($"the cycleCount is currently {cycleCount}");
+            Debug.Log($"the cycleCount is currently {cycleCount}, the mask selected is the {equippedMask.maskName}");
         }
         else if (Input.GetKeyDown(KeyCode.X) && cycleCount - 1 < 0 && maskInventory.Count > 1) //if it would be reset it to zero
         {
@@ -73,7 +76,7 @@ public class MaskInteraction : MonoBehaviour
             cycleCount = 0;
             equippedMask = maskInventory[cycleCount];
             equippedMask.OnEquip();
-            Debug.Log($"the cycleCount is currently {cycleCount}, and it has been reset.");
+            Debug.Log($"the cycleCount is currently {cycleCount}, and it has been reset. The mask selected is the {equippedMask.maskName}");
         }
     }
 }
