@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] KeyCode jumpkey = KeyCode.Space;
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] KeyCode crouchKey = KeyCode.LeftControl;
+    [SerializeField] KeyCode slideKey = KeyCode.LeftControl;
     [Space(5)]
 
     [Header("Jumping/ground")]
@@ -47,19 +48,26 @@ public class PlayerMovement : MonoBehaviour
     [Space(5)]
 
     [Header("Slide settings")]
-    [SerializeField] Vector3 requiredSlideSpeed; // how fast you have to be to start sliding
+    [SerializeField] float requiredSlideSpeed; // how fast you have to be to start sliding
+    [SerializeField] float slideLength;
+    [SerializeField] float slideForce;
     [Space(5)]
 
     float horizontalMovement;
     float verticalMovement;
+    float currentVelocity;
     bool isGrounded;
     bool isCrouching;
+    bool isSliding;
     bool ableToCrouch;
     int impulseCounter;
+    int slideImpulseCounter;
+    float slideTimer;
     Rigidbody rb;
 
     Vector3 moveDirection;
     Vector3 slopeMoveDirection;
+    Vector3 inputDirection;
 
     RaycastHit slopeHit;
 
@@ -96,7 +104,15 @@ public class PlayerMovement : MonoBehaviour
         ControlDrag();
         ControlSpeed();
         FallingGrav();
+        StartSlide();
+        if (isSliding)
+        {
+            SlideMovement();
+        }
         Crouch();
+
+        currentVelocity = rb.linearVelocity.magnitude;
+        Debug.Log(currentVelocity);
 
         //Jumps
         if (Input.GetKeyDown(jumpkey) && isGrounded)
@@ -197,7 +213,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Crouch()
     {
-        if (Input.GetKey(crouchKey) && ableToCrouch)
+        if (Input.GetKey(crouchKey) && ableToCrouch && !isSliding)
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
             isCrouching = true;
@@ -205,18 +221,43 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(Vector3.down * 5, ForceMode.Impulse);
                 impulseCounter = 1;
+                if (impulseCounter >= 1)
+                {
+
+                }
             }
         }
-        else
+        else if (!isSliding)
         {
             transform.localScale = new Vector3(1,1,1);
             isCrouching = false;
             impulseCounter = 0;
         }
     }
-    private void Slide()
+    private void StartSlide()
     {
-        
-        
+        if (Input.GetKeyDown(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed && !isSliding)
+        {
+            Vector3 inputDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+            transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
+            isSliding = true;
+            slideTimer = slideLength;
+        }
+    }
+    private void SlideMovement()
+    {
+        rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
+        slideTimer -= Time.deltaTime;
+
+        if (slideTimer <= 0 || Input.GetKeyDown(jumpkey))
+        {
+            StopSlide();
+        }
+    }
+
+    private void StopSlide()
+    {
+        isSliding = false;
+        transform.localScale = new Vector3(1, 1, 1);
     }
 }
