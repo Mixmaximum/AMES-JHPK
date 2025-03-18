@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] KeyCode jumpkey = KeyCode.Space;
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] KeyCode crouchKey = KeyCode.LeftControl;
+    [SerializeField] KeyCode slideKey = KeyCode.LeftControl;
     [Space(5)]
 
     [Header("Jumping/ground")]
@@ -47,15 +48,19 @@ public class PlayerMovement : MonoBehaviour
     [Space(5)]
 
     [Header("Slide settings")]
-    [SerializeField] Vector3 requiredSlideSpeed; // how fast you have to be to start sliding
+    [SerializeField] float requiredSlideSpeed; // how fast you have to be to start sliding
+    [SerializeField] float slideLength;
     [Space(5)]
 
     float horizontalMovement;
     float verticalMovement;
+    float currentVelocity;
     bool isGrounded;
     bool isCrouching;
+    bool isSliding;
     bool ableToCrouch;
     int impulseCounter;
+    int slideImpulseCounter;
     Rigidbody rb;
 
     Vector3 moveDirection;
@@ -97,6 +102,8 @@ public class PlayerMovement : MonoBehaviour
         ControlSpeed();
         FallingGrav();
         Crouch();
+
+        currentVelocity = rb.linearVelocity.magnitude;
 
         //Jumps
         if (Input.GetKeyDown(jumpkey) && isGrounded)
@@ -197,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Crouch()
     {
-        if (Input.GetKey(crouchKey) && ableToCrouch)
+        if (Input.GetKey(crouchKey) && ableToCrouch && !isSliding)
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
             isCrouching = true;
@@ -214,9 +221,19 @@ public class PlayerMovement : MonoBehaviour
             impulseCounter = 0;
         }
     }
-    private void Slide()
+    private void StartSlide()
     {
-        
-        
+        if (Input.GetKey(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed)
+        {
+            transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
+            isSliding = true;
+            rb.AddForce(moveDirection, ForceMode.Force);
+
+        }
+    }
+    private void StopSlide()
+    {
+        isSliding = false;
+        transform.localScale = new Vector3(1, 1, 1);
     }
 }
