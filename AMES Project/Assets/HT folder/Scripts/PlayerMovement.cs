@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Slide settings")]
     [SerializeField] float requiredSlideSpeed; // how fast you have to be to start sliding
     [SerializeField] float slideLength;
+    [SerializeField] float slideForce;
     [Space(5)]
 
     float horizontalMovement;
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     bool ableToCrouch;
     int impulseCounter;
     int slideImpulseCounter;
+    float slideTimer;
     Rigidbody rb;
 
     Vector3 moveDirection;
@@ -101,9 +103,15 @@ public class PlayerMovement : MonoBehaviour
         ControlDrag();
         ControlSpeed();
         FallingGrav();
+        StartSlide();
+        if (isSliding)
+        {
+            SlideMovement();
+        }
         Crouch();
 
         currentVelocity = rb.linearVelocity.magnitude;
+        Debug.Log(currentVelocity);
 
         //Jumps
         if (Input.GetKeyDown(jumpkey) && isGrounded)
@@ -212,9 +220,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(Vector3.down * 5, ForceMode.Impulse);
                 impulseCounter = 1;
+                if (impulseCounter >= 1)
+                {
+
+                }
             }
         }
-        else
+        else if (!isSliding)
         {
             transform.localScale = new Vector3(1,1,1);
             isCrouching = false;
@@ -223,14 +235,25 @@ public class PlayerMovement : MonoBehaviour
     }
     private void StartSlide()
     {
-        if (Input.GetKey(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed)
+        if (Input.GetKeyDown(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed && !isSliding)
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
             isSliding = true;
-            rb.AddForce(moveDirection, ForceMode.Force);
-
+            slideTimer = slideLength;
         }
     }
+    private void SlideMovement()
+    {
+        Vector3 inputDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+        rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
+        slideTimer -= Time.deltaTime;
+
+        if (slideTimer <= 0)
+        {
+            StopSlide();
+        }
+    }
+
     private void StopSlide()
     {
         isSliding = false;
