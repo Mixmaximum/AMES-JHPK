@@ -43,7 +43,7 @@ public class MaskInteraction : MonoBehaviour
             equippedMask.OnEquip();
         }
 
-        if (Input.GetKeyDown(KeyCode.Z) && cycleCount + 1 <= maskInventory.Count - 1 && maskInventory.Count > 1) // the second part is "If adding to the index wouldnt go over the number of items in the list"
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && cycleCount + 1 <= maskInventory.Count - 1 && maskInventory.Count > 1) // the second part is "If adding to the index wouldnt go over the number of items in the list"
         {
             equippedMask.OnUnequip(); // Runs the unequip method for the currently equipped mask, if it has one.
             cycleCount++; // cycles the count up, so that you can switch masks. It works the same way when you subtract
@@ -51,7 +51,7 @@ public class MaskInteraction : MonoBehaviour
             equippedMask.OnEquip(); // runs the equip method for the new currently equipped mask, if it has one.
             Debug.Log($"the cycleCount is currently {cycleCount}, the mask selected is the {equippedMask.maskName}"); // sanity check
         }
-        else if (Input.GetKeyDown(KeyCode.Z) && cycleCount + 1 > maskInventory.Count - 1 && maskInventory.Count > 1) // if adding to the index WOULD go over the number of items in the list
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && cycleCount + 1 > maskInventory.Count - 1 && maskInventory.Count > 1) // if adding to the index WOULD go over the number of items in the list
         {
             if(cycleCount != 0) // if the mask isn't already at zero
             equippedMask.OnUnequip();
@@ -61,7 +61,7 @@ public class MaskInteraction : MonoBehaviour
             Debug.Log($"the cycleCount is currently {cycleCount}, and it has been reset. The mask selected is the {equippedMask.maskName}");
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && cycleCount - 1 >= 0 && maskInventory.Count > 1) // if subtracting from the index wouldnt be less than zero
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && cycleCount - 1 >= 0 && maskInventory.Count > 1) // if subtracting from the index wouldnt be less than zero
         {
             maskInventory[cycleCount].OnUnequip();
             cycleCount--;
@@ -69,7 +69,7 @@ public class MaskInteraction : MonoBehaviour
             equippedMask.OnEquip();
             Debug.Log($"the cycleCount is currently {cycleCount}, the mask selected is the {equippedMask.maskName}");
         }
-        else if (Input.GetKeyDown(KeyCode.X) && cycleCount - 1 < 0 && maskInventory.Count > 1) //if it would be reset it to zero
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && cycleCount - 1 < 0 && maskInventory.Count > 1) //if it would be reset it to zero
         {
             if(cycleCount != 0)
             maskInventory[cycleCount].OnUnequip();
