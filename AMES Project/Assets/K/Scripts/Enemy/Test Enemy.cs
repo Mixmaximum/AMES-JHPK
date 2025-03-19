@@ -16,9 +16,11 @@ public class TestEnemy : BaseEnemy
     float maxCooldown = 5f;
     float currentCooldown;
     NavMeshAgent agent;
+    DataHandler dH;
 
     public override void Movement() // Handles movement towards the player
     {
+        agent.speed = speed * dH.timeMultiplier; // multiplying the speed by a variable that gets cut in half by the time slow mask
         agent.destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
         agent.destination.Normalize();
     }
@@ -26,7 +28,7 @@ public class TestEnemy : BaseEnemy
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = speed; // speed obv set to the speed value
+        dH = GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>();
     }
 
     public override void Attack()

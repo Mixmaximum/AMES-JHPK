@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DataHandler : MonoBehaviour
 {
-    public float timeMultiplier = 1;
+    public float timeMultiplier = 1f;
 
     public IEnumerator SlowTime()
     {
