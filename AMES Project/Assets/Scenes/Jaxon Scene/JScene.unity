@@ -2009,7 +2009,7 @@ MonoBehaviour:
   crouchFloorDetectDist: 0.4
   requiredSlideSpeed: 7
   slideLength: 1.15
-  slideForce: 4.5
+  slideForce: 5
 --- !u!54 &417523277
 Rigidbody:
   m_ObjectHideFlags: 0
