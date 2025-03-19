@@ -221,10 +221,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(Vector3.down * 5, ForceMode.Impulse);
                 impulseCounter = 1;
-                if (impulseCounter >= 1)
-                {
-
-                }
             }
         }
         else if (!isSliding)
@@ -238,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed && !isSliding)
         {
-            Vector3 inputDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+            inputDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
             transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
             isSliding = true;
             slideTimer = slideLength;
@@ -246,6 +242,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void SlideMovement()
     {
+        Debug.Log("Slide force = " + inputDirection.normalized * slideForce);
         rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
         slideTimer -= Time.deltaTime;
 

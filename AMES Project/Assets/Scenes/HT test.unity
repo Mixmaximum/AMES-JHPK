@@ -2177,7 +2177,7 @@ MonoBehaviour:
   jumpkey: 32
   sprintKey: 304
   crouchKey: 306
-  slideKey: 306
+  slideKey: 99
   jumpForce: 12
   groundDistance: 0.4
   groundCheck: {fileID: 1105415627557608167}
