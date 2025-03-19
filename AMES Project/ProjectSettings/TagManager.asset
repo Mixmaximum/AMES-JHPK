@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MaskPickup
   - Enemy
+  - Handler
   layers:
   - Default
   - TransparentFX
