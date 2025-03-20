@@ -1474,7 +1474,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.94, z: 0}
-  m_LocalScale: {x: 78.85, y: 1, z: 118.355}
+  m_LocalScale: {x: 78.85, y: 1, z: 894.0182}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 548663838}
@@ -2192,7 +2192,7 @@ MonoBehaviour:
   crouchSprintSpeed: 2
   crouchFloorDetectDist: 0.4
   requiredSlideSpeed: 7
-  slideLength: 2.02
+  slideLength: 1.07
   slideForce: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
