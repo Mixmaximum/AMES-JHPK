@@ -105,10 +105,18 @@ public class PlayerMovement : MonoBehaviour
         ControlSpeed();
         FallingGrav();
         StartSlide();
+
         if (isSliding)
         {
             SlideMovement();
         }
+
+        // Stop slide when slide key is released
+        if (isSliding && Input.GetKeyUp(slideKey))
+        {
+            StopSlide();
+        }
+
         Crouch();
 
         currentVelocity = rb.linearVelocity.magnitude;
@@ -123,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
         // adjusts slope move direction to be slightly upwards
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
     }
+
 
     void MyInput()
     {
@@ -232,14 +241,19 @@ public class PlayerMovement : MonoBehaviour
     }
     private void StartSlide()
     {
-        if (Input.GetKeyDown(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed && !isSliding)
+        if (Input.GetKeyDown(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed && !isSliding && isGrounded)
         {
-            inputDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
-            transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
-            isSliding = true;
-            slideTimer = slideLength;
+            // Check if the player is touching an object on the "Ground" layer
+            if (Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, ground))
+            {
+                inputDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+                transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
+                isSliding = true;
+                slideTimer = slideLength;
+            }
         }
     }
+
     private void SlideMovement()
     {
         Debug.Log("Slide force = " + inputDirection.normalized * slideForce);
