@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     float horizontalMovement;
     float verticalMovement;
     float currentVelocity;
+    float currentSlideSpeed;
     bool isGrounded;
     bool isCrouching;
     bool isSliding;
@@ -67,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 moveDirection;
     Vector3 slopeMoveDirection;
-    Vector3 inputDirection;
+    Vector3 slideDirection;
 
     RaycastHit slopeHit;
 
@@ -120,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         Crouch();
 
         currentVelocity = rb.linearVelocity.magnitude;
-        Debug.Log(currentVelocity);
+        //Debug.Log(currentVelocity);
 
         //Jumps
         if (Input.GetKeyDown(jumpkey) && isGrounded)
@@ -195,17 +196,17 @@ public class PlayerMovement : MonoBehaviour
     void MovePLayer()
     {
         // moves the player based on move direction and speed
-        if (isGrounded && !OnSlope())
+        if (isGrounded && !OnSlope() && !isSliding)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
         }
         // moves the player based on sloped move direction and speed
-        else if (isGrounded && OnSlope())
+        else if (isGrounded && OnSlope() && !isSliding)
         {
             rb.AddForce(slopeMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
         }
         // moves the player slower while in the air
-        else if (!isGrounded)
+        else if (!isGrounded && !isSliding)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMovementMultiplier, ForceMode.Acceleration);
         }
@@ -246,21 +247,22 @@ public class PlayerMovement : MonoBehaviour
             // Check if the player is touching an object on the "Ground" layer
             if (Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, ground))
             {
-                inputDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+                slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
                 transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
                 isSliding = true;
                 slideTimer = slideLength;
+                currentSlideSpeed = slideForce;
             }
         }
     }
 
     private void SlideMovement()
     {
-        Debug.Log("Slide force = " + inputDirection.normalized * slideForce);
-        rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
-        slideTimer -= Time.deltaTime;
+        currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, 0, slideTimer * Time.deltaTime);
+        Debug.Log("Slide force = " + slideDirection.normalized * slideForce);
+        rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
 
-        if (slideTimer <= 0 || Input.GetKeyDown(jumpkey))
+        if (Input.GetKeyDown(jumpkey) || Input.GetKeyUp(slideKey))
         {
             StopSlide();
         }
