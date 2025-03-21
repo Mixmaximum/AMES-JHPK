@@ -12,6 +12,7 @@ public class WallRun : MonoBehaviour
     [Header("Wall Running")]
     [SerializeField] float wallRunGravity;
     [SerializeField] float wallRunJumpForce;
+    [SerializeField] float wallRunSpeed;
     [Space(5)]
 
     [Header("Camera")]
@@ -26,12 +27,14 @@ public class WallRun : MonoBehaviour
 
     bool wallLeft = false;
     bool wallRight = false;
+    bool DirectionChosen = false;
 
     RaycastHit leftWallHit;
     RaycastHit rightWallHit;
 
     private Rigidbody rb;
     public bool wallRunning = false;
+    private Vector3 wallRunDirection;
 
 
     private void Start()
@@ -47,11 +50,13 @@ public class WallRun : MonoBehaviour
         {
             if (wallLeft)
             {
+                PreWallRun();
                 StartWallRun();
                 Debug.Log("wall running on the left");
             }
             else if (wallRight)
             {
+                PreWallRun();
                 StartWallRun();
                 Debug.Log("wall running on the right");
             }
@@ -79,6 +84,15 @@ public class WallRun : MonoBehaviour
         wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
     }
 
+    void PreWallRun()
+    {   
+        if (!DirectionChosen)
+        {
+            wallRunDirection = orientation.forward;// set the forward force direction
+            DirectionChosen = true;
+        }
+    }
+
     private void StartWallRun()
     {
         // Turn off grav while wall running
@@ -87,11 +101,15 @@ public class WallRun : MonoBehaviour
         // Force the player to go downwards slightly
         rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
 
+        rb.AddForce(wallRunDirection * wallRunSpeed, ForceMode.Force); // push player forward
+        Debug.Log(wallRunDirection * wallRunSpeed);
+
         // Change fov to wall run fov over time
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFov, wallRunFovTime * Time.deltaTime);
 
         // set wall running bool to true to adjust gravity in player move script
         wallRunning = true;
+
 
         // if the wall is on the left the camera tilts negative to go away from the wall
         if (wallLeft)
@@ -104,6 +122,7 @@ public class WallRun : MonoBehaviour
         {
             tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime);
         }
+
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -135,6 +154,8 @@ public class WallRun : MonoBehaviour
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, wallRunFovTime * Time.deltaTime);
         //Reset camera tilt
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime);
+        //Reset forward direction
+        DirectionChosen = false;
     }
 
 }

@@ -196,17 +196,17 @@ public class PlayerMovement : MonoBehaviour
     void MovePLayer()
     {
         // moves the player based on move direction and speed
-        if (isGrounded && !OnSlope() && !isSliding)
+        if (isGrounded && !OnSlope() && !isSliding && !wallrun.wallRunning)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
         }
         // moves the player based on sloped move direction and speed
-        else if (isGrounded && OnSlope() && !isSliding)
+        else if (isGrounded && OnSlope() && !isSliding && !wallrun.wallRunning)
         {
             rb.AddForce(slopeMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
         }
         // moves the player slower while in the air
-        else if (!isGrounded && !isSliding)
+        else if (!isGrounded && !isSliding && !wallrun.wallRunning)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMovementMultiplier, ForceMode.Acceleration);
         }
