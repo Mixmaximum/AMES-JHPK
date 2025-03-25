@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 350713461}
   - component: {fileID: 350713460}
   - component: {fileID: 350713462}
+  - component: {fileID: 350713463}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -313,6 +314,7 @@ MonoBehaviour:
   minimumJumpHeight: 1.5
   wallRunGravity: 0.01
   wallRunJumpForce: 4
+  wallRunSpeed: 0
   cam: {fileID: 1631018159}
   fov: 90
   wallRunFov: 100
@@ -450,6 +452,21 @@ MonoBehaviour:
   requiredSlideSpeed: 0
   slideLength: 0
   slideForce: 0
+--- !u!114 &350713463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350713454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 796b564973e529d4fb2a41c74359495a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRange: 2.5
+  damage: 5
+  cooldownMax: 0.8
 --- !u!1 &487990804
 GameObject:
   m_ObjectHideFlags: 0
