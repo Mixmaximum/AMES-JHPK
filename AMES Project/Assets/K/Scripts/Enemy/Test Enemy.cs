@@ -45,4 +45,9 @@ public class TestEnemy : BaseEnemy
         if (currentCooldown < maxCooldown)
             currentCooldown += Time.deltaTime;
     }
+
+    public override void OnDeath()
+    {
+        speed = 0;
+    }
 }
