@@ -11,7 +11,7 @@ public class SlowTimeMask : Mask
         cooldown = 12f;
         currentCooldown = 0f; // this is always just 0 at the beginning lol
         maxUses = 1;
-        currentUses = 1; // at the beginning this should always equal the max uses.
+        currentUses = maxUses; // at the beginning this should always equal the max uses.
     }
 
     public override void MaskAbility()
@@ -37,6 +37,8 @@ public class SlowTimeMask : Mask
     {
         if (GameObject.Find("Data Handler").GetComponent<DataHandler>().timeMultiplier == 0.5f)
             currentCooldown = 0f;
+        // this function is necessary because if you dont have it the mask will automatically start cooling down instead of 
+        // waiting until after the effects are over.
     }
 }
 

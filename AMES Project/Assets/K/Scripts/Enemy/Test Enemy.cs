@@ -21,7 +21,7 @@ public class TestEnemy : BaseEnemy
     public override void Movement() // Handles movement towards the player
     {
         agent.speed = speed * dH.timeMultiplier; // multiplying the speed by a variable that gets cut in half by the time slow mask
-        agent.destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
+        agent.destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 1.3f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
         agent.destination.Normalize();
     }
 
