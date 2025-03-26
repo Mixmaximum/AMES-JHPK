@@ -1892,6 +1892,10 @@ PrefabInstance:
       value: Kill Box
       objectReference: {fileID: 0}
     - target: {fileID: 242296038861246781, guid: 9015c7c55045a3344820b04399d5ca36, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 19.967
+      objectReference: {fileID: 0}
+    - target: {fileID: 242296038861246781, guid: 9015c7c55045a3344820b04399d5ca36, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.4170022
       objectReference: {fileID: 0}
@@ -1901,7 +1905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 242296038861246781, guid: 9015c7c55045a3344820b04399d5ca36, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.062761
+      value: -27.29
       objectReference: {fileID: 0}
     - target: {fileID: 242296038861246781, guid: 9015c7c55045a3344820b04399d5ca36, type: 3}
       propertyPath: m_LocalRotation.w
