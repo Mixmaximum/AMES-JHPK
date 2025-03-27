@@ -76,7 +76,7 @@ public class PlayerHealth : MonoBehaviour
     public void Die()
     {
         cam.GetComponent<Animator>().SetBool("Dead", true);
-        GetComponent<Rigidbody>().
+        
     }
     private void HandleIFrames()
     {
