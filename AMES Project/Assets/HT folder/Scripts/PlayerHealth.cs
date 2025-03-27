@@ -30,20 +30,10 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (healTimer > 0)
-        {
-            healTimer -= Time.deltaTime;
+        HandleIFrames();
+        HealOverTime();
 
-            if (healTimer == 0)
-            {
-                Heal(healAmount);
 
-                if (health != maxHealth) 
-                {
-                    healTimer = timeToHeal;
-                }
-            }
-        }
     }
     public void TakeDamage(float damage)
     {
@@ -63,6 +53,24 @@ public class PlayerHealth : MonoBehaviour
     public void Heal(float healing) 
     {
         health += healing;
+    }
+
+    private void HealOverTime()
+    {
+        if (healTimer > 0)
+        {
+            healTimer -= Time.deltaTime;
+
+            if (healTimer == 0)
+            {
+                Heal(healAmount);
+
+                if (health != maxHealth)
+                {
+                    healTimer = timeToHeal;
+                }
+            }
+        }
     }
 
     public void Die()
