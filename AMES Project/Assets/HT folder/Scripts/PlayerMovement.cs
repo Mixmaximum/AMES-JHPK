@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform orientation;
     [SerializeField] WallRun wallrun;
+    [SerializeField] Animator animator; // Added Animator reference
     [Space(5)]
 
     [Header("Movement")]
@@ -131,8 +132,10 @@ public class PlayerMovement : MonoBehaviour
 
         // adjusts slope move direction to be slightly upwards
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
-    }
 
+        // Animation control
+        UpdateAnimations();
+    }
 
     void MyInput()
     {
@@ -172,7 +175,6 @@ public class PlayerMovement : MonoBehaviour
         {
             moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
         }
-        
     }
 
     void ControlDrag()
@@ -184,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-             rb.linearDamping = airDrag;
+            rb.linearDamping = airDrag;
         }
     }
 
@@ -235,11 +237,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (!isSliding)
         {
-            transform.localScale = new Vector3(1,1,1);
+            transform.localScale = new Vector3(1, 1, 1);
             isCrouching = false;
             impulseCounter = 0;
         }
     }
+
     private void StartSlide()
     {
         if (Input.GetKeyDown(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed && !isSliding && isGrounded)
@@ -273,4 +276,25 @@ public class PlayerMovement : MonoBehaviour
         isSliding = false;
         transform.localScale = new Vector3(1, 1, 1);
     }
+
+    // Animation methods
+    void UpdateAnimations()
+    {
+        // Set Speed parameter based on current velocity
+        animator.SetFloat("Speed", currentVelocity);
+
+        // Check if player is grounded or in the air to handle jumping animation if needed
+        animator.SetBool("IsGrounded", isGrounded);
+
+        // Set IsFalling animation bool if the player is not grounded
+        if (!isGrounded)
+        {
+            animator.SetBool("IsFalling", true); // Start falling animation when not grounded
+        }
+        else
+        {
+            animator.SetBool("IsFalling", false); // Stop falling animation when grounded
+        }
+    }
+
 }

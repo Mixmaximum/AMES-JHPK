@@ -18,7 +18,7 @@ public class CameraAnimationController : MonoBehaviour
         Vector3 delta = playerTransform.position - lastPosition;
         float speed = delta.magnitude / Time.deltaTime;
 
-        // Update the "Run" float in the Animator
+        // Update the "Speed" float in the Animator
         cameraAnimator.SetFloat("Run", speed);
 
         lastPosition = playerTransform.position;

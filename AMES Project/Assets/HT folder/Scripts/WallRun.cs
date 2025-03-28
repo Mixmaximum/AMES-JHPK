@@ -25,6 +25,7 @@ public class WallRun : MonoBehaviour
 
     public float tilt { get; private set; }
 
+    // Wall run state
     bool wallLeft = false;
     bool wallRight = false;
     bool DirectionChosen = false;
@@ -36,6 +37,8 @@ public class WallRun : MonoBehaviour
     public bool wallRunning = false;
     private Vector3 wallRunDirection;
 
+    // Expose the Animator to the Inspector
+    [SerializeField] private Animator anim;
 
     private void Start()
     {
@@ -53,21 +56,29 @@ public class WallRun : MonoBehaviour
                 PreWallRun();
                 StartWallRun();
                 Debug.Log("wall running on the left");
+                anim.SetBool("LeftWall", true); // Set the LeftWall bool to true for animation
+                anim.SetBool("RightWall", false); // Set RightWall bool to false
             }
             else if (wallRight)
             {
                 PreWallRun();
                 StartWallRun();
                 Debug.Log("wall running on the right");
+                anim.SetBool("RightWall", true); // Set the RightWall bool to true for animation
+                anim.SetBool("LeftWall", false); // Set LeftWall bool to false
             }
             else
             {
                 StopWallRun();
+                anim.SetBool("LeftWall", false);
+                anim.SetBool("RightWall", false);
             }
         }
         else
         {
             StopWallRun();
+            anim.SetBool("LeftWall", false);
+            anim.SetBool("RightWall", false);
         }
     }
 
@@ -85,10 +96,10 @@ public class WallRun : MonoBehaviour
     }
 
     void PreWallRun()
-    {   
+    {
         if (!DirectionChosen)
         {
-            wallRunDirection = orientation.forward;// set the forward force direction
+            wallRunDirection = orientation.forward; // set the forward force direction
             DirectionChosen = true;
         }
     }
@@ -110,7 +121,6 @@ public class WallRun : MonoBehaviour
         // set wall running bool to true to adjust gravity in player move script
         wallRunning = true;
 
-
         // if the wall is on the left the camera tilts negative to go away from the wall
         if (wallLeft)
         {
@@ -123,25 +133,23 @@ public class WallRun : MonoBehaviour
             tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime);
         }
 
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (wallLeft)
             {
                 //add force in the left direction
                 Vector3 wallRunJumpDirection = transform.up + leftWallHit.normal;
-                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // Reset vertical velocity
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce * 100, ForceMode.Force);
             }
             if (wallRight)
             {
                 //add force in the right direction
                 Vector3 wallRunJumpDirection = transform.up + rightWallHit.normal;
-                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // Reset vertical velocity
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce * 100, ForceMode.Force);
             }
         }
-        
     }
 
     private void StopWallRun()
@@ -157,5 +165,4 @@ public class WallRun : MonoBehaviour
         //Reset forward direction
         DirectionChosen = false;
     }
-
 }
