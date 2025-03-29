@@ -3662,7 +3662,7 @@ GameObject:
   - component: {fileID: 6274120874926781358}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3766,7 +3766,7 @@ GameObject:
   - component: {fileID: 5803800420623622601}
   m_Layer: 0
   m_Name: PlayerCapsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4904,14 +4904,14 @@ MonoBehaviour:
     m_Bits: 64
   groundDrag: 6
   airDrag: 1.2
-  fallingGrav: 0.8
+  fallingGrav: 2
   crouchHeight: {x: 1, y: 0.5, z: 1}
   crouchMoveSpeed: 1
   crouchSprintSpeed: 2
   crouchFloorDetectDist: 0.4
-  requiredSlideSpeed: 0.1
+  requiredSlideSpeed: 0.2
   slideLength: 0.5
-  slideForce: 8
+  slideForce: 10
 --- !u!114 &5176960558864656467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4944,7 +4944,7 @@ MonoBehaviour:
   orientation: {fileID: 8925031559373285241}
   wallDistance: 1
   minimumJumpHeight: 1.5
-  wallRunGravity: 0.28
+  wallRunGravity: 0.8
   wallRunJumpForce: 6
   wallRunSpeed: 0.5
   cam: {fileID: 1706193657954106475}
@@ -4955,6 +4955,7 @@ MonoBehaviour:
   camTiltTime: 20
   wallRunning: 0
   anim: {fileID: 8977396221265420317}
+  cameraShake: {fileID: 7460716841493344817}
 --- !u!1 &7987017822609732625
 GameObject:
   m_ObjectHideFlags: 0
@@ -5388,6 +5389,7 @@ GameObject:
   - component: {fileID: 6156899860448473594}
   - component: {fileID: 2141989965953106481}
   - component: {fileID: 311800900758935967}
+  - component: {fileID: 7460716841493344817}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -5567,6 +5569,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7460716841493344817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8917930506910107191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f20c0df6e72674eb418042cf6e28b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseShakeMagnitude: 0
+  maxShakeMagnitude: 0.02
+  shakeSpeed: 20
+  maxSpeed: 20
 --- !u!1 &9062647536570010897
 GameObject:
   m_ObjectHideFlags: 0
