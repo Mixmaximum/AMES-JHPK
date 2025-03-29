@@ -219,8 +219,6 @@ public class PlayerMovement : MonoBehaviour
     void UpdateAnimations()
     {
         animator.SetFloat("Speed", currentVelocity);
-        animator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f);
-
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetBool("IsFalling", !isGrounded);
 
@@ -230,5 +228,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsJumping", false);
             isJumping = false;
         }
+
+        // Prevent speed-up during attack animation
+        if (!animator.GetBool("IsAttacking"))
+        {
+            animator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f);
+        }
+        else
+        {
+            animator.speed = 1f; // Keep attack animation at normal speed
+        }
     }
+
+
 }

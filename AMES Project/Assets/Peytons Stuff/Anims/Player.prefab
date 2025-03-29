@@ -4909,7 +4909,7 @@ MonoBehaviour:
   crouchMoveSpeed: 1
   crouchSprintSpeed: 2
   crouchFloorDetectDist: 0.4
-  requiredSlideSpeed: 0.2
+  requiredSlideSpeed: 0.5
   slideLength: 0.5
   slideForce: 10
 --- !u!114 &5176960558864656467

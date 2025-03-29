@@ -3,61 +3,114 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField]
-    float interactRange;
-    [SerializeField]
-    int damage;
-    [SerializeField]
-    float cooldownMax = 0.8f;
-    float currentCooldown;
-    Animator anim;
-    float hitstopTime = 0.3f;
+    [Header("Animator")]
+    [SerializeField] private Animator anim;
+
+    [Header("Attack Settings")]
+    [SerializeField] float interactRange;
+    [SerializeField] int damage;
+    [SerializeField] float cooldownMax = 0.8f;
+    [SerializeField] float attack1Duration = 0.5f;
+    [SerializeField] float comboWindow = 0.3f;
+
+    private float currentCooldown;
+    private float hitstopTime = 0.3f;
+
+    private bool isAttacking = false;
+    private bool canCombo = false;
+    private bool comboQueued = false;
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        if (anim == null)
+            anim = GetComponent<Animator>();
     }
+
     private void Update()
     {
         Cooldown();
-        Attack();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!isAttacking && currentCooldown >= cooldownMax)
+            {
+                StartCoroutine(Attack1());
+            }
+            else if (canCombo)
+            {
+                comboQueued = true;
+            }
+        }
     }
 
-    public void AttackDetection() // this functions going to be called by the animation that plays when you attack, detects if an enemy is infront of you
+    private IEnumerator Attack1()
+    {
+        isAttacking = true;
+        currentCooldown = 0f;
+        anim.SetBool("IsAttacking", true);
+        anim.Play("Attack1");
+
+        yield return new WaitForSeconds(attack1Duration - comboWindow);
+
+        // Open combo window
+        canCombo = true;
+
+        yield return new WaitForSeconds(comboWindow);
+
+        if (comboQueued)
+        {
+            StartCoroutine(Attack2());
+        }
+        else
+        {
+            EndAttack();
+        }
+
+        canCombo = false;
+        comboQueued = false;
+    }
+
+    private IEnumerator Attack2()
+    {
+        anim.Play("Attack2");
+
+        // Optional: match this to your second animation length
+        yield return new WaitForSeconds(attack1Duration);
+
+        EndAttack();
+    }
+
+    private void EndAttack()
+    {
+        isAttacking = false;
+        anim.SetBool("IsAttacking", false);
+    }
+
+    public void AttackDetection()
     {
         RaycastHit hit;
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         if (Physics.Raycast(ray, out hit, interactRange))
         {
-            if (hit.collider.gameObject.tag == "Enemy") // hitting an enemy makes them take damage and makes hitstop happen
+            if (hit.collider.CompareTag("Enemy"))
             {
-               hit.collider.gameObject.GetComponent<BaseEnemy>().TakeDamage(damage);
-               StartCoroutine(Hitstop());
+                hit.collider.GetComponent<BaseEnemy>().TakeDamage(damage);
+                StartCoroutine(Hitstop());
             }
             Debug.Log("Player Attack!");
         }
     }
 
-    public void Attack() // Handles playing the attack animation
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && currentCooldown >= cooldownMax)
-        {
-            GetComponent<Animator>().Play("Attack");
-            currentCooldown = 0f;
-        }
-    }
-
-    private void Cooldown() // Handles attack cooldown, necessary to make sure you can't attack continously
+    private void Cooldown()
     {
         if (currentCooldown < cooldownMax)
             currentCooldown += Time.deltaTime;
     }
 
-    private IEnumerator Hitstop() // Makes attacks feel more impactful by stopping the animation on impact, like in fighting games
+    private IEnumerator Hitstop()
     {
         anim.speed = 0;
         yield return new WaitForSeconds(hitstopTime);
         anim.speed = 1;
-        StopCoroutine(Hitstop());
     }
 }
