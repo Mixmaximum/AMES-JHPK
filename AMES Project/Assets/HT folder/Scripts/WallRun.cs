@@ -13,6 +13,10 @@ public class WallRun : MonoBehaviour
     [SerializeField] float wallRunJumpForce;
     [SerializeField] float wallRunSpeed;
 
+    [Header("Coyote Time")]
+    [SerializeField] float coyoteTime = 0.2f; // Time buffer for jumping after leaving a wall
+    private float coyoteTimer;
+
     [Header("Camera")]
     [SerializeField] Camera cam;
     [SerializeField] float fov;
@@ -48,6 +52,8 @@ public class WallRun : MonoBehaviour
 
         if (CanWallRun())
         {
+            coyoteTimer = coyoteTime; // Reset coyote timer when touching a wall
+
             if (wallLeft)
             {
                 PreWallRun();
@@ -71,9 +77,21 @@ public class WallRun : MonoBehaviour
         }
         else
         {
-            StopWallRun();
-            anim.SetBool("LeftWall", false);
-            anim.SetBool("RightWall", false);
+            if (coyoteTimer > 0)
+            {
+                // Allow jumping for a short time after leaving the wall
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    PerformWallJump();
+                }
+                coyoteTimer -= Time.deltaTime;
+            }
+            else
+            {
+                StopWallRun();
+                anim.SetBool("LeftWall", false);
+                anim.SetBool("RightWall", false);
+            }
         }
     }
 
@@ -118,14 +136,7 @@ public class WallRun : MonoBehaviour
         // Jump off wall
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Vector3 jumpDirection = Vector3.zero;
-            if (wallLeft)
-                jumpDirection = transform.up + leftWallHit.normal;
-            else if (wallRight)
-                jumpDirection = transform.up + rightWallHit.normal;
-
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // Reset vertical velocity
-            rb.AddForce(jumpDirection * wallRunJumpForce * 100, ForceMode.Force);
+            PerformWallJump();
         }
     }
 
@@ -139,5 +150,19 @@ public class WallRun : MonoBehaviour
 
         // Stop camera shake
         cameraShake?.StopShake();
+    }
+
+    private void PerformWallJump()
+    {
+        Vector3 jumpDirection = Vector3.zero;
+        if (wallLeft)
+            jumpDirection = transform.up + leftWallHit.normal;
+        else if (wallRight)
+            jumpDirection = transform.up + rightWallHit.normal;
+
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // Reset vertical velocity
+        rb.AddForce(jumpDirection * wallRunJumpForce * 100, ForceMode.Force);
+
+        coyoteTimer = 0; // Reset coyote time after jumping
     }
 }
