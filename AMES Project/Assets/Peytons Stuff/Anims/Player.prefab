@@ -9782,7 +9782,7 @@ MonoBehaviour:
   sprintKey: 304
   crouchKey: 306
   slideKey: 99
-  jumpForce: 12
+  jumpForce: 14
   groundDistance: 0.4
   ground:
     serializedVersion: 2
@@ -9829,9 +9829,10 @@ MonoBehaviour:
   orientation: {fileID: 8925031559373285241}
   wallDistance: 1
   minimumJumpHeight: 1.5
-  wallRunGravity: 0.6
-  wallRunJumpForce: 5
+  wallRunGravity: 0.4
+  wallRunJumpForce: 4
   wallRunSpeed: 0.5
+  coyoteTime: 1
   cam: {fileID: 1706193657954106475}
   fov: 90
   wallRunFov: 100

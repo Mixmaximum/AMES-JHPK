@@ -275,6 +275,7 @@ MeshRenderer:
   - {fileID: 2100000, guid: af89daffc20b0bb47ac3442971327f8d, type: 2}
   - {fileID: 2100000, guid: af89daffc20b0bb47ac3442971327f8d, type: 2}
   - {fileID: 2100000, guid: 5cac29b9f311d5742b101bfd01bb3482, type: 2}
+  - {fileID: 2100000, guid: 2971f916673980d4c94e44924906b82d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -56227,10 +56228,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3764773399411905922, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
-      propertyPath: jumpForce
-      value: 14
+    - target: {fileID: 728576641877446944, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 728576641877446944, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 490a13e8cc724dd46a4bf8509ce662ad, type: 2}
+    - target: {fileID: 728576641877446944, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2971f916673980d4c94e44924906b82d, type: 2}
+    - target: {fileID: 1706193657954106475, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5815469150653809712, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5815469150653809712, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ca529be9fa166f45a4e7c9a4a80e447, type: 2}
+    - target: {fileID: 5815469150653809712, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2971f916673980d4c94e44924906b82d, type: 2}
     - target: {fileID: 6274120874926781358, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -47.52933
@@ -56274,14 +56299,6 @@ PrefabInstance:
     - target: {fileID: 6443293837383985042, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6515617180154344647, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
-      propertyPath: coyoteTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6515617180154344647, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
-      propertyPath: wallRunGravity
-      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
