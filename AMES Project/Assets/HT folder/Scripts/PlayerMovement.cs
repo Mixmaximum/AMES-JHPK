@@ -47,6 +47,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float slideLength;
     [SerializeField] float slideForce;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource walkSound;
+    [SerializeField] private AudioSource runSound;
+    [SerializeField] private AudioSource slideSound; // New slide sound
+    [SerializeField] private AudioSource jumpSound; // New jump sound
+    [SerializeField] private float pitchMultiplier = 0.1f; // Controls how much the pitch changes with speed
+
     float horizontalMovement;
     float verticalMovement;
     float currentVelocity;
@@ -101,6 +108,9 @@ public class PlayerMovement : MonoBehaviour
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
         UpdateAnimations();
+
+        // Walking, Running, Sliding, and Jump Sounds
+        HandleMovementSounds();
     }
 
     private void FixedUpdate()
@@ -141,6 +151,10 @@ public class PlayerMovement : MonoBehaviour
 
         isJumping = true;
         animator.SetBool("IsJumping", true);
+
+        // Play the jump sound
+        if (jumpSound != null && !jumpSound.isPlaying)
+            jumpSound.Play();
     }
 
     void ControlSpeed()
@@ -240,5 +254,69 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void HandleMovementSounds()
+    {
+        // Only play sounds when grounded and not sliding
+        if (isGrounded && !isSliding)
+        {
+            // Walking Sound
+            if (currentVelocity > 0 && currentVelocity < sprintSpeed) // Walking
+            {
+                if (!walkSound.isPlaying)
+                    walkSound.Play();
 
+                // Adjust the pitch based on speed (higher speed = higher pitch)
+                walkSound.pitch = Mathf.Lerp(1f, 1.5f, currentVelocity / sprintSpeed);
+
+                if (runSound.isPlaying)
+                    runSound.Stop();
+            }
+            else if (currentVelocity >= sprintSpeed) // Running
+            {
+                if (!runSound.isPlaying)
+                    runSound.Play();
+
+                // Adjust the pitch based on speed (higher speed = higher pitch)
+                runSound.pitch = Mathf.Lerp(1f, 1.5f, (currentVelocity - sprintSpeed) / sprintSpeed);
+
+                if (walkSound.isPlaying)
+                    walkSound.Stop();
+            }
+            else
+            {
+                if (walkSound.isPlaying)
+                    walkSound.Stop();
+
+                if (runSound.isPlaying)
+                    runSound.Stop();
+            }
+        }
+        else if (isSliding) // Play slide sound when sliding
+        {
+            if (!slideSound.isPlaying)
+                slideSound.Play();
+
+            // Adjust the pitch based on sliding speed
+            slideSound.pitch = Mathf.Lerp(1f, 1.5f, currentVelocity / sprintSpeed);
+
+            // Stop other sounds during slide
+            if (walkSound.isPlaying)
+                walkSound.Stop();
+
+            if (runSound.isPlaying)
+                runSound.Stop();
+        }
+        else
+        {
+            // Stop sounds if not grounded
+            if (walkSound.isPlaying)
+                walkSound.Stop();
+
+            if (runSound.isPlaying)
+                runSound.Stop();
+
+            if (slideSound.isPlaying)
+                slideSound.Stop();
+        }
+    }
 }
