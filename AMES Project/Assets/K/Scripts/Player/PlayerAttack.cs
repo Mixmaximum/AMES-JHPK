@@ -13,6 +13,11 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float attack1Duration = 0.5f;
     [SerializeField] float comboWindow = 0.3f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip hitSound;
+
     private float currentCooldown;
     private float hitstopTime = 0.3f;
 
@@ -24,6 +29,9 @@ public class PlayerAttack : MonoBehaviour
     {
         if (anim == null)
             anim = GetComponent<Animator>();
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -50,9 +58,10 @@ public class PlayerAttack : MonoBehaviour
         anim.SetBool("IsAttacking", true);
         anim.Play("Attack1");
 
+        PlaySound(attackSound);
+
         yield return new WaitForSeconds(attack1Duration - comboWindow);
 
-        // Open combo window
         canCombo = true;
 
         yield return new WaitForSeconds(comboWindow);
@@ -74,7 +83,8 @@ public class PlayerAttack : MonoBehaviour
     {
         anim.Play("Attack2");
 
-        // Optional: match this to your second animation length
+        PlaySound(attackSound);
+
         yield return new WaitForSeconds(attack1Duration);
 
         EndAttack();
@@ -96,6 +106,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 hit.collider.GetComponent<BaseEnemy>().TakeDamage(damage);
                 StartCoroutine(Hitstop());
+                PlaySound(hitSound);
             }
             Debug.Log("Player Attack!");
         }
@@ -112,5 +123,11 @@ public class PlayerAttack : MonoBehaviour
         anim.speed = 0;
         yield return new WaitForSeconds(hitstopTime);
         anim.speed = 1;
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+            audioSource.PlayOneShot(clip);
     }
 }
