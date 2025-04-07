@@ -206,7 +206,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, ground))
             {
-                slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
                 transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
                 isSliding = true;
                 slideTimer = slideLength;
@@ -217,7 +216,12 @@ public class PlayerMovement : MonoBehaviour
 
     void SlideMovement()
     {
+        slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+        if (!OnSlope())
+        {
         currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, 0, slideTimer * Time.deltaTime);
+
+        }
         rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
 
         if (Input.GetKeyDown(jumpKey) || Input.GetKeyUp(slideKey))
