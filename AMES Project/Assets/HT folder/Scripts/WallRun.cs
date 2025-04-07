@@ -93,7 +93,7 @@ public class WallRun : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    PerformWallJump();
+                    WallJump();
                 }
                 coyoteTimer -= Time.deltaTime;
             }
@@ -131,11 +131,18 @@ public class WallRun : MonoBehaviour
     private void StartWallRun()
     {
         rb.useGravity = false;
-        rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
-        rb.AddForce(wallRunDirection * wallRunSpeed, ForceMode.Force);
 
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFov, wallRunFovTime * Time.deltaTime);
-        wallRunning = true;
+        // Apply downward force to keep player pressed against the wall
+        rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
+
+        // Get the player's current velocity in the direction of wallRunDirection
+        float forwardSpeed = Vector3.Dot(rb.linearVelocity, wallRunDirection);
+
+        // Accelerate only if under the desired wall run speed in that direction
+        if (forwardSpeed < wallRunSpeed)
+        {
+            rb.AddForce(wallRunDirection * wallRunSpeed, ForceMode.Force);
+        }
 
         if (wallLeft)
             tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime);
@@ -146,7 +153,7 @@ public class WallRun : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PerformWallJump();
+            WallJump();
         }
     }
 
@@ -167,17 +174,19 @@ public class WallRun : MonoBehaviour
         }
     }
 
-    private void PerformWallJump()
+    private void WallJump()
     {
-        Vector3 jumpDirection = Vector3.zero;
+        Vector3 jumpDirection = transform.up;
+
         if (wallLeft)
-            jumpDirection = transform.up + leftWallHit.normal;
+            jumpDirection += leftWallHit.normal;
         else if (wallRight)
-            jumpDirection = transform.up + rightWallHit.normal;
+            jumpDirection += rightWallHit.normal;
 
+        // Preserve some horizontal momentum, but reset vertical speed
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        rb.AddForce(jumpDirection * wallRunJumpForce * 100, ForceMode.Force);
-
+        rb.AddForce(jumpDirection.normalized * wallRunJumpForce, ForceMode.Impulse);
+  
         coyoteTimer = 0;
 
         // Play jump sound
