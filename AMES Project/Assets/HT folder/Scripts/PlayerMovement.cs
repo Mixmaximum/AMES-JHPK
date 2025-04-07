@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform orientation;
     [SerializeField] WallRun wallrun;
-    [SerializeField] Animator animator;
+    [SerializeField] Animator animator;  // First Animator
+    [SerializeField] Animator secondAnimator;  // Second Animator
     [SerializeField] Transform groundCheck;
 
     [Header("Movement")]
@@ -219,8 +220,7 @@ public class PlayerMovement : MonoBehaviour
         slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
         if (!OnSlope())
         {
-        currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, 0, slideTimer * Time.deltaTime);
-
+            currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, 0, slideTimer * Time.deltaTime);
         }
         rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
 
@@ -236,14 +236,23 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdateAnimations()
     {
+        // Update the main animator
         animator.SetFloat("Speed", currentVelocity);
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetBool("IsFalling", !isGrounded);
+        animator.SetBool("IsSliding", isSliding);  // Update sliding animation in first animator
+
+        // Update the second animator
+        secondAnimator.SetFloat("Speed", currentVelocity);
+        secondAnimator.SetBool("IsGrounded", isGrounded);
+        secondAnimator.SetBool("IsFalling", !isGrounded);
+        secondAnimator.SetBool("IsSliding", isSliding);  // Update sliding animation in second animator
 
         // Reset jump animation when grounded again
         if (isJumping && isGrounded)
         {
             animator.SetBool("IsJumping", false);
+            secondAnimator.SetBool("IsJumping", false);
             isJumping = false;
         }
 
@@ -251,10 +260,12 @@ public class PlayerMovement : MonoBehaviour
         if (!animator.GetBool("IsAttacking"))
         {
             animator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f);
+            secondAnimator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f); // Make sure the second animator matches the same speed
         }
         else
         {
             animator.speed = 1f; // Keep attack animation at normal speed
+            secondAnimator.speed = 1f; // Keep second animator at normal speed
         }
     }
 
