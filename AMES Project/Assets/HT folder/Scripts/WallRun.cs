@@ -14,7 +14,7 @@ public class WallRun : MonoBehaviour
     [SerializeField] float wallRunSpeed;
 
     [Header("Coyote Time")]
-    [SerializeField] float coyoteTime = 0.2f; // Time buffer for jumping after leaving a wall
+    [SerializeField] float coyoteTime = 0.2f;
     private float coyoteTimer;
 
     [Header("Camera")]
@@ -39,11 +39,23 @@ public class WallRun : MonoBehaviour
     private Vector3 wallRunDirection;
 
     [SerializeField] private Animator anim;
-    [SerializeField] private WallRunCameraShake cameraShake; // Reference to camera shake script
+    [SerializeField] private WallRunCameraShake cameraShake;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource wallRunAudio;
+    [SerializeField] private AudioSource wallJumpAudio;
+    [SerializeField] private float maxPitch = 1.5f;
+    [SerializeField] private float basePitch = 1f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        if (wallRunAudio != null)
+        {
+            wallRunAudio.loop = true;
+            wallRunAudio.playOnAwake = false;
+        }
     }
 
     private void Update()
@@ -52,7 +64,7 @@ public class WallRun : MonoBehaviour
 
         if (CanWallRun())
         {
-            coyoteTimer = coyoteTime; // Reset coyote timer when touching a wall
+            coyoteTimer = coyoteTime;
 
             if (wallLeft)
             {
@@ -79,7 +91,6 @@ public class WallRun : MonoBehaviour
         {
             if (coyoteTimer > 0)
             {
-                // Allow jumping for a short time after leaving the wall
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     PerformWallJump();
@@ -93,6 +104,8 @@ public class WallRun : MonoBehaviour
                 anim.SetBool("RightWall", false);
             }
         }
+
+        UpdateWallRunAudio();
     }
 
     bool CanWallRun()
@@ -124,16 +137,13 @@ public class WallRun : MonoBehaviour
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFov, wallRunFovTime * Time.deltaTime);
         wallRunning = true;
 
-        // Apply camera tilt
         if (wallLeft)
             tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime);
         else if (wallRight)
             tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime);
 
-        // Start camera shake with speed-based intensity
         cameraShake?.StartShake(rb.linearVelocity.magnitude);
 
-        // Jump off wall
         if (Input.GetKeyDown(KeyCode.Space))
         {
             PerformWallJump();
@@ -148,8 +158,13 @@ public class WallRun : MonoBehaviour
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime);
         DirectionChosen = false;
 
-        // Stop camera shake
         cameraShake?.StopShake();
+
+        // Stop sound
+        if (wallRunAudio && wallRunAudio.isPlaying)
+        {
+            wallRunAudio.Stop();
+        }
     }
 
     private void PerformWallJump()
@@ -160,9 +175,32 @@ public class WallRun : MonoBehaviour
         else if (wallRight)
             jumpDirection = transform.up + rightWallHit.normal;
 
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // Reset vertical velocity
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         rb.AddForce(jumpDirection * wallRunJumpForce * 100, ForceMode.Force);
 
-        coyoteTimer = 0; // Reset coyote time after jumping
+        coyoteTimer = 0;
+
+        // Play jump sound
+        wallJumpAudio?.Play();
+    }
+
+    private void UpdateWallRunAudio()
+    {
+        if (wallRunAudio == null) return;
+
+        bool isMoving = rb.linearVelocity.magnitude > 1f;
+
+        if (wallRunning && isMoving)
+        {
+            if (!wallRunAudio.isPlaying)
+                wallRunAudio.Play();
+
+            float speedPercent = Mathf.Clamp01(rb.linearVelocity.magnitude / 10f);
+            wallRunAudio.pitch = Mathf.Lerp(basePitch, maxPitch, speedPercent);
+        }
+        else if (wallRunAudio.isPlaying)
+        {
+            wallRunAudio.Stop();
+        }
     }
 }
