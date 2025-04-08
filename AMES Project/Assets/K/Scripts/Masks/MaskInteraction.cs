@@ -13,10 +13,18 @@ public class MaskInteraction : MonoBehaviour
 
     Mask equippedMask; // the currently equipped mask
 
+    [SerializeField]
+    bool GiveMePlease;
+
     void Update()
     {
         CycleMasks();
         MaskControl();
+    }
+
+    private void Start()
+    {
+        GiveAllMasks();
     }
 
     public void MaskControl()
@@ -37,9 +45,9 @@ public class MaskInteraction : MonoBehaviour
     public void CycleMasks()
     {
 
-        if(maskInventory.Count != 0 && maskInventory.Count < 2) // These lines are basically placeholders for equipping a mask if you have none
+        if(maskInventory.Count != 0 && equippedMask == null) // These lines are basically placeholders for equipping a mask if you have none
         {
-            equippedMask = maskInventory[cycleCount]; 
+            equippedMask = maskInventory[0]; 
             equippedMask.OnEquip();
         }
 
@@ -77,6 +85,16 @@ public class MaskInteraction : MonoBehaviour
             equippedMask = maskInventory[cycleCount];
             equippedMask.OnEquip();
             Debug.Log($"the cycleCount is currently {cycleCount}, and it has been reset. The mask selected is the {equippedMask.maskName}");
+        }
+    }
+
+    private void GiveAllMasks()
+    {
+        if(GiveMePlease)
+        {
+            maskInventory.Add(ScriptableObject.CreateInstance<SlowTimeMask>());
+            maskInventory.Add(ScriptableObject.CreateInstance<SpeedMask>());
+            maskInventory.Add(ScriptableObject.CreateInstance<DoubleJumpMask>());
         }
     }
 }
