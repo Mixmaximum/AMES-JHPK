@@ -59,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
         anim.Play("Attack1");
 
         PlaySound(attackSound);
-
+        AttackDetection();
         yield return new WaitForSeconds(attack1Duration - comboWindow);
 
         canCombo = true;
@@ -84,7 +84,7 @@ public class PlayerAttack : MonoBehaviour
         anim.Play("Attack2");
 
         PlaySound(attackSound);
-
+        AttackDetection();
         yield return new WaitForSeconds(attack1Duration);
 
         EndAttack();
@@ -107,8 +107,8 @@ public class PlayerAttack : MonoBehaviour
                 hit.collider.GetComponent<BaseEnemy>().TakeDamage(damage);
                 StartCoroutine(Hitstop());
                 PlaySound(hitSound);
+                Debug.Log("Player Attack!");
             }
-            Debug.Log("Player Attack!");
         }
     }
 
