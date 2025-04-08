@@ -88,9 +88,6 @@ public class PlayerMovement : MonoBehaviour
         ableToCrouch = Physics.CheckSphere(groundCheck.position, crouchFloorDetectDist, ground);
 
         MyInput();
-        ControlDrag();
-        ControlSpeed();
-        FallingGrav();
         StartSlide();
 
         if (isSliding)
@@ -116,6 +113,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        ControlDrag();
+        ControlSpeed();
+        FallingGrav();
         MovePlayer();
     }
 
