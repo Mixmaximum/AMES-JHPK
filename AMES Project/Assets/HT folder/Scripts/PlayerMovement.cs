@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -47,6 +48,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float requiredSlideSpeed;
     [SerializeField] float slideLength;
     [SerializeField] float slideForce;
+    [SerializeField] float maxSlideForce;
+    [SerializeField] private float slideRayDistance = 3f;  // Distance for the raycast to check for downward slopes
+    [SerializeField] float slideDownForce = 2f;
+
 
     [Header("Audio")]
     [SerializeField] private AudioSource walkSound;
@@ -80,6 +85,11 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        if (maxSlideForce < slideForce)
+        {
+            maxSlideForce = slideForce;
+        }
     }
 
     private void Update()
@@ -218,14 +228,44 @@ public class PlayerMovement : MonoBehaviour
     void SlideMovement()
     {
         slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
-        if (!OnSlope())
+
+        // Cast a ray forward and slightly downward to detect the slope
+        RaycastHit slideRayHit;
+        if (Physics.Raycast(transform.position, orientation.forward + Vector3.down * 0.5f, out slideRayHit, slideRayDistance))
         {
+            // Check if the surface the ray hits is a downward slope (use angle comparison or normal vector)
+            if (Vector3.Angle(slideRayHit.normal, Vector3.up) > 45f) // Customize the angle threshold for downward slopes
+            {
+                // On a downward slope, allow normal sliding behavior
+                currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, slideForce, slideTimer * Time.deltaTime);
+            }
+            else
+            {
+                // If not on a downward slope, gradually slow down the slide speed
+                currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, 0, slideTimer * Time.deltaTime);
+            }
+        }
+        else
+        {
+            // If no surface detected in front, keep sliding at the default force (or slow down if needed)
             currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, 0, slideTimer * Time.deltaTime);
         }
-        rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
+
+        // Get the player's current velocity in the direction of wallRunDirection
+        float forwardSpeed = Vector3.Dot(rb.linearVelocity, orientation.forward);
+
+        // Accelerate only if under the desired wall run speed in that direction
+        if (forwardSpeed < maxSlideForce)
+        {
+        // Apply the movement force
+            rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
+            rb.AddForce(Vector3.down * slideDownForce, ForceMode.Force);
+        }
 
         if (Input.GetKeyDown(jumpKey) || Input.GetKeyUp(slideKey))
+        {
             StopSlide();
+        }
     }
 
     void StopSlide()
