@@ -21028,13 +21028,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1826168868}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000036132954, y: -0.00000028779436, z: 0.78220737, w: 0.62301815}
-  m_LocalPosition: {x: 236.815, y: 7.18, z: 39.1}
+  m_LocalRotation: {x: 0.00000037527934, y: -0.00000026935106, z: 0.812406, w: 0.58309215}
+  m_LocalPosition: {x: 239.48, y: 5.9, z: 39.1}
   m_LocalScale: {x: 42.463608, y: 39.120953, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 102.926}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 108.663}
 --- !u!1 &1861950772
 GameObject:
   m_ObjectHideFlags: 0
@@ -35291,6 +35291,10 @@ MonoBehaviour:
   requiredSlideSpeed: 0.5
   slideLength: 0.5
   slideForce: 7.3
+  maxSlideForce: 100
+  slideDownForce: 2
+  slideRayDistance: 10
+  slopeDetectAngle: 45
   walkSound: {fileID: 0}
   runSound: {fileID: 0}
   slideSound: {fileID: 4210854571702040864}
