@@ -49,8 +49,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float slideLength;
     [SerializeField] float slideForce;
     [SerializeField] float maxSlideForce;
-    [SerializeField] private float slideRayDistance = 3f;  // Distance for the raycast to check for downward slopes
     [SerializeField] float slideDownForce = 2f;
+
+    [Header("Slide Detection")]
+    [SerializeField] private float slideRayDistance = 3f;  // Distance for the raycast to check for downward slopes
+    [SerializeField] float slopeDetectAngle = 45f;
+
 
 
     [Header("Audio")]
@@ -234,7 +238,7 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(transform.position, orientation.forward + Vector3.down * 0.5f, out slideRayHit, slideRayDistance))
         {
             // Check if the surface the ray hits is a downward slope (use angle comparison or normal vector)
-            if (Vector3.Angle(slideRayHit.normal, Vector3.up) > 45f) // Customize the angle threshold for downward slopes
+            if (Vector3.Angle(slideRayHit.normal, Vector3.up) > slopeDetectAngle) // Customize the angle threshold for downward slopes
             {
                 // On a downward slope, allow normal sliding behavior
                 currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, slideForce, slideTimer * Time.deltaTime);
