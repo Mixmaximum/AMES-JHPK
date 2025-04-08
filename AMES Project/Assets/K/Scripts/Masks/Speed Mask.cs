@@ -10,16 +10,16 @@ public class SpeedMask : Mask
 
     public override void OnEquip()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().walkSpeed = 7;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().sprintSpeed = 9;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().walkSpeed = 7f;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().sprintSpeed = 9f;
     } 
     
         
 
     public override void OnUnequip()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().walkSpeed = 4;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().sprintSpeed = 6;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().walkSpeed = 6f;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().sprintSpeed = 9f;
     }
 }
 
