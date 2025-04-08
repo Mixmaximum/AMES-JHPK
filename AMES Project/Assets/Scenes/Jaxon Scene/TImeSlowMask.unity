@@ -26512,6 +26512,7 @@ MonoBehaviour:
   orientation: {fileID: 1116783483}
   wallrun: {fileID: 1953446697}
   animator: {fileID: 0}
+  secondAnimator: {fileID: 0}
   groundCheck: {fileID: 167438034}
   moveSpeed: 6
   movementMultiplier: 10
@@ -39272,6 +39273,7 @@ MonoBehaviour:
   orientation: {fileID: 8925031560150673136}
   wallrun: {fileID: 6515617178719237454}
   animator: {fileID: 8977396222566572436}
+  secondAnimator: {fileID: 0}
   groundCheck: {fileID: 261487139633491968}
   moveSpeed: 7
   movementMultiplier: 9
@@ -39283,14 +39285,14 @@ MonoBehaviour:
   sprintKey: 304
   crouchKey: 306
   slideKey: 99
-  jumpForce: 14
+  jumpForce: 6
   groundDistance: 0.4
   ground:
     serializedVersion: 2
     m_Bits: 64
   groundDrag: 6
-  airDrag: 1.2
-  fallingGrav: 0.5
+  airDrag: 2
+  fallingGrav: 3.8
   crouchHeight: {x: 1, y: 0.5, z: 1}
   crouchMoveSpeed: 1
   crouchSprintSpeed: 2
@@ -51368,7 +51370,7 @@ MonoBehaviour:
   wallDistance: 1
   minimumJumpHeight: 1.5
   wallRunGravity: 0.4
-  wallRunJumpForce: 4
+  wallRunJumpForce: 12.8
   wallRunSpeed: 0.5
   coyoteTime: 1
   cam: {fileID: 1706193658855226850}
@@ -58005,6 +58007,7 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 6274120876164756007}
   - {fileID: 1853738274}
   - {fileID: 2014877606}
   - {fileID: 431479280}
@@ -58248,7 +58251,6 @@ SceneRoots:
   - {fileID: 81306797}
   - {fileID: 1953446701}
   - {fileID: 1810061362}
-  - {fileID: 6274120876164756007}
   - {fileID: 1800407640}
   - {fileID: 1335726864}
   - {fileID: 1491563151}
