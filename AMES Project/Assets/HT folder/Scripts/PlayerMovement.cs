@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool isGrounded;
     bool isCrouching;
-    bool isSliding;
+    public bool isSliding;
     bool ableToCrouch;
     bool isJumping;
     bool slidingOnSlope;
