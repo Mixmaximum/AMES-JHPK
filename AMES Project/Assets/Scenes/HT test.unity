@@ -7457,13 +7457,14 @@ MonoBehaviour:
   slideForce: 19.8
   maxSlideForce: 10.49
   slideDownForce: 2
-  slideRayDistance: 4
+  slideRayDistance: 8.22
   slopeDetectAngle: 45
   walkSound: {fileID: 4872637060857708400}
   runSound: {fileID: 0}
   slideSound: {fileID: 2258891221241213404}
   jumpSound: {fileID: 2960952477342566733}
   pitchMultiplier: 0.1
+  isSliding: 0
 --- !u!4 &1239307831800338070
 Transform:
   m_ObjectHideFlags: 0
@@ -34085,6 +34086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallRun: {fileID: 9176888228636440621}
+  playerMovement: {fileID: 1227772962306251112}
   sensX: 110
   sensY: 110
   cam: {fileID: 4867395958380475377}
