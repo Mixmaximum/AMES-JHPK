@@ -9802,10 +9802,10 @@ MonoBehaviour:
   crouchMoveSpeed: 1
   crouchSprintSpeed: 2
   crouchFloorDetectDist: 0.4
-  requiredSlideSpeed: 0.5
+  requiredSlideSpeed: 3
   slideLength: 0.5
-  slideForce: 6
-  maxSlideForce: 0
+  slideForce: 35
+  maxSlideForce: 45
   slideDownForce: 2
   slideRayDistance: 3
   slopeDetectAngle: 45
@@ -9814,6 +9814,7 @@ MonoBehaviour:
   slideSound: {fileID: 4210854571188829494}
   jumpSound: {fileID: 874172096829162919}
   pitchMultiplier: 0.1
+  isSliding: 0
 --- !u!114 &5176960558864656467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9827,6 +9828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallRun: {fileID: 6515617180154344647}
+  playerMovement: {fileID: 3764773399411905922}
   sensX: 110
   sensY: 110
   cam: {fileID: 7402425342913036059}
