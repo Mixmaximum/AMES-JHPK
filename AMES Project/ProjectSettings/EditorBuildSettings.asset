@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9f439811717e07b4e9f247bec5c40296
+  - enabled: 1
     path: Assets/Scenes/Peyton Scene.unity
     guid: fd5b756ca54e37240aa75765a5a9abfe
   m_configObjects:

@@ -58359,6 +58359,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!82 &1047123146 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5302843295634643353, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+  m_PrefabInstance: {fileID: 826020104696971090}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1311984765
 Mesh:
   m_ObjectHideFlags: 0
@@ -62501,9 +62506,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3764773399411905922, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: runSound
+      value: 
+      objectReference: {fileID: 1047123146}
+    - target: {fileID: 3764773399411905922, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
       propertyPath: slideForce
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 3764773399411905922, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: slideSound
+      value: 
+      objectReference: {fileID: 1047123146}
     - target: {fileID: 3764773399411905922, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
       propertyPath: fallingGrav
       value: 1
