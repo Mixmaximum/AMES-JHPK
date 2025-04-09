@@ -230,38 +230,13 @@ public class PlayerMovement : MonoBehaviour
                 isSliding = true;
                 slideTimer = slideLength;
                 currentSlideSpeed = slideForce;
+                slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
             }
         }
     }
 
     void SlideMovement()
     {
-        slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
-
-        // Cast a ray forward and slightly downward to detect the slope
-        RaycastHit slideRayHit;
-        if (Physics.Raycast(transform.position, orientation.forward + Vector3.down * 0.5f, out slideRayHit, slideRayDistance))
-        {
-                Debug.Log(Vector3.Angle(slideRayHit.normal, Vector3.up));
-            // Check if the surface the ray hits is a downward slope (use angle comparison or normal vector)
-            if (Vector3.Angle(slideRayHit.normal, Vector3.up) > slopeDetectAngle) // Customize the angle threshold for downward slopes
-            {
-                // On a downward slope, allow normal sliding behavior
-                currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, slideForce, slideTimer * Time.deltaTime);
-            }
-            else
-            {
-                // If not on a downward slope, gradually slow down the slide speed
-                currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, 0, slideTimer * Time.deltaTime);
-            }
-            slidingOnSlope = true;
-        }
-        else
-        {
-            // If no surface detected in front, keep sliding at the default force (or slow down if needed)
-            currentSlideSpeed = Mathf.Lerp(currentSlideSpeed, 0, slideTimer * Time.deltaTime);
-            slidingOnSlope = false;
-        }
 
         // Get the player's current velocity in the direction of wallRunDirection
         float forwardSpeed = Vector3.Dot(rb.linearVelocity, orientation.forward);
