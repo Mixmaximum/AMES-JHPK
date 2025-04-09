@@ -5,6 +5,7 @@ public class PlayerLook : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] WallRun wallRun;
+    [SerializeField] PlayerMovement playerMovement;
     [Space(5)]
 
     [SerializeField] private float sensX;
@@ -20,6 +21,9 @@ public class PlayerLook : MonoBehaviour
 
     float xRotation;
     float yRotation;
+
+    float currentYRotation;
+    bool rotationChosen;
 
     private void Start()
     {
@@ -42,7 +46,22 @@ public class PlayerLook : MonoBehaviour
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        cam.transform.rotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt);
+        if (playerMovement.isSliding == true)
+        {
+            if (rotationChosen == false)
+            {
+                currentYRotation = yRotation;
+                rotationChosen = true;
+            }
+            yRotation = Mathf.Clamp(yRotation, currentYRotation -90f, currentYRotation + 90);
+        }
+        else
+        {
+            rotationChosen = false;
+        }
+
+
+            cam.transform.rotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt);
         orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 }
