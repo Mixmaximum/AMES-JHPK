@@ -48,13 +48,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float slideLength;
     [SerializeField] float slideForce;
     [SerializeField] float maxSlideForce;
-    [SerializeField] float slideDownForce = 2f;
-
-    [Header("Slide Detection")]
-    [SerializeField] private float slideRayDistance = 3f;  // Distance for the raycast to check for downward slopes
-    [SerializeField] float slopeDetectAngle = 45f;
-
-
+    [SerializeField] float slideJumpForce = 10f;
 
     [Header("Audio")]
     [SerializeField] private AudioSource walkSound;
@@ -68,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     float currentVelocity;
     float currentSlideSpeed;
     float slideTimer;
+    float dAngle;
 
     bool isGrounded;
     bool isCrouching;
@@ -157,7 +152,12 @@ public class PlayerMovement : MonoBehaviour
     bool OnSlope()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.5f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            dAngle = angle;
+            Debug.Log(dAngle.ToString("F1"));
             return slopeHit.normal != Vector3.up;
+        }
         return false;
     }
 
@@ -167,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        
 
         isJumping = true;
         animator.SetBool("IsJumping", true);
@@ -244,15 +245,27 @@ public class PlayerMovement : MonoBehaviour
         if (forwardSpeed < maxSlideForce)
         {
             // Apply the movement force
-            rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
-            if(!slidingOnSlope)
+            if(OnSlope())
             {
-                rb.AddForce(Vector3.down * slideDownForce, ForceMode.Force);
+                rb.AddForce(slopeMoveDirection * currentSlideSpeed, ForceMode.Force);
+            }
+            else
+            {
+                rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
             }
         }
 
         if (Input.GetKeyDown(jumpKey) || Input.GetKeyUp(slideKey))
         {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            rb.AddForce(Vector3.up * slideJumpForce, ForceMode.Impulse);
+
+            isJumping = true;
+            animator.SetBool("IsJumping", true);
+
+            // Play the jump sound
+            if (jumpSound != null && !jumpSound.isPlaying)
+                jumpSound.Play();
             StopSlide();
         }
     }
