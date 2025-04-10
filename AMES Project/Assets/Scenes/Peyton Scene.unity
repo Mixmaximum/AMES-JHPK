@@ -2930,7 +2930,6 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
   - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
-  - {fileID: 2100000, guid: f0a47e7b1c00e8541a4b81b6b9503b36, type: 2}
   - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -62505,6 +62504,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 317147714606887437, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: aaad317d7312e2243908eb99025c49ec, type: 2}
+    - target: {fileID: 923712575450876521, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.10768024
+      objectReference: {fileID: 0}
+    - target: {fileID: 923712575450876521, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.10768024
+      objectReference: {fileID: 0}
+    - target: {fileID: 923712575450876521, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.10768024
+      objectReference: {fileID: 0}
     - target: {fileID: 3764773399411905922, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
       propertyPath: runSound
       value: 
@@ -62519,7 +62534,7 @@ PrefabInstance:
       objectReference: {fileID: 1047123146}
     - target: {fileID: 3764773399411905922, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
       propertyPath: fallingGrav
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3764773399411905922, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
       propertyPath: maxSlideForce
@@ -62528,6 +62543,18 @@ PrefabInstance:
     - target: {fileID: 3764773399411905922, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
       propertyPath: requiredSlideSpeed
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5668965479428997192, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6060437957730051845, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6060437957730051845, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 219.81
       objectReference: {fileID: 0}
     - target: {fileID: 6274120874926781358, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
       propertyPath: m_LocalPosition.x
