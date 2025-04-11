@@ -60,7 +60,6 @@ public class WallRun : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(rb.useGravity);
         CheckWall();
 
         if (CanWallRun())
@@ -138,7 +137,6 @@ public class WallRun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && wallRunning)
         {
             WallJump();
-            Debug.Log("Wall jumping(Good)");
         }
     }
 
