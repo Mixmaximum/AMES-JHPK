@@ -102,6 +102,10 @@ public class PlayerMovement : MonoBehaviour
         ableToCrouch = Physics.CheckSphere(groundCheck.position, crouchFloorDetectDist, ground);
         MyInput();
         StartSlide();
+        if (Input.GetKeyDown(jumpKey) && isGrounded)
+        {
+            Jump();
+        }
 
         if (isJumping && isGrounded)
         {
@@ -118,11 +122,6 @@ public class PlayerMovement : MonoBehaviour
         Crouch();
 
         currentVelocity = rb.linearVelocity.magnitude;
-
-        if (Input.GetKeyDown(jumpKey) && isGrounded)
-        {
-            Jump();
-        }
 
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
@@ -184,7 +183,13 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        rb.linearVelocity.Set(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+        if (isGrounded) //checks groundedness
+        {
+            // has player jump forwards
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
+
         isJumping = true;
         animator.SetBool("IsJumping", true);
 
@@ -275,8 +280,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(jumpKey) || Input.GetKeyUp(slideKey))
         {
-            rb.linearVelocity.Set(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
-
+            if (isGrounded) //checks groundedness
+            {
+                // has player jump forwards
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            }
             isJumping = true;
             animator.SetBool("IsJumping", true);
 

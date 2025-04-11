@@ -60,6 +60,7 @@ public class WallRun : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(rb.useGravity);
         CheckWall();
 
         if (CanWallRun())
