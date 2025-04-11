@@ -88,24 +88,6 @@ public class WallRun : MonoBehaviour
                 anim.SetBool("RightWall", false);
             }
         }
-        else
-        {
-            if (coyoteTimer > 0)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    WallJump();
-                }
-                coyoteTimer -= Time.deltaTime;
-            }
-            else
-            {
-                StopWallRun();
-                anim.SetBool("LeftWall", false);
-                anim.SetBool("RightWall", false);
-            }
-        }
-
         UpdateWallRunAudio();
     }
 
@@ -132,6 +114,7 @@ public class WallRun : MonoBehaviour
     private void StartWallRun()
     {
         rb.useGravity = false;
+        wallRunning = true;
 
         // Apply downward force to keep player pressed against the wall
         rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
@@ -152,9 +135,10 @@ public class WallRun : MonoBehaviour
 
         cameraShake?.StartShake(rb.linearVelocity.magnitude);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && wallRunning)
         {
             WallJump();
+            Debug.Log("Wall jumping(Good)");
         }
     }
 
