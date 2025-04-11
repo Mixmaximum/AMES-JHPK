@@ -36,6 +36,7 @@ public class TestEnemy : BaseEnemy
         if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) < 2 && currentCooldown > maxCooldown)
         {
             currentCooldown = 0; // "Attacks" the player if they're within a certain distance and the cooldown is higher than the maxCooldown
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().TakeDamage(damage);
             Debug.Log("Attack you!");
         }
     }
@@ -49,5 +50,6 @@ public class TestEnemy : BaseEnemy
     public override void OnDeath()
     {
         speed = 0;
+        Destroy(this.gameObject);
     }
 }
