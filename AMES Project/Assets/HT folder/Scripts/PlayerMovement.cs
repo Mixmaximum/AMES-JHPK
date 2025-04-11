@@ -37,6 +37,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float airDrag = 2f;
     [SerializeField] float fallingGrav;
 
+    [Header("Ceiling Settings")]
+    [SerializeField] private float ceilingCheckRange;
+
     [Header("Crouch Settings")]
     [SerializeField] private Vector3 crouchHeight;
     [SerializeField] private float crouchMoveSpeed;
@@ -78,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 slideDirection;
 
     RaycastHit slopeHit;
+    RaycastHit ceilingHit;
     Rigidbody rb;
 
     private void Start()
@@ -89,17 +93,20 @@ public class PlayerMovement : MonoBehaviour
         {
             maxSlideForce = slideForce;
         }
+        rb.sleepThreshold = 0;
     }
 
     private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, ground);
         ableToCrouch = Physics.CheckSphere(groundCheck.position, crouchFloorDetectDist, ground);
-
         MyInput();
         StartSlide();
 
-        
+        if (isJumping && isGrounded)
+        {
+            isJumping = false;
+        }
 
         if (isSliding)
         {
@@ -113,7 +120,9 @@ public class PlayerMovement : MonoBehaviour
         currentVelocity = rb.linearVelocity.magnitude;
 
         if (Input.GetKeyDown(jumpKey) && isGrounded)
+        {
             Jump();
+        }
 
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
@@ -121,6 +130,11 @@ public class PlayerMovement : MonoBehaviour
 
         // Walking, Running, Sliding, and Jump Sounds
         HandleMovementSounds();
+        
+        if (rb.IsSleeping())
+        {
+            Debug.Log("rb is asleep");
+        }
     }
 
     private void FixedUpdate()
@@ -163,18 +177,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if (!isGrounded) return;
+        rb.WakeUp();
+        if (!isGrounded)
+        {
+            Debug.Log("Grounded, returning");
+            return;
+        }
 
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        
-
+        rb.linearVelocity.Set(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
         isJumping = true;
         animator.SetBool("IsJumping", true);
 
         // Play the jump sound
         if (jumpSound != null && !jumpSound.isPlaying)
             jumpSound.Play();
+        Debug.Log(isGrounded);
     }
 
     void ControlSpeed()
@@ -220,6 +237,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     void StartSlide()
     {
         if (Input.GetKeyDown(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed && !isSliding && isGrounded)
@@ -257,8 +275,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(jumpKey) || Input.GetKeyUp(slideKey))
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-            rb.AddForce(Vector3.up * slideJumpForce, ForceMode.Impulse);
+            rb.linearVelocity.Set(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
 
             isJumping = true;
             animator.SetBool("IsJumping", true);
@@ -289,14 +306,6 @@ public class PlayerMovement : MonoBehaviour
         secondAnimator.SetBool("IsGrounded", isGrounded);
         secondAnimator.SetBool("IsFalling", !isGrounded);
         secondAnimator.SetBool("IsSliding", isSliding);  // Update sliding animation in second animator
-
-        // Reset jump animation when grounded again
-        if (isJumping && isGrounded)
-        {
-            animator.SetBool("IsJumping", false);
-            secondAnimator.SetBool("IsJumping", false);
-            isJumping = false;
-        }
 
         // Prevent speed-up during attack animation
         if (!animator.GetBool("IsAttacking"))

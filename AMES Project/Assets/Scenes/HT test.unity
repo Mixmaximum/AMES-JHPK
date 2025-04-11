@@ -7448,6 +7448,7 @@ MonoBehaviour:
   groundDrag: 6
   airDrag: 1.2
   fallingGrav: 0.5
+  ceilingCheckRange: 1
   crouchHeight: {x: 1, y: 0.5, z: 1}
   crouchMoveSpeed: 1
   crouchSprintSpeed: 2
@@ -7456,11 +7457,9 @@ MonoBehaviour:
   slideLength: 0.5
   slideForce: 19.8
   maxSlideForce: 10.49
-  slideDownForce: 2
-  slideRayDistance: 8.22
-  slopeDetectAngle: 45
+  slideJumpForce: 10
   walkSound: {fileID: 4872637060857708400}
-  runSound: {fileID: 0}
+  runSound: {fileID: 7827748275880187251}
   slideSound: {fileID: 2258891221241213404}
   jumpSound: {fileID: 2960952477342566733}
   pitchMultiplier: 0.1
@@ -27527,6 +27526,7 @@ GameObject:
   - component: {fileID: 9176888228636440621}
   - component: {fileID: 6343408566409648638}
   - component: {fileID: 9176888228636440622}
+  - component: {fileID: 9176888228636440623}
   - component: {fileID: 2960952477342566733}
   - component: {fileID: 2258891221241213404}
   - component: {fileID: 7827748275880187251}
@@ -44196,7 +44196,7 @@ Transform:
   m_GameObject: {fileID: 8961576049202883448}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 3.15, z: 59.5}
+  m_LocalPosition: {x: 5, y: 0.53, z: 59.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -48801,6 +48801,20 @@ MonoBehaviour:
   healAmount: 1
   timeToHeal: 10
   invincibilityDuration: 2
+--- !u!114 &9176888228636440623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5634986975520112414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873e37b92a4961a4f96aad7310fd96f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pm: {fileID: 1227772962306251112}
+  legs: {fileID: 5469997698067665830}
 --- !u!1 &9184141667785548781
 GameObject:
   m_ObjectHideFlags: 0
