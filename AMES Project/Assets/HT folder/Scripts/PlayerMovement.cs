@@ -48,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Slide Settings")]
     [SerializeField] float requiredSlideSpeed;
-    [SerializeField] float slideLength;
     [SerializeField] float slideForce;
     [SerializeField] float maxSlideForce;
     [SerializeField] float slideJumpForce = 10f;
@@ -58,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioSource runSound;
     [SerializeField] private AudioSource slideSound; // New slide sound
     [SerializeField] private AudioSource jumpSound; // New jump sound
-    [SerializeField] private float pitchMultiplier = 0.1f; // Controls how much the pitch changes with speed
 
     float horizontalMovement;
     float verticalMovement;
@@ -67,12 +65,13 @@ public class PlayerMovement : MonoBehaviour
     float slideTimer;
     float dAngle;
 
+    public bool isSliding;
     bool isGrounded;
     bool isCrouching;
-    public bool isSliding;
     bool ableToCrouch;
     bool isJumping;
     bool slidingOnSlope;
+    bool isUnderCeiling;
 
     int impulseCounter;
 
@@ -82,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
     RaycastHit slopeHit;
     RaycastHit ceilingHit;
+
     Rigidbody rb;
 
     private void Start()
@@ -100,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, ground);
         ableToCrouch = Physics.CheckSphere(groundCheck.position, crouchFloorDetectDist, ground);
+        CeilingCheck();
         MyInput();
         StartSlide();
         if (Input.GetKeyDown(jumpKey) && isGrounded)
@@ -129,11 +130,6 @@ public class PlayerMovement : MonoBehaviour
 
         // Walking, Running, Sliding, and Jump Sounds
         HandleMovementSounds();
-        
-        if (rb.IsSleeping())
-        {
-            Debug.Log("rb is asleep");
-        }
     }
 
     private void FixedUpdate()
@@ -179,7 +175,6 @@ public class PlayerMovement : MonoBehaviour
         rb.WakeUp();
         if (!isGrounded)
         {
-            Debug.Log("Grounded, returning");
             return;
         }
 
@@ -191,12 +186,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isJumping = true;
-        animator.SetBool("IsJumping", true);
+        //animator.SetBool("IsJumping", true);
 
         // Play the jump sound
         if (jumpSound != null && !jumpSound.isPlaying)
             jumpSound.Play();
-        Debug.Log(isGrounded);
     }
 
     void ControlSpeed()
@@ -224,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Crouch()
     {
-        if (Input.GetKey(crouchKey) && ableToCrouch && !isSliding)
+        if (Input.GetKey(crouchKey) && ableToCrouch && !isSliding || isUnderCeiling && ableToCrouch && !isSliding)
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
             isCrouching = true;
@@ -242,6 +236,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void CeilingCheck()
+    {
+        if (isSliding || isCrouching)
+        {
+
+            if (Physics.Raycast(transform.position, Vector3.up, ceilingCheckRange))
+            {
+                isUnderCeiling = true;
+            }
+            else
+            {
+                isUnderCeiling = false;
+            }
+        }
+        else
+        {
+            isUnderCeiling = false;
+        }
+    }
 
     void StartSlide()
     {
@@ -251,7 +264,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
                 isSliding = true;
-                slideTimer = slideLength;
                 currentSlideSpeed = slideForce;
                 slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
             }
@@ -284,10 +296,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 // has player jump forwards
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+                rb.AddForce(transform.up * slideJumpForce, ForceMode.Impulse);
             }
             isJumping = true;
-            animator.SetBool("IsJumping", true);
+            //animator.SetBool("IsJumping", true);
 
             // Play the jump sound
             if (jumpSound != null && !jumpSound.isPlaying)
@@ -306,14 +318,14 @@ public class PlayerMovement : MonoBehaviour
     {
         // Update the main animator
         animator.SetFloat("Speed", currentVelocity);
-        animator.SetBool("IsGrounded", isGrounded);
+        //animator.SetBool("IsGrounded", isGrounded);
         animator.SetBool("IsFalling", !isGrounded);
         animator.SetBool("IsSliding", isSliding);  // Update sliding animation in first animator
 
         // Update the second animator
-        secondAnimator.SetFloat("Speed", currentVelocity);
-        secondAnimator.SetBool("IsGrounded", isGrounded);
-        secondAnimator.SetBool("IsFalling", !isGrounded);
+        //secondAnimator.SetFloat("Speed", currentVelocity);
+        //secondAnimator.SetBool("IsGrounded", isGrounded);
+        //secondAnimator.SetBool("IsFalling", !isGrounded);
         secondAnimator.SetBool("IsSliding", isSliding);  // Update sliding animation in second animator
 
         // Prevent speed-up during attack animation
