@@ -9612,7 +9612,6 @@ MonoBehaviour:
   crouchSprintSpeed: 2
   crouchFloorDetectDist: 0.4
   requiredSlideSpeed: 7.5
-  slideLength: 0.5
   slideForce: 15
   maxSlideForce: 20
   slideJumpForce: 3
@@ -9620,7 +9619,6 @@ MonoBehaviour:
   runSound: {fileID: 5302843295634643353}
   slideSound: {fileID: 5302843295634643353}
   jumpSound: {fileID: 874172096829162919}
-  pitchMultiplier: 0.1
   isSliding: 0
 --- !u!114 &5176960558864656467
 MonoBehaviour:
@@ -9658,7 +9656,7 @@ MonoBehaviour:
   wallRunGravity: 0.2
   wallRunJumpForce: 12
   wallRunSpeed: 6
-  coyoteTime: 1
+  coyoteTime: 0.25
   cam: {fileID: 1706193657954106475}
   fov: 90
   wallRunFov: 100
@@ -9721,6 +9719,8 @@ MonoBehaviour:
   cooldownMax: 0.8
   attack1Duration: 0.5
   comboWindow: 0.3
+  playerHealth: 50
+  maxHealth: 50
   audioSource: {fileID: 6288091528091542780}
   attackSound: {fileID: 8300000, guid: 412431a7111781249aa9518e98c1dc6f, type: 3}
   hitSound: {fileID: 8300000, guid: 40f2382389a260d4e85369361b9fff5d, type: 3}
