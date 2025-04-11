@@ -8259,7 +8259,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6252944778394429808}
-  - component: {fileID: 3571395491406615054}
   m_Layer: 0
   m_Name: SlideParticles
   m_TagString: Untagged
@@ -8283,22 +8282,6 @@ Transform:
   - {fileID: 923712575450876521}
   m_Father: {fileID: 7402425342913036059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3571395491406615054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6220451261051547731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 828e0125feed9a24598744f2bb014ff5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedParticles: {fileID: 0}
-  playerRb: {fileID: 1316119661374754676}
-  speedThreshold: 6
-  maxEmissionRate: 150
 --- !u!1 &6274172855457673317
 GameObject:
   m_ObjectHideFlags: 0
