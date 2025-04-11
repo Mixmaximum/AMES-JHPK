@@ -9598,7 +9598,7 @@ MonoBehaviour:
   sprintKey: 304
   crouchKey: 306
   slideKey: 99
-  jumpForce: 5
+  jumpForce: 15
   groundDistance: 0.4
   ground:
     serializedVersion: 2
@@ -9615,7 +9615,7 @@ MonoBehaviour:
   slideLength: 0.5
   slideForce: 15
   maxSlideForce: 20
-  slideJumpForce: 7
+  slideJumpForce: 3
   walkSound: {fileID: 7397674639898260378}
   runSound: {fileID: 5302843295634643353}
   slideSound: {fileID: 5302843295634643353}
@@ -9657,7 +9657,7 @@ MonoBehaviour:
   minimumJumpHeight: 1.5
   wallRunGravity: 0.2
   wallRunJumpForce: 12
-  wallRunSpeed: 5
+  wallRunSpeed: 6
   coyoteTime: 1
   cam: {fileID: 1706193657954106475}
   fov: 90
