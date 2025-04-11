@@ -12,6 +12,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float cooldownMax = 0.8f;
     [SerializeField] float attack1Duration = 0.5f;
     [SerializeField] float comboWindow = 0.3f;
+    [SerializeField] int playerHealth = 50;
+    [SerializeField] int maxHealth = 50;
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
@@ -48,6 +50,15 @@ public class PlayerAttack : MonoBehaviour
             {
                 comboQueued = true;
             }
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        playerHealth -= damage;
+        if(playerHealth <= 0)
+        {
+            Debug.Log("Player is Dead");
         }
     }
 
