@@ -292,18 +292,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(jumpKey) || Input.GetKeyUp(slideKey))
         {
-            if (isGrounded) //checks groundedness
-            {
-                // has player jump forwards
-                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-                rb.AddForce(transform.up * slideJumpForce, ForceMode.Impulse);
-            }
-            isJumping = true;
             //animator.SetBool("IsJumping", true);
 
             // Play the jump sound
             if (jumpSound != null && !jumpSound.isPlaying)
                 jumpSound.Play();
+            if (Input.GetKeyDown(jumpKey) && isGrounded) //checks groundedness
+            {
+                // has player jump forwards
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+                rb.AddForce(transform.up * slideJumpForce, ForceMode.Impulse);
+                isJumping = true;
+            }
             StopSlide();
         }
     }
