@@ -114,8 +114,22 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
         }
 
-        if (isSliding && Input.GetKeyUp(slideKey))
+        if (isSliding && Input.GetKeyDown(jumpKey) ||isSliding && Input.GetKeyUp(slideKey))
+        {
+            //animator.SetBool("IsJumping", true);
+
+            // Play the jump sound
+            if (jumpSound != null && !jumpSound.isPlaying)
+                jumpSound.Play();
+            if (Input.GetKeyDown(jumpKey) && isGrounded) //checks groundedness
+            {
+                // has player jump forwards
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+                rb.AddForce(transform.up * slideJumpForce, ForceMode.Impulse);
+                isJumping = true;
+            }
             StopSlide();
+        }
 
         Crouch();
 
@@ -301,23 +315,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
             }
-        }
-
-        if (Input.GetKeyDown(jumpKey) || Input.GetKeyUp(slideKey))
-        {
-            //animator.SetBool("IsJumping", true);
-
-            // Play the jump sound
-            if (jumpSound != null && !jumpSound.isPlaying)
-                jumpSound.Play();
-            if (Input.GetKeyDown(jumpKey) && isGrounded) //checks groundedness
-            {
-                // has player jump forwards
-                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-                rb.AddForce(transform.up * slideJumpForce, ForceMode.Impulse);
-                isJumping = true;
-            }
-            StopSlide();
         }
     }
 
