@@ -61,7 +61,7 @@ public class PlayerLook : MonoBehaviour
         }
 
 
-            cam.transform.rotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt);
+        cam.transform.rotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt);
         orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 }
