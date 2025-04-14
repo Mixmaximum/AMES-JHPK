@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -37,18 +38,20 @@ public class EnemyNinja : BaseEnemy
         anim.SetInteger("Walking", (int)agent.velocity.x);
         if (agent.velocity.x == 0)
             anim.SetInteger("Walking", (int)agent.velocity.z);
-
-        if (Vector3.Distance(destination, transform.position) <= 2.0f)
-        {
-            anim.SetInteger("Walking", 0);
-        }
+        if (agent.velocity.z == 0)
+            anim.SetInteger("Walking", (int)agent.velocity.y);
     }
 
     public override void Attack()
     {
-        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) < 2 && currentCooldown > maxCooldown)
+        if (Vector3.Distance(destination, transform.position) <= 1.5f)
         {
-            anim.SetTrigger("Attack");
+            if (currentCooldown > maxCooldown)
+            {
+                anim.SetTrigger("Attack");
+                StartCoroutine(Stun());
+                currentCooldown = 0f;
+            }
         }
     }
 
@@ -56,5 +59,13 @@ public class EnemyNinja : BaseEnemy
     {
         if (currentCooldown < maxCooldown)
             currentCooldown += Time.deltaTime;
+    }
+
+    public IEnumerator Stun()
+    {
+        speed = 0;
+        yield return new WaitForSeconds(1);
+        speed = 5f;
+        StopCoroutine(Stun());
     }
 }
