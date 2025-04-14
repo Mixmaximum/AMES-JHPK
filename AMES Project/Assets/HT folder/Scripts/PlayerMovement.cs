@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     float dAngle;
 
     public bool isSliding;
+    public bool isSprinting;
     bool isGrounded;
     bool isCrouching;
     bool ableToCrouch;
@@ -113,10 +114,6 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
         }
 
-        if (isSliding)
-        {
-            SlideMovement();
-        }
         if (isSliding && Input.GetKeyUp(slideKey))
             StopSlide();
 
@@ -138,6 +135,10 @@ public class PlayerMovement : MonoBehaviour
         ControlSpeed();
         FallingGrav();
         MovePlayer();
+        if (isSliding)
+        {
+            SlideMovement();
+        }
 
     }
 
@@ -196,13 +197,25 @@ public class PlayerMovement : MonoBehaviour
     void ControlSpeed()
     {
         if (Input.GetKey(sprintKey) && isGrounded && !isCrouching)
+        {
             moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
+            isSprinting = true;
+        }
         else if (isCrouching && !Input.GetKey(sprintKey))
+        {
             moveSpeed = Mathf.Lerp(moveSpeed, crouchMoveSpeed, acceleration * Time.deltaTime);
+            isSprinting = false;
+        }
         else if (Input.GetKey(sprintKey) && isCrouching)
+        {
             moveSpeed = Mathf.Lerp(moveSpeed, crouchSprintSpeed, acceleration * Time.deltaTime);
+            isSprinting = true;
+        }
         else
+        {
             moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
+            isSprinting = false;
+        }
     }
 
     void ControlDrag()
