@@ -27,8 +27,8 @@ public class WallRun : MonoBehaviour
 
     public float tilt { get; private set; }
 
-    bool wallLeft = false;
-    bool wallRight = false;
+    public bool wallLeft = false;
+    public bool wallRight = false;
     bool DirectionChosen = false;
 
     RaycastHit leftWallHit;
@@ -61,7 +61,16 @@ public class WallRun : MonoBehaviour
     private void Update()
     {
         CheckWall();
+        UpdateWallRunAudio();
 
+        if (Input.GetKeyDown(KeyCode.Space) && wallRunning)
+        {
+            WallJump();
+        }
+    }
+
+    private void FixedUpdate()
+    {
         if (CanWallRun())
         {
             coyoteTimer = coyoteTime;
@@ -87,7 +96,6 @@ public class WallRun : MonoBehaviour
                 anim.SetBool("RightWall", false);
             }
         }
-        UpdateWallRunAudio();
     }
 
     bool CanWallRun()
@@ -126,18 +134,14 @@ public class WallRun : MonoBehaviour
         {
             rb.AddForce(wallRunDirection * wallRunSpeed, ForceMode.Force);
         }
-
         if (wallLeft)
             tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime);
         else if (wallRight)
             tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime);
 
-        cameraShake?.StartShake(rb.linearVelocity.magnitude);
 
-        if (Input.GetKeyDown(KeyCode.Space) && wallRunning)
-        {
-            WallJump();
-        }
+        cameraShake?.StartShake(rb.linearVelocity.magnitude);
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFov, wallRunFovTime * Time.deltaTime);
     }
 
     private void StopWallRun()
