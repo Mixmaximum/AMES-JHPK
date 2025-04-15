@@ -31,21 +31,25 @@ public class EnemyNinja : BaseEnemy
     public override void Movement() // Handles movement towards the player
     {
         agent.speed = speed * dH.timeMultiplier; // multiplying the speed by a variable that gets cut in half by the time slow mask
-        destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 1.3f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
+        destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
         agent.destination = destination;
         agent.destination.Normalize();
 
         anim.SetInteger("Walking", (int)agent.velocity.x);
         if (agent.velocity.x == 0)
             anim.SetInteger("Walking", (int)agent.velocity.z);
-        if (agent.velocity.z == 0)
-            anim.SetInteger("Walking", (int)agent.velocity.y);
+        anim.speed = dH.timeMultiplier;
+
+        Vector3 LookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
+
+        transform.LookAt(LookDir, Vector3.up);
     }
 
     public override void Attack()
     {
-        if (Vector3.Distance(destination, transform.position) <= 1.5f)
+        if (Vector3.Distance(destination, transform.position) <= 1.1f)
         {
+            anim.SetBool("Close", true);
             if (currentCooldown > maxCooldown)
             {
                 anim.SetTrigger("Attack");
@@ -53,18 +57,28 @@ public class EnemyNinja : BaseEnemy
                 currentCooldown = 0f;
             }
         }
+        else anim.SetBool("Close", false);
     }
 
-    public override void EnemyUpdate() // Handles the enemy attack cooldown
+    public void AttackDetection()
     {
-        if (currentCooldown < maxCooldown)
+        if (Vector3.Distance(destination, transform.position) <= 1.1f)
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().TakeDamage(damage);
+    }
+
+    public override void EnemyUpdate() 
+    {
+        if (currentCooldown < maxCooldown) // handles enemy attack cooldown
             currentCooldown += Time.deltaTime;
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().dead) // enemys stop running towards you when you die
+            destination = transform.position;
+        Debug.Log(Vector3.Distance(destination, transform.position));
     }
 
     public IEnumerator Stun()
     {
         speed = 0;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2.2f);
         speed = 5f;
         StopCoroutine(Stun());
     }

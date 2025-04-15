@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isSliding;
     public bool isSprinting;
-    bool isGrounded;
+    public bool isGrounded;
     bool isCrouching;
     bool ableToCrouch;
     bool isJumping;
@@ -99,7 +99,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, ground);
+        if (!isSliding)
+        {
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, ground);
+        }
+        else if (isSliding)
+        {
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance * 2, ground);
+        }
         ableToCrouch = Physics.CheckSphere(groundCheck.position, crouchFloorDetectDist, ground);
         CeilingCheck();
         MyInput();
@@ -179,7 +186,6 @@ public class PlayerMovement : MonoBehaviour
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             dAngle = angle;
-            Debug.Log(dAngle.ToString("F1"));
             return slopeHit.normal != Vector3.up;
         }
         return false;
@@ -304,10 +310,15 @@ public class PlayerMovement : MonoBehaviour
         float forwardSpeed = Vector3.Dot(rb.linearVelocity, orientation.forward);
 
         // Accelerate only if under the desired wall run speed in that direction
-        if (forwardSpeed < maxSlideForce || !isGrounded)
+        if (forwardSpeed < maxSlideForce)
         {
+            if (!isGrounded)
+            {
+                Debug.Log("No ground, returning");
+                return;
+            }
             // Apply the movement force
-            if(OnSlope())
+            if (OnSlope())
             {
                 rb.AddForce(slopeMoveDirection * currentSlideSpeed, ForceMode.Force);
             }
@@ -315,6 +326,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
             }
+            Debug.Log("Applying Force");
         }
     }
 
