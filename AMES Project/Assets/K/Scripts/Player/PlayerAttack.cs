@@ -4,20 +4,50 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] int health;
-    [SerializeField] int maxHealth = 100;
-    [SerializeField] public bool dead;
+
+    Animator anim;
+    [SerializeField] int attackRange = 4;
+    [SerializeField] int damage;
 
     private void Start()
     {
-        health = maxHealth;
+        anim = GetComponent<Animator>();
     }
 
-    public void TakeDamage(int damage)
+    private void Update()
     {
-        health -= damage;
-        if (health <= 0)
-            dead = true;
-        Debug.Log($"The player took ({damage}) out of {health}, and dead is {dead}");
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            Attack();
     }
+
+    public void Attack()
+    {
+        anim.SetTrigger("Attack");
+    }
+
+    public void AttackDetection()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        if (Physics.Raycast(ray, out hit, attackRange))
+        {
+            if (hit.transform.CompareTag("Enemy"))
+            {
+                StartCoroutine(Hitstop());
+                hit.transform.GetComponent<BaseEnemy>().TakeDamage(damage);
+                Debug.Log("You hit it!");
+            }
+        }
+    }
+
+    public IEnumerator Hitstop()
+    {
+        anim.enabled = false;
+        Debug.Log("Hit");
+        yield return new WaitForSeconds(0.09f);
+        anim.enabled = true;
+        Debug.Log("Stop!");
+        StopCoroutine(Hitstop());
+    }
+
 }
