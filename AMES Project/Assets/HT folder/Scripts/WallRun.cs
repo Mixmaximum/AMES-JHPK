@@ -13,10 +13,6 @@ public class WallRun : MonoBehaviour
     [SerializeField] float wallRunJumpForce;
     [SerializeField] float wallRunSpeed;
 
-    [Header("Coyote Time")]
-    [SerializeField] float coyoteTime = 0.2f;
-    private float coyoteTimer;
-
     [Header("Camera")]
     [SerializeField] Camera cam;
     [SerializeField] float fov;
@@ -63,17 +59,8 @@ public class WallRun : MonoBehaviour
         CheckWall();
         UpdateWallRunAudio();
 
-        if (Input.GetKeyDown(KeyCode.Space) && wallRunning)
-        {
-            WallJump();
-        }
-    }
-
-    private void FixedUpdate()
-    {
         if (CanWallRun())
         {
-            coyoteTimer = coyoteTime;
 
             if (wallLeft)
             {
@@ -95,6 +82,25 @@ public class WallRun : MonoBehaviour
                 anim.SetBool("LeftWall", false);
                 anim.SetBool("RightWall", false);
             }
+        }
+        else
+        {
+            StopWallRun();
+            anim.SetBool("LeftWall", false);
+            anim.SetBool("RightWall", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && wallRunning)
+        {
+            WallJump();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (wallRunning)
+        {
+            WallRunMove();
         }
     }
 
@@ -122,7 +128,17 @@ public class WallRun : MonoBehaviour
     {
         rb.useGravity = false;
         wallRunning = true;
+        if (wallLeft)
+            tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime);
+        else if (wallRight)
+            tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime);
 
+        cameraShake?.StartShake(rb.linearVelocity.magnitude);
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFov, wallRunFovTime * Time.deltaTime);
+    }
+
+    private void WallRunMove()
+    {
         // Apply downward force to keep player pressed against the wall
         rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Force);
 
@@ -134,14 +150,6 @@ public class WallRun : MonoBehaviour
         {
             rb.AddForce(wallRunDirection * wallRunSpeed, ForceMode.Force);
         }
-        if (wallLeft)
-            tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime);
-        else if (wallRight)
-            tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime);
-
-
-        cameraShake?.StartShake(rb.linearVelocity.magnitude);
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFov, wallRunFovTime * Time.deltaTime);
     }
 
     private void StopWallRun()
@@ -173,8 +181,6 @@ public class WallRun : MonoBehaviour
         // Preserve some horizontal momentum, but reset vertical speed
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         rb.AddForce(jumpDirection.normalized * wallRunJumpForce, ForceMode.Impulse);
-  
-        coyoteTimer = 0;
 
         // Play jump sound
         wallJumpAudio?.Play();
