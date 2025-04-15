@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject cam;
 
     [Header("Health Settings")]
-    [SerializeField] float health;
+    [SerializeField] public float health;
     [SerializeField] float healAmount;
     [SerializeField] float timeToHeal;
     [Space(5)]
@@ -76,7 +76,6 @@ public class PlayerHealth : MonoBehaviour
     public void Die()
     {
         cam.GetComponent<Animator>().SetBool("Dead", true);
-        
     }
     private void HandleIFrames()
     {

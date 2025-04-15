@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator animator;  // First Animator
     [SerializeField] Animator secondAnimator;  // Second Animator
     [SerializeField] Transform groundCheck;
-    [SerializeField] Transform ceilingCheck;
 
     [Header("Movement")]
     [SerializeField] float moveSpeed = 6f;
@@ -109,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance * 2, ground);
         }
         ableToCrouch = Physics.CheckSphere(groundCheck.position, crouchFloorDetectDist, ground);
-        //CeilingCheck();
+        CeilingCheck();
         MyInput();
         StartSlide();
         if (Input.GetKeyDown(jumpKey) && isGrounded)
@@ -275,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
         if (isSliding || isCrouching)
         {
 
-            if (Physics.CheckSphere(ceilingCheck.position, ceilingCheckRange))
+            if (Physics.Raycast(transform.position, Vector3.up, ceilingCheckRange))
             {
                 isUnderCeiling = true;
             }
