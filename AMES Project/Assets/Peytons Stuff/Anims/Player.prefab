@@ -5167,6 +5167,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4836815449036006168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &597711025702788074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1930633533339782895}
+  m_Layer: 0
+  m_Name: Ceiling Check
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1930633533339782895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597711025702788074}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.004, y: 0.97, z: 0.034}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8350999105255078803}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &684682751981504802
 GameObject:
   m_ObjectHideFlags: 0
@@ -14551,6 +14582,7 @@ Transform:
   - {fileID: 1127646920642611762}
   - {fileID: 8925031559373285241}
   - {fileID: 261487141011976585}
+  - {fileID: 1930633533339782895}
   - {fileID: 1791122079175161633}
   - {fileID: 862028534954317671}
   - {fileID: 7319546988426020342}
@@ -14601,6 +14633,7 @@ MonoBehaviour:
   animator: {fileID: 6640773065728624622}
   secondAnimator: {fileID: 5689740613271079076}
   groundCheck: {fileID: 261487141011976585}
+  ceilingCheck: {fileID: 1930633533339782895}
   moveSpeed: 0
   movementMultiplier: 9
   airMovementMultiplier: 0.4
@@ -14634,6 +14667,7 @@ MonoBehaviour:
   jumpSound: {fileID: 874172096829162919}
   isSliding: 0
   isSprinting: 0
+  isGrounded: 0
 --- !u!114 &5176960558864656467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14670,7 +14704,6 @@ MonoBehaviour:
   wallRunGravity: 0.5
   wallRunJumpForce: 12
   wallRunSpeed: 6
-  coyoteTime: 0.25
   cam: {fileID: 1706193657954106475}
   fov: 90
   wallRunFov: 100
@@ -14729,6 +14762,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796b564973e529d4fb2a41c74359495a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 100
+  dead: 0
 --- !u!82 &874172096829162919
 AudioSource:
   m_ObjectHideFlags: 0
