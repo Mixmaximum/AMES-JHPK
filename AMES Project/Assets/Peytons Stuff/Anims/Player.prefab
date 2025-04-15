@@ -14633,7 +14633,7 @@ MonoBehaviour:
   animator: {fileID: 6640773065728624622}
   secondAnimator: {fileID: 5689740613271079076}
   groundCheck: {fileID: 261487141011976585}
-  ceilingCheck: {fileID: 0}
+  ceilingCheck: {fileID: 1930633533339782895}
   moveSpeed: 0
   movementMultiplier: 9
   airMovementMultiplier: 0.4
