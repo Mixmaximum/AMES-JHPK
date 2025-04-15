@@ -304,7 +304,7 @@ public class PlayerMovement : MonoBehaviour
         float forwardSpeed = Vector3.Dot(rb.linearVelocity, orientation.forward);
 
         // Accelerate only if under the desired wall run speed in that direction
-        if (forwardSpeed < maxSlideForce)
+        if (forwardSpeed < maxSlideForce || !isGrounded)
         {
             // Apply the movement force
             if(OnSlope())
