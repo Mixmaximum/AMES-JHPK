@@ -35,14 +35,14 @@ public class EnemyNinja : BaseEnemy
         agent.destination = destination;
         agent.destination.Normalize();
 
-        anim.SetInteger("Walking", (int)agent.velocity.x);
+        anim.SetInteger("Walking", (int)agent.velocity.x); // checks if the enemy is moving
         if (agent.velocity.x == 0)
             anim.SetInteger("Walking", (int)agent.velocity.z);
         anim.speed = dH.timeMultiplier;
 
         Vector3 LookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
 
-        transform.LookAt(LookDir, Vector3.up);
+        transform.LookAt(LookDir, Vector3.up); // handles the enemy looking at the player 
     }
 
     public override void Attack()
@@ -62,20 +62,19 @@ public class EnemyNinja : BaseEnemy
 
     public void AttackDetection()
     {
-        if (Vector3.Distance(destination, transform.position) <= 1.1f)
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().TakeDamage(damage);
+        if (Vector3.Distance(destination, transform.position) <= 1.1f) // if the player is close at a specific point in the animation, then they take damage.
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health <= 0) // enemys stop running towards you when you die
+            destination = transform.position;
     }
 
     public override void EnemyUpdate() 
     {
         if (currentCooldown < maxCooldown) // handles enemy attack cooldown
             currentCooldown += Time.deltaTime;
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().dead) // enemys stop running towards you when you die
-            destination = transform.position;
-        Debug.Log(Vector3.Distance(destination, transform.position));
     }
 
-    public IEnumerator Stun()
+    public IEnumerator Stun() // fudge factor
     {
         speed = 0;
         yield return new WaitForSeconds(2.2f);
