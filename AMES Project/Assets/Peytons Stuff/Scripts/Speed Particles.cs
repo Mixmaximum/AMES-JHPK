@@ -7,8 +7,9 @@ public class SpeedParticlesController : MonoBehaviour
     public Rigidbody playerRb;
 
     [Header("Settings")]
-    public float speedThreshold = 5f;
-    public float maxEmissionRate = 150f;
+    public float speedThreshold = 5f;       // Speed before particles start
+    public float maxSpeed = 15f;            // Speed where particles hit max
+    public float maxEmissionRate = 150f;    // Max particles per second
 
     private ParticleSystem.EmissionModule emission;
 
@@ -48,7 +49,8 @@ public class SpeedParticlesController : MonoBehaviour
             if (!speedParticles.isPlaying)
                 speedParticles.Play();
 
-            float rate = Mathf.Lerp(0, maxEmissionRate, (speed - speedThreshold) / maxEmissionRate);
+            float t = Mathf.Clamp01((speed - speedThreshold) / (maxSpeed - speedThreshold));
+            float rate = Mathf.Lerp(0f, maxEmissionRate, t);
             emission.rateOverTime = rate;
         }
         else
