@@ -88,4 +88,10 @@ public class EnemyNinja : BaseEnemy
     {
         rBody.AddForce(transform.forward * -25, ForceMode.Impulse);
     }
+
+    public override void OnDeath()
+    {
+        Debug.Log("I.. I am dead.");
+        speed = 0;
+    }
 }
