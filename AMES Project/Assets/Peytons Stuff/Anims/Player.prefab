@@ -14633,12 +14633,11 @@ MonoBehaviour:
   animator: {fileID: 6640773065728624622}
   secondAnimator: {fileID: 5689740613271079076}
   groundCheck: {fileID: 261487141011976585}
-  ceilingCheck: {fileID: 1930633533339782895}
   moveSpeed: 0
   movementMultiplier: 9
-  airMovementMultiplier: 0.4
-  walkSpeed: 6
-  sprintSpeed: 9
+  airMovementMultiplier: 0.5
+  walkSpeed: 7
+  sprintSpeed: 10
   acceleration: 11
   jumpKey: 32
   sprintKey: 304
@@ -14651,16 +14650,16 @@ MonoBehaviour:
     m_Bits: 64
   groundDrag: 6
   airDrag: 1.4
-  fallingGrav: 5
+  fallingGrav: 6
   ceilingCheckRange: 0
   crouchHeight: {x: 1, y: 0.5, z: 1}
   crouchMoveSpeed: 1
   crouchSprintSpeed: 2
   crouchFloorDetectDist: 0.4
-  requiredSlideSpeed: 7.5
-  slideForce: 125
-  maxSlideForce: 150
-  slideJumpForce: 3
+  requiredSlideSpeed: 9
+  slideForce: 200
+  maxSlideForce: 250
+  slideJumpForce: 10
   walkSound: {fileID: 7397674639898260378}
   runSound: {fileID: 5302843295634643353}
   slideSound: {fileID: 5302843295634643353}
@@ -14701,9 +14700,9 @@ MonoBehaviour:
   orientation: {fileID: 8925031559373285241}
   wallDistance: 1
   minimumJumpHeight: 1.5
-  wallRunGravity: 0.5
+  wallRunGravity: 1.5
   wallRunJumpForce: 12
-  wallRunSpeed: 6
+  wallRunSpeed: 8
   cam: {fileID: 1706193657954106475}
   fov: 90
   wallRunFov: 100
@@ -14762,9 +14761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796b564973e529d4fb2a41c74359495a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 100
-  dead: 0
+  attackRange: 4
+  damage: 0
 --- !u!82 &874172096829162919
 AudioSource:
   m_ObjectHideFlags: 0

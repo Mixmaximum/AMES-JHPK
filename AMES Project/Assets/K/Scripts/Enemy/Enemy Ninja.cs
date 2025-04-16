@@ -20,12 +20,14 @@ public class EnemyNinja : BaseEnemy
     Vector3 destination;
     float maxCooldown = 5f;
     float currentCooldown;
+    Rigidbody rBody;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         dH = GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>();
         anim = GetComponent<Animator>();
+        rBody = GetComponent<Rigidbody>();
     }
 
     public override void Movement() // Handles movement towards the player
@@ -74,11 +76,16 @@ public class EnemyNinja : BaseEnemy
             currentCooldown += Time.deltaTime;
     }
 
-    public IEnumerator Stun() // fudge factor
+    private IEnumerator Stun() // fudge factor
     {
         speed = 0;
-        yield return new WaitForSeconds(2.2f);
+        yield return new WaitForSeconds(1.5f);
         speed = 5f;
         StopCoroutine(Stun());
+    }
+
+    public override void Knockback()
+    {
+        rBody.AddForce(transform.forward * -25, ForceMode.Impulse);
     }
 }
