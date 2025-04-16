@@ -50,7 +50,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float requiredSlideSpeed;
     [SerializeField] float slideForce;
     [SerializeField] float maxSlideForce;
+
+    [Header("Slide Jump/Fall Settings")]
     [SerializeField] float slideJumpForce = 10f;
+    [SerializeField] float slideFallDelay;
+    [SerializeField] float slideCoyoteTime;
+
 
     [Header("Audio")]
     [SerializeField] private AudioSource walkSound;
@@ -62,8 +67,10 @@ public class PlayerMovement : MonoBehaviour
     float verticalMovement;
     float currentVelocity;
     float currentSlideSpeed;
-    float slideTimer;
+    float currentSlideDelayTime;
+    float currentSlideCoyoteTime;
     float dAngle;
+
 
     public bool isSliding;
     public bool isSprinting;
@@ -128,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
             // Play the jump sound
             if (jumpSound != null && !jumpSound.isPlaying)
                 jumpSound.Play();
-            if (Input.GetKeyDown(jumpKey) && isGrounded) //checks groundedness
+            if (Input.GetKeyDown(jumpKey) && isGrounded || Input.GetKeyDown(jumpKey) && currentSlideCoyoteTime <= 0) //checks groundedness
             {
                 // has player jump forwards
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
@@ -299,6 +306,8 @@ public class PlayerMovement : MonoBehaviour
                 isSliding = true;
                 currentSlideSpeed = slideForce;
                 slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+                currentSlideDelayTime = slideFallDelay;
+                currentSlideCoyoteTime = slideCoyoteTime;
             }
         }
     }
@@ -314,8 +323,15 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!isGrounded)
             {
-                Debug.Log("No ground, returning");
-                return;
+                if (slideFallDelay >= 0)
+                {
+                    slideFallDelay -= Time.deltaTime;
+                }
+                else
+                {
+                    Debug.Log("No ground, returning");
+                    return;
+                }
             }
             // Apply the movement force
             if (OnSlope())
@@ -328,6 +344,7 @@ public class PlayerMovement : MonoBehaviour
             }
             Debug.Log("Applying Force");
         }
+        currentSlideCoyoteTime -= Time.deltaTime;
     }
 
     void StopSlide()
