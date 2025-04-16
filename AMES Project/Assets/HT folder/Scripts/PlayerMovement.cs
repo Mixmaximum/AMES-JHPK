@@ -56,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float slideFallDelay;
     [SerializeField] float slideCoyoteTime;
 
-
     [Header("Audio")]
     [SerializeField] private AudioSource walkSound;
     [SerializeField] private AudioSource runSound;
@@ -65,12 +64,11 @@ public class PlayerMovement : MonoBehaviour
 
     float horizontalMovement;
     float verticalMovement;
-    float currentVelocity;
+    public float currentVelocity;
     float currentSlideSpeed;
     float currentSlideDelayTime;
     float currentSlideCoyoteTime;
     float dAngle;
-
 
     public bool isSliding;
     public bool isSprinting;
@@ -314,7 +312,6 @@ public class PlayerMovement : MonoBehaviour
 
     void SlideMovement()
     {
-
         // Get the player's current velocity in the direction of wallRunDirection
         float forwardSpeed = Vector3.Dot(rb.linearVelocity, orientation.forward);
 
