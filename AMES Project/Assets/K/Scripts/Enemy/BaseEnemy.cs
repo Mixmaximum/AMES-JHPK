@@ -20,7 +20,7 @@ public class BaseEnemy : MonoBehaviour
     public void TakeDamage(int damageToTake) // The players attack script would call this script in any enemies they hit, damageToTake is obviously filled by the players damage val
     {
         health -= damageToTake; // self explanatory, but I'll comment anyway. Remove from the enemies health value the damage from player.
-        if (health <= 0) 
+        if (health <= 0)
         {
             Debug.Log("Death Is True."); // Just for testing
             OnDeath(); // Call the OnDeath() function to run any code that we may want when an enemy dies
@@ -45,5 +45,10 @@ public class BaseEnemy : MonoBehaviour
     {
         // Put here any code that you want to execute when the enemy dies.
         // Like dropping coins or a mask or whatever
+    }
+
+    public virtual void Knockback()
+    {
+
     }
 }

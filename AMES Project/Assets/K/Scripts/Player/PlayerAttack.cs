@@ -35,6 +35,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 StartCoroutine(Hitstop());
                 hit.transform.GetComponent<BaseEnemy>().TakeDamage(damage);
+                hit.transform.GetComponent<BaseEnemy>().Knockback();
                 Debug.Log("You hit it!");
             }
         }
