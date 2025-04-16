@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
     Animator anim;
     [SerializeField] int attackRange = 4;
     [SerializeField] int damage;
+    bool isAttacking;
 
     private void Start()
     {
@@ -17,12 +18,23 @@ public class PlayerAttack : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
-            Attack();
+            StartCoroutine(Attack());
+
+        if (isAttacking)
+            anim.speed = .005f;
+        else anim.speed = 1;
+        
     }
 
-    public void Attack()
+    
+
+    public IEnumerator Attack()
     {
         anim.SetTrigger("Attack");
+        isAttacking = true;
+        yield return new WaitForSeconds(2f);
+        isAttacking = false;
+        StopCoroutine(Attack());
     }
 
     public void AttackDetection()

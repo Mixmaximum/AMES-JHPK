@@ -32,10 +32,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float groundDistance = 0.4f;
     [SerializeField] LayerMask ground;
 
-    [Header("Drag/Gravity")]
+    [Header("Drag")]
     [SerializeField] float groundDrag = 6f;
     [SerializeField] float airDrag = 2f;
-    [SerializeField] float fallingGrav;
 
     [Header("Ceiling Settings")]
     [SerializeField] private float ceilingCheckRange;
@@ -62,9 +61,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioSource slideSound; // New slide sound
     [SerializeField] private AudioSource jumpSound; // New jump sound
 
+    public float currentVelocity;
     float horizontalMovement;
     float verticalMovement;
-    public float currentVelocity;
     float currentSlideSpeed;
     float currentSlideDelayTime;
     float currentSlideCoyoteTime;
@@ -159,7 +158,6 @@ public class PlayerMovement : MonoBehaviour
     {
         ControlDrag();
         ControlSpeed();
-        FallingGrav();
         MovePlayer();
         if (isSliding)
         {
@@ -246,12 +244,6 @@ public class PlayerMovement : MonoBehaviour
     void ControlDrag()
     {
         rb.linearDamping = isGrounded ? groundDrag : airDrag;
-    }
-
-    void FallingGrav()
-    {
-        if (!isGrounded && !wallrun.wallRunning)
-            rb.AddForce(Vector3.down * fallingGrav, ForceMode.Force);
     }
 
     void Crouch()
