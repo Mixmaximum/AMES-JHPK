@@ -31,10 +31,12 @@ public class PlayerGravScaling : MonoBehaviour
 
     void FallingGrav()
     {
+        float t = Time.deltaTime / timeToMaxGrav;
         if (!pm.isGrounded && !wallRun.wallRunning)
         {
-            currentFallGrav = Mathf.Lerp(currentFallGrav, maxFallGrav, timeToMaxGrav * Time.deltaTime);
+            currentFallGrav = Mathf.Lerp(currentFallGrav, maxFallGrav, t);
             rb.AddForce(Vector3.down * currentFallGrav, ForceMode.Force);
+            Debug.Log(currentFallGrav);
         }
         else
         {
