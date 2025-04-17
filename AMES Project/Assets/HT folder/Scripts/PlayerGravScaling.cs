@@ -36,7 +36,6 @@ public class PlayerGravScaling : MonoBehaviour
         {
             currentFallGrav = Mathf.Lerp(currentFallGrav, maxFallGrav, t);
             rb.AddForce(Vector3.down * currentFallGrav, ForceMode.Force);
-            Debug.Log(currentFallGrav);
         }
         else
         {
