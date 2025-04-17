@@ -28,7 +28,7 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: a65d25563df5c27478d30c7aeed7e697, type: 3}
-        m_Scale: {x: 0.03, y: 0.03}
+        m_Scale: {x: 13.15, y: 15.96}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -52,7 +52,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: a65d25563df5c27478d30c7aeed7e697, type: 3}
-        m_Scale: {x: 0.03, y: 0.03}
+        m_Scale: {x: 13.15, y: 15.96}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -118,7 +118,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1.0557104, g: 1.7997569, b: 1.0102409, a: 1}
+    - _EmissionColor: {r: 1.9721231, g: 0.065117314, b: 0.08254192, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
