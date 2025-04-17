@@ -22,7 +22,7 @@ public class BaseEnemy : MonoBehaviour
         health -= damageToTake; // self explanatory, but I'll comment anyway. Remove from the enemies health value the damage from player.
         if (health <= 0)
         {
-            Debug.Log("Death Is True."); // Just for testing
+            isDead = true;
             OnDeath(); // Call the OnDeath() function to run any code that we may want when an enemy dies
         }
     }
@@ -45,6 +45,7 @@ public class BaseEnemy : MonoBehaviour
     {
         // Put here any code that you want to execute when the enemy dies.
         // Like dropping coins or a mask or whatever
+        
     }
 
     public virtual void Knockback()

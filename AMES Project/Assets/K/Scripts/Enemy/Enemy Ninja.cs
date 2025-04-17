@@ -34,8 +34,11 @@ public class EnemyNinja : BaseEnemy
     {
         agent.speed = speed * dH.timeMultiplier; // multiplying the speed by a variable that gets cut in half by the time slow mask
         destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
-        agent.destination = destination;
-        agent.destination.Normalize();
+        if(agent.enabled)
+        {
+            agent.destination = destination;
+            agent.destination.Normalize();
+        }
 
         anim.SetInteger("Walking", (int)agent.velocity.x); // checks if the enemy is moving
         if (agent.velocity.x == 0)
@@ -78,20 +81,26 @@ public class EnemyNinja : BaseEnemy
 
     private IEnumerator Stun() // fudge factor
     {
-        speed = 0;
-        yield return new WaitForSeconds(1.5f);
-        speed = 5f;
+        agent.enabled = false;
+        rBody.constraints = RigidbodyConstraints.FreezePositionY;
+        yield return new WaitForSeconds(.5f);
+        rBody.constraints = RigidbodyConstraints.None;
+        if(!isDead)
+        agent.enabled = true;
         StopCoroutine(Stun());
     }
 
     public override void Knockback()
     {
-        rBody.AddForce(transform.forward * -25, ForceMode.Impulse);
+        StartCoroutine(Stun());
+        rBody.AddForce(transform.forward * -10, ForceMode.VelocityChange);
     }
 
     public override void OnDeath()
     {
+        base.OnDeath();
         Debug.Log("I.. I am dead.");
-        speed = 0;
+        agent.enabled = false;
+        anim.speed = 0;
     }
 }

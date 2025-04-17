@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour
     Animator anim;
     [SerializeField] int attackRange = 4;
     [SerializeField] int damage;
-    bool isAttacking;
+    float cooldown;
 
     private void Start()
     {
@@ -17,13 +17,10 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && cooldown <= 0)
             StartCoroutine(Attack());
-
-        if (isAttacking)
-            anim.speed = .005f;
-        else anim.speed = 1;
-        
+        if (cooldown > 0)
+            cooldown -= Time.deltaTime;
     }
 
     
@@ -31,9 +28,10 @@ public class PlayerAttack : MonoBehaviour
     public IEnumerator Attack()
     {
         anim.SetTrigger("Attack");
-        isAttacking = true;
-        yield return new WaitForSeconds(2f);
-        isAttacking = false;
+        anim.SetBool("IsAttacking", true);
+        cooldown = 1.6f;
+        yield return new WaitForSeconds(1.5f);
+        anim.SetBool("IsAttacking", false);
         StopCoroutine(Attack());
     }
 
@@ -43,7 +41,7 @@ public class PlayerAttack : MonoBehaviour
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         if (Physics.Raycast(ray, out hit, attackRange))
         {
-            if (hit.transform.CompareTag("Enemy"))
+            if (hit.transform.CompareTag("Enemy") && !hit.transform.GetComponent<BaseEnemy>().isDead)
             {
                 StartCoroutine(Hitstop());
                 hit.transform.GetComponent<BaseEnemy>().TakeDamage(damage);
