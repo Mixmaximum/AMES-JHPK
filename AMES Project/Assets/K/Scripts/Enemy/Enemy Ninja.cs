@@ -47,6 +47,7 @@ public class EnemyNinja : BaseEnemy
 
         Vector3 LookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
 
+        if(!isDead)
         transform.LookAt(LookDir, Vector3.up); // handles the enemy looking at the player 
     }
 
@@ -92,15 +93,17 @@ public class EnemyNinja : BaseEnemy
 
     public override void Knockback()
     {
-        StartCoroutine(Stun());
-        rBody.AddForce(transform.forward * -10, ForceMode.VelocityChange);
+        //StartCoroutine(Stun());
+        //rBody.AddForce(transform.forward * -10, ForceMode.VelocityChange);
     }
 
     public override void OnDeath()
     {
         base.OnDeath();
+        GetComponent<BoxCollider>().enabled = false;
         Debug.Log("I.. I am dead.");
         agent.enabled = false;
+        anim.enabled = false;
         anim.speed = 0;
     }
 }
