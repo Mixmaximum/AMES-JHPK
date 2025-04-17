@@ -360,10 +360,12 @@ public class PlayerMovement : MonoBehaviour
         if (!animator.GetBool("IsAttacking"))
         {
             animator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f);
+            Debug.Log("Speeding Up");
             secondAnimator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f); // Make sure the second animator matches the same speed
         }
         else
         {
+            Debug.Log("Normal speed");
             animator.speed = 1f; // Keep attack animation at normal speed
             secondAnimator.speed = 1f; // Keep second animator at normal speed
         }
