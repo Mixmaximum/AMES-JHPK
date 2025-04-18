@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class WallRun : MonoBehaviour
 {
+    [SerializeField] int maxJumpsOnOneWall = 2;
+
+    [Header("References")]
     [SerializeField] Transform orientation;
+    [SerializeField] PlayerMovement pm;
 
     [Header("Wall Detection")]
     [SerializeField] float wallDistance = 0.5f;
@@ -33,6 +37,8 @@ public class WallRun : MonoBehaviour
     private Rigidbody rb;
     public bool wallRunning = false;
     private Vector3 wallRunDirection;
+    string lastWallName = "";
+    int sameWallJumps = 0;
 
     [SerializeField] private Animator anim;
     [SerializeField] private WallRunCameraShake cameraShake;
@@ -58,6 +64,12 @@ public class WallRun : MonoBehaviour
     {
         CheckWall();
         UpdateWallRunAudio();
+
+        if (pm.isGrounded && sameWallJumps != 0)
+        {
+            sameWallJumps = 0;
+            lastWallName = "";
+        }
 
         if (CanWallRun())
         {
@@ -172,20 +184,43 @@ public class WallRun : MonoBehaviour
     private void WallJump()
     {
         Vector3 jumpDirection = transform.up;
+        if (sameWallJumps <= maxJumpsOnOneWall)
+        {
+            if (wallLeft)
+            {
+                jumpDirection += leftWallHit.normal;
+                if (lastWallName != null && lastWallName != leftWallHit.collider.gameObject.name)
+                {
+                    lastWallName = leftWallHit.collider.gameObject.name;
+                    sameWallJumps = 0;
+                }
+                else if (lastWallName != null && lastWallName == leftWallHit.collider.gameObject.name)
+                {
+                    sameWallJumps += 1;
+                }
+            }
+            else if (wallRight)
+            {
+                jumpDirection += rightWallHit.normal;
+                if (lastWallName != null && lastWallName != rightWallHit.collider.gameObject.name)
+                {
+                    lastWallName = rightWallHit.collider.gameObject.name;
+                    sameWallJumps = 0;
+                }
+                else if (lastWallName != null && lastWallName == rightWallHit.collider.gameObject.name)
+                {
+                    sameWallJumps += 1;
+                }
+            }
 
-        if (wallLeft)
-            jumpDirection += leftWallHit.normal;
-        else if (wallRight)
-            jumpDirection += rightWallHit.normal;
+            // Preserve some horizontal momentum, but reset vertical speed
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+            rb.AddForce(jumpDirection.normalized * wallRunJumpForce, ForceMode.Impulse);
 
-        // Preserve some horizontal momentum, but reset vertical speed
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        rb.AddForce(jumpDirection.normalized * wallRunJumpForce, ForceMode.Impulse);
-
-        // Play jump sound
-        wallJumpAudio?.Play();
+            // Play jump sound
+            wallJumpAudio?.Play();
+        }
     }
-
     private void UpdateWallRunAudio()
     {
         if (wallRunAudio == null) return;
