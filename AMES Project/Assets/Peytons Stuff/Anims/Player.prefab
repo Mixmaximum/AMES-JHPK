@@ -19468,6 +19468,10 @@ GameObject:
   - component: {fileID: 6515617180154344647}
   - component: {fileID: 7536717923220245180}
   - component: {fileID: 7936250017272047133}
+  - component: {fileID: 8385334509440720170}
+  - component: {fileID: 1661417453396397761}
+  - component: {fileID: 754695644037406866}
+  - component: {fileID: 5180633380619915640}
   - component: {fileID: 874172096829162919}
   - component: {fileID: 4210854571188829494}
   - component: {fileID: 5302843295634643353}
@@ -19475,10 +19479,6 @@ GameObject:
   - component: {fileID: 87563361683473991}
   - component: {fileID: 8427768596691553797}
   - component: {fileID: 6288091528091542780}
-  - component: {fileID: 8385334509440720170}
-  - component: {fileID: 1661417453396397761}
-  - component: {fileID: 754695644037406866}
-  - component: {fileID: 5180633380619915640}
   m_Layer: 0
   m_Name: Model
   m_TagString: Player
@@ -19571,7 +19571,7 @@ MonoBehaviour:
     m_Bits: 64
   groundDrag: 6
   airDrag: 1.4
-  ceilingCheckRange: 0
+  ceilingCheckRange: 1
   crouchHeight: {x: 1, y: 0.5, z: 1}
   crouchMoveSpeed: 1
   crouchSprintSpeed: 2
@@ -19672,6 +19672,70 @@ MonoBehaviour:
   animator: {fileID: 5689740613271079076}
   slideEffect: {fileID: 6060437957730051845}
   slideAnimationName: Slide
+--- !u!114 &8385334509440720170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7711775239147533300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873e37b92a4961a4f96aad7310fd96f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pm: {fileID: 3764773399411905922}
+  legs: {fileID: 7989264346190028620}
+--- !u!114 &1661417453396397761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7711775239147533300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0c0203e1cef2b4ea137d64e0a90602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAnimator: {fileID: 5689740613271079076}
+  objectToActivate: {fileID: 9054298017698404000}
+  slidingBoolName: IsSliding
+--- !u!114 &754695644037406866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7711775239147533300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828e0125feed9a24598744f2bb014ff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedParticles: {fileID: 1970553168085125050}
+  playerRb: {fileID: 1316119661374754676}
+  speedThreshold: 6
+  maxSpeed: 25
+  maxEmissionRate: 150
+--- !u!114 &5180633380619915640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7711775239147533300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb8a6647f769644780e2c9e14d09859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pm: {fileID: 3764773399411905922}
+  wallRun: {fileID: 6515617180154344647}
+  rb: {fileID: 1316119661374754676}
+  fallingGrav: 6
+  maxFallGrav: 12
+  timeToMaxGrav: 2
 --- !u!82 &874172096829162919
 AudioSource:
   m_ObjectHideFlags: 0
@@ -20351,70 +20415,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8385334509440720170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7711775239147533300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 873e37b92a4961a4f96aad7310fd96f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pm: {fileID: 3764773399411905922}
-  legs: {fileID: 7989264346190028620}
---- !u!114 &1661417453396397761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7711775239147533300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0c0203e1cef2b4ea137d64e0a90602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAnimator: {fileID: 5689740613271079076}
-  objectToActivate: {fileID: 9054298017698404000}
-  slidingBoolName: IsSliding
---- !u!114 &754695644037406866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7711775239147533300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 828e0125feed9a24598744f2bb014ff5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedParticles: {fileID: 1970553168085125050}
-  playerRb: {fileID: 1316119661374754676}
-  speedThreshold: 6
-  maxSpeed: 25
-  maxEmissionRate: 150
---- !u!114 &5180633380619915640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7711775239147533300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb8a6647f769644780e2c9e14d09859, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pm: {fileID: 3764773399411905922}
-  wallRun: {fileID: 6515617180154344647}
-  rb: {fileID: 1316119661374754676}
-  fallingGrav: 6
-  maxFallGrav: 12
-  timeToMaxGrav: 2
 --- !u!1 &7987017822609732625
 GameObject:
   m_ObjectHideFlags: 0
