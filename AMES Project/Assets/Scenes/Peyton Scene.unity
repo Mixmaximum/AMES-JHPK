@@ -10156,13 +10156,13 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 251932275}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c18d20429131ceb4a91ffa6f9faf17ad, type: 3}
   m_Resource: {fileID: 8300000, guid: c18d20429131ceb4a91ffa6f9faf17ad, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.241
+  m_Volume: 0.109
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -26349,6 +26349,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -142192154615942528, guid: b517aa9a2722c7d44b42c44d3ba60750, type: 3}
+--- !u!114 &925588437 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3764773399411905922, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+  m_PrefabInstance: {fileID: 1891882958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fa330759349704a9aa7ebee2784edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &929081536
 GameObject:
   m_ObjectHideFlags: 0
@@ -43504,6 +43515,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6515617180154344647, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
+      propertyPath: pm
+      value: 
+      objectReference: {fileID: 925588437}
     - target: {fileID: 6515617180154344647, guid: 56117d50c4e5419478242c43c376fef2, type: 3}
       propertyPath: anim
       value: 
