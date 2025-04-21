@@ -4,6 +4,9 @@ using UnityEngine.AI;
 
 public class EnemyNinja : BaseEnemy
 {
+
+    // knockback into enemy falling on the ground (RDR2 Euphoria)
+
     public EnemyNinja()
     {
         enemyName = "Enemy Ninja";
@@ -93,13 +96,14 @@ public class EnemyNinja : BaseEnemy
 
     public override void Knockback()
     {
-        //StartCoroutine(Stun());
-        //rBody.AddForce(transform.forward * -10, ForceMode.VelocityChange);
+        StartCoroutine(Stun());
+        rBody.AddForce(transform.forward * -1000, ForceMode.Impulse);
     }
 
     public override void OnDeath()
     {
         base.OnDeath();
+        Knockback();
         GetComponent<BoxCollider>().enabled = false;
         Debug.Log("I.. I am dead.");
         agent.enabled = false;
