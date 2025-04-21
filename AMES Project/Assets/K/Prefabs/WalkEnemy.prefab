@@ -589,8 +589,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Enemy Ninja
-  maxHealth: 150
-  health: 150
+  maxHealth: 50
+  health: 50
   speed: 5
   damage: 20
   isDead: 0
