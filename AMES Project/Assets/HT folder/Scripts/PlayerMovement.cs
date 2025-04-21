@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] WallRun wallrun;
     [SerializeField] Animator animator;  // First Animator
     [SerializeField] Animator secondAnimator;  // Second Animator
+    [SerializeField] Animator thirdAnimator;
     [SerializeField] Transform groundCheck;
 
     [Header("Movement")]
@@ -357,16 +358,14 @@ public class PlayerMovement : MonoBehaviour
         secondAnimator.SetBool("IsSliding", isSliding);  // Update sliding animation in second animator
 
         // Prevent speed-up during attack animation
-        if (!animator.GetBool("IsAttacking"))
+        if (!thirdAnimator.GetBool("IsAttacking"))
         {
-            animator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f);
-            Debug.Log("Speeding Up");
+            thirdAnimator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f);
             secondAnimator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f); // Make sure the second animator matches the same speed
         }
-        else
+        else if (thirdAnimator.GetBool("IsAttacking")) // i added this because i'm insane
         {
-            Debug.Log("Normal speed");
-            animator.speed = 1f; // Keep attack animation at normal speed
+            thirdAnimator.speed = 1f; // Keep attack animation at normal speed
             secondAnimator.speed = 1f; // Keep second animator at normal speed
         }
     }

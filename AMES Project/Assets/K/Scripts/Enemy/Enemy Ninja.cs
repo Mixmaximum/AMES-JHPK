@@ -4,6 +4,9 @@ using UnityEngine.AI;
 
 public class EnemyNinja : BaseEnemy
 {
+
+    // knockback into enemy falling on the ground (RDR2 Euphoria)
+
     public EnemyNinja()
     {
         enemyName = "Enemy Ninja";
@@ -18,9 +21,10 @@ public class EnemyNinja : BaseEnemy
     DataHandler dH;
     Animator anim;
     Vector3 destination;
-    float maxCooldown = 5f;
+    float maxCooldown = 1.3f;
     float currentCooldown;
     Rigidbody rBody;
+    float bodyCleanup;
 
     private void Start()
     {
@@ -28,6 +32,7 @@ public class EnemyNinja : BaseEnemy
         dH = GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>();
         anim = GetComponent<Animator>();
         rBody = GetComponent<Rigidbody>();
+        currentCooldown = 0;
     }
 
     public override void Movement() // Handles movement towards the player
@@ -78,13 +83,17 @@ public class EnemyNinja : BaseEnemy
     {
         if (currentCooldown < maxCooldown) // handles enemy attack cooldown
             currentCooldown += Time.deltaTime;
+        if (isDead)
+            bodyCleanup += Time.deltaTime;
+        if (bodyCleanup >= 30)
+            Destroy(gameObject);
     }
 
     private IEnumerator Stun() // fudge factor
     {
         agent.enabled = false;
         rBody.constraints = RigidbodyConstraints.FreezePositionY;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1f);
         rBody.constraints = RigidbodyConstraints.None;
         if(!isDead)
         agent.enabled = true;
@@ -93,13 +102,13 @@ public class EnemyNinja : BaseEnemy
 
     public override void Knockback()
     {
-        //StartCoroutine(Stun());
-        //rBody.AddForce(transform.forward * -10, ForceMode.VelocityChange);
+        //rBody.AddForce(transform.forward * 100000000000000000000000f, ForceMode.Impulse);
     }
 
     public override void OnDeath()
     {
         base.OnDeath();
+        Knockback();
         GetComponent<BoxCollider>().enabled = false;
         Debug.Log("I.. I am dead.");
         agent.enabled = false;
