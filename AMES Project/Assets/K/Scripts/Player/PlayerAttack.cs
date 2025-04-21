@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
+        cooldown = 0;
     }
 
     private void Update()
@@ -29,8 +30,8 @@ public class PlayerAttack : MonoBehaviour
     {
         anim.SetTrigger("Attack");
         anim.SetBool("IsAttacking", true);
-        cooldown = 1.3f;
-        yield return new WaitForSeconds(1);
+        cooldown = 0.75f;
+        yield return new WaitForSeconds(0.75f);
         anim.SetBool("IsAttacking", false);
         StopCoroutine(Attack());
     }
