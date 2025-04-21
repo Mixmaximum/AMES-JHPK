@@ -1,18 +1,19 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    
-
     Canvas pauseMenuCanvas; // reference to the pause menu canvas
     [SerializeField] Canvas Canvas2;
+    [SerializeField] Canvas ControlCanvas;
 
     void Start()
     {
         pauseMenuCanvas = GetComponent<Canvas>();
         pauseMenuCanvas.enabled = false; // the pause menu shouldn't be showing on startup 
         Canvas2.GetComponent<Canvas>().enabled = false;
+        ControlCanvas.GetComponent<Canvas>().enabled = false;
     }
 
     
@@ -75,5 +76,15 @@ public class PauseMenu : MonoBehaviour
     public void CloseCanvas2()
     {
         Canvas2.GetComponent<Canvas>().enabled = false;
+    }
+
+    public void OpenControlCanvas()
+    {
+        ControlCanvas.GetComponent<Canvas>().enabled = true;
+    }
+
+    public void CloseControlCanvas()
+    {
+        ControlCanvas.GetComponent<Canvas>().enabled = false;
     }
 }
