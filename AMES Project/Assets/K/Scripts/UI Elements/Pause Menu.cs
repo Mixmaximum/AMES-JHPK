@@ -26,6 +26,8 @@ public class PauseMenu : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 0)
         {
             pauseMenuCanvas.enabled = false;
+            Canvas2.GetComponent<Canvas>().enabled = false;
+            ControlCanvas.GetComponent<Canvas>().enabled = false;
         }
         PauseGame();
         //Debug.Log($"Time.timeScale == {Time.timeScale.ToString()}"); // Sanity check to make sure that the time is actually changing when it should.
