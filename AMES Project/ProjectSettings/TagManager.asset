@@ -9,6 +9,7 @@ TagManager:
   - Handler
   - PlayerChild
   - Slide
+  - Player Collider
   layers:
   - Default
   - TransparentFX

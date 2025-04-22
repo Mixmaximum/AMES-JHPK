@@ -17,8 +17,10 @@ public class KillBox : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collided");
         if (collision.gameObject.tag == "Player Collider")
         {
+            Debug.Log("Collided with player");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
