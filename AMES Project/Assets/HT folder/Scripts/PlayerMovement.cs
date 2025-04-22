@@ -291,15 +291,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed && !isSliding && isGrounded)
         {
-            if (Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, ground))
-            {
-                transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
-                isSliding = true;
-                currentSlideSpeed = slideForce;
-                slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
-                currentSlideDelayTime = slideFallDelay;
-                currentSlideCoyoteTime = slideCoyoteTime;
-            }
+            transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
+            isSliding = true;
+            currentSlideSpeed = slideForce;
+            slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+            currentSlideDelayTime = slideFallDelay;
+            currentSlideCoyoteTime = slideCoyoteTime;
+            Debug.Log("fwoomp");
         }
     }
 
@@ -331,8 +329,8 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
+                Debug.Log("Applying Force");
             }
-            Debug.Log("Applying Force");
         }
         currentSlideCoyoteTime -= Time.deltaTime;
     }
