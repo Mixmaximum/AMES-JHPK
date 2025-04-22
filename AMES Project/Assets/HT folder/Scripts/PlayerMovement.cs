@@ -325,11 +325,12 @@ public class PlayerMovement : MonoBehaviour
             if (OnSlope())
             {
                 rb.AddForce(slopeMoveDirection * currentSlideSpeed, ForceMode.Force);
+                Debug.Log("Applying Force (Slope)");
             }
             else
             {
                 rb.AddForce(slideDirection.normalized * currentSlideSpeed, ForceMode.Force);
-                Debug.Log("Applying Force");
+                Debug.Log("Applying Force (Flat)");
             }
         }
         currentSlideCoyoteTime -= Time.deltaTime;
