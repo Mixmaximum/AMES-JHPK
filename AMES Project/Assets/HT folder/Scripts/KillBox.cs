@@ -17,14 +17,14 @@ public class KillBox : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player Collider")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player Collider")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

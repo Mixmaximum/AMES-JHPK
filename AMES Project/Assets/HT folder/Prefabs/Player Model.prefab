@@ -10025,7 +10025,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2595144038440916032}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -24.787056, y: 2.017, z: -12.14789}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10083,6 +10083,7 @@ MonoBehaviour:
   wallrun: {fileID: 1803145563105211597}
   animator: {fileID: 6919346516436425439}
   secondAnimator: {fileID: 669398408934630937}
+  thirdAnimator: {fileID: 0}
   groundCheck: {fileID: 6488779825600944417}
   moveSpeed: 0
   movementMultiplier: 9
@@ -10978,6 +10979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maskInventory: []
   GiveMePlease: 0
+  maskEquipText: {fileID: 0}
 --- !u!114 &4529802426374235587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34368,7 +34370,7 @@ GameObject:
   - component: {fileID: 3319482117829420272}
   m_Layer: 0
   m_Name: PlayerCapsule
-  m_TagString: Untagged
+  m_TagString: Player Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
