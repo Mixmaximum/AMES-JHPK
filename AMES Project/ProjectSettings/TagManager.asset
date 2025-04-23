@@ -10,6 +10,8 @@ TagManager:
   - PlayerChild
   - Slide
   - Player Collider
+  - HUD
+  - MaskRangeTrigger
   layers:
   - Default
   - TransparentFX

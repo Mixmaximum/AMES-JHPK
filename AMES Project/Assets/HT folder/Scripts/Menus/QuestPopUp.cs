@@ -53,7 +53,7 @@ public class QuestPopUp : MonoBehaviour
         }
         else if (maskPickedUp && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
-            barrier.SetActive(false);
+            maskBarrier.SetActive(false);
             missionText.text = ("Mission: ") + thirdPrompt;
         }
 
