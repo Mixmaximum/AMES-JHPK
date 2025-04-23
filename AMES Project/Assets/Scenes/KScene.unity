@@ -4009,10 +4009,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WalkEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 4026298784431884209, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
-      propertyPath: enemyVisionRange
-      value: 10.2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
