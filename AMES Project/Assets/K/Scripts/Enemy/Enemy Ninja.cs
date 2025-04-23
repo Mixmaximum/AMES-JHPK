@@ -21,10 +21,12 @@ public class EnemyNinja : BaseEnemy
     DataHandler dH;
     Animator anim;
     Vector3 destination;
+    Vector3 lookDir;
     float maxCooldown = 1.3f;
     float currentCooldown;
     Rigidbody rBody;
-    float bodyCleanup;
+    [SerializeField] float bodyCleanup;
+    [SerializeField] float enemyVisionRange;
 
     private void Start()
     {
@@ -38,22 +40,15 @@ public class EnemyNinja : BaseEnemy
     public override void Movement() // Handles movement towards the player
     {
         agent.speed = speed * dH.timeMultiplier; // multiplying the speed by a variable that gets cut in half by the time slow mask
-        destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
-        if(agent.enabled)
-        {
-            agent.destination = destination;
-            agent.destination.Normalize();
-        }
+        agent.destination.Normalize();
 
         anim.SetInteger("Walking", (int)agent.velocity.x); // checks if the enemy is moving
         if (agent.velocity.x == 0)
             anim.SetInteger("Walking", (int)agent.velocity.z);
         anim.speed = dH.timeMultiplier;
 
-        Vector3 LookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
-
         if(!isDead)
-        transform.LookAt(LookDir, Vector3.up); // handles the enemy looking at the player 
+        transform.LookAt(lookDir, Vector3.up); // handles the enemy looking at the player 
     }
 
     public override void Attack()
@@ -73,7 +68,7 @@ public class EnemyNinja : BaseEnemy
 
     public void AttackDetection()
     {
-        if (Vector3.Distance(destination, transform.position) <= 1.1f) // if the player is close at a specific point in the animation, then they take damage.
+        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= 1.1f) // if the player is close at a specific point in the animation, then they take damage.
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
         if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health <= 0) // enemys stop running towards you when you die
             destination = transform.position;
@@ -87,6 +82,21 @@ public class EnemyNinja : BaseEnemy
             bodyCleanup += Time.deltaTime;
         if (bodyCleanup >= 30)
             Destroy(gameObject);
+        PlayerDetection();
+    }
+
+    public void PlayerDetection()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 13.0f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
+        {
+            destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
+            lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
+            agent.destination = destination;
+        }
+
     }
 
     private IEnumerator Stun() // fudge factor
