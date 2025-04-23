@@ -28,10 +28,9 @@ public class PlayerAttack : MonoBehaviour
 
     public IEnumerator Attack()
     {
-        anim.SetTrigger("Attack");
         anim.SetBool("IsAttacking", true);
-        cooldown = 0.75f;
-        yield return new WaitForSeconds(0.75f);
+        cooldown = 1.4f;
+        yield return new WaitForSeconds(1.1f);
         anim.SetBool("IsAttacking", false);
         StopCoroutine(Attack());
     }

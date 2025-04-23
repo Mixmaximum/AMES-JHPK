@@ -1514,11 +1514,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8649354071523459584, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
---- !u!95 &641893474 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3453339157920163303, guid: 7ce58905982ae8b459e7a427427563fb, type: 3}
-  m_PrefabInstance: {fileID: 1054780411}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &653608404 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1682314376347877638, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
@@ -2167,14 +2162,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1377863648447570556, guid: 7ce58905982ae8b459e7a427427563fb, type: 3}
-      propertyPath: GiveMePlease
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2349288862419533110, guid: 7ce58905982ae8b459e7a427427563fb, type: 3}
-      propertyPath: thirdAnimator
-      value: 
-      objectReference: {fileID: 641893474}
     - target: {fileID: 2595144038440916032, guid: 7ce58905982ae8b459e7a427427563fb, type: 3}
       propertyPath: m_Name
       value: Player Model
@@ -3924,14 +3911,6 @@ PrefabInstance:
     - target: {fileID: 1884962777322183022, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
       propertyPath: m_Name
       value: WalkEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 4026298784431884209, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
-      propertyPath: health
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 4026298784431884209, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
-      propertyPath: maxHealth
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
