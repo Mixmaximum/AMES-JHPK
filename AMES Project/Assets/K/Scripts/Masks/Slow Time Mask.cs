@@ -25,7 +25,7 @@ public class SlowTimeMask : Mask
         // so the way this is going to work is that enemies, objects, and whatever are going to have their speeds tied to a variable so that they can be manipulated individually
         // what does this mean? Well basically instead of manipulating Time.timeScale directly (which would potentially introduce a whole heap of issues, one would be messing with pausing)
         // We manipulate a variable that affects the time of enemies, objects, and anything else independently. So enemies might have their speeds, animations, look like this:
-        // speed = 3 * (Time.timescale / Multiplier), and we would just manipulate the multiplier variable rather than the timescale of the entire game.
+        // speed = 3 * (Multiplier), and we would just manipulate the multiplier variable rather than the timescale of the entire game.
 
         // Since scriptable objects can't start coroutines, there's probably going to be a GameObject with a monobehaviour script component on it that 1. holds the multiplier variable
         // and 2. holds the coroutine that actually slows the time. This function would just activate that coroutine by finding that object and going "Hey! Activate your thing."

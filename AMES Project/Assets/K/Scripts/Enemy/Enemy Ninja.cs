@@ -90,7 +90,7 @@ public class EnemyNinja : BaseEnemy
         RaycastHit hit;
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 
-        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 13.0f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 30f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
         {
             destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
             lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
@@ -103,7 +103,7 @@ public class EnemyNinja : BaseEnemy
     {
         agent.enabled = false;
         rBody.constraints = RigidbodyConstraints.FreezePositionY;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
         rBody.constraints = RigidbodyConstraints.None;
         if(!isDead)
         agent.enabled = true;
