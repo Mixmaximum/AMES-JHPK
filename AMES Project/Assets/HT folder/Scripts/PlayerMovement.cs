@@ -5,22 +5,22 @@ public class PlayerMovement : MonoBehaviour
     float playerHeight = 2f;
 
     [Header("References")]
-    [SerializeField] Transform orientation;
-    [SerializeField] WallRun wallrun;
-    [SerializeField] Animator animator;  // First Animator
-    [SerializeField] Animator secondAnimator;  // Second Animator
-    [SerializeField] Animator thirdAnimator;
-    [SerializeField] Transform groundCheck;
+    [SerializeField] Transform orientation; // Used to determine movement direction based on camera/player rotation
+    [SerializeField] WallRun wallrun; // Reference to the WallRun script (if applicable)
+    [SerializeField] Animator animator; // Primary animator for player animations
+    [SerializeField] Animator secondAnimator; // Additional animator
+    [SerializeField] Animator thirdAnimator; // Third animator, possibly for combat or special animations
+    [SerializeField] Transform groundCheck; // Transform used to check if the player is grounded
 
     [Header("Movement")]
-    [SerializeField] float moveSpeed = 6f;
-    [SerializeField] float movementMultiplier = 10f;
-    [SerializeField] float airMovementMultiplier = 0.4f;
+    [SerializeField] float moveSpeed = 6f; // Movement speed
+    [SerializeField] float movementMultiplier = 10f; // Ground movement force multiplier
+    [SerializeField] float airMovementMultiplier = 0.4f; // Air movement force multiplier
 
     [Header("Sprinting")]
-    [SerializeField] public float walkSpeed = 4f;
-    [SerializeField] public float sprintSpeed = 6f;
-    [SerializeField] float acceleration = 10f;
+    [SerializeField] public float walkSpeed = 4f; // Walking speed
+    [SerializeField] public float sprintSpeed = 6f; // Sprinting speed
+    [SerializeField] float acceleration = 10f; // Rate of speed change
 
     [Header("Keybinds")]
     [SerializeField] KeyCode jumpKey = KeyCode.Space;
@@ -30,8 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jumping/Ground")]
     [SerializeField] float jumpForce = 5f;
-    [SerializeField] float groundDistance = 0.4f;
-    [SerializeField] LayerMask ground;
+    [SerializeField] float groundDistance = 0.4f; // Distance to check for ground
+    [SerializeField] LayerMask ground; // What is considered "ground"
 
     [Header("Drag")]
     [SerializeField] float groundDrag = 6f;
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float ceilingCheckRange;
 
     [Header("Crouch Settings")]
-    [SerializeField] private Vector3 crouchHeight;
+    [SerializeField] private Vector3 crouchHeight; // Player height when crouching
     [SerializeField] private float crouchMoveSpeed;
     [SerializeField] private float crouchSprintSpeed;
     [SerializeField] private float crouchFloorDetectDist;
@@ -59,9 +59,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource walkSound;
     [SerializeField] private AudioSource runSound;
-    [SerializeField] private AudioSource slideSound; // New slide sound
-    [SerializeField] private AudioSource jumpSound; // New jump sound
+    [SerializeField] private AudioSource slideSound;
+    [SerializeField] private AudioSource jumpSound;
 
+    // Runtime variables
     public float currentVelocity;
     float horizontalMovement;
     float verticalMovement;
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     float currentSlideCoyoteTime;
     float dAngle;
 
+    // State flags
     public bool isSliding;
     public bool isSprinting;
     public bool isGrounded;
@@ -81,10 +83,12 @@ public class PlayerMovement : MonoBehaviour
 
     int impulseCounter;
 
+    // Movement direction vectors
     Vector3 moveDirection;
     Vector3 slopeMoveDirection;
     Vector3 slideDirection;
 
+    // Slope and ceiling detection
     RaycastHit slopeHit;
     RaycastHit ceilingHit;
 
@@ -93,29 +97,29 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        rb.freezeRotation = true; // Prevents player from tipping over
 
+        // Ensure max slide force is at least as large as slide force
         if (maxSlideForce < slideForce)
         {
             maxSlideForce = slideForce;
         }
+
+        // Prevent the Rigidbody from sleeping
         rb.sleepThreshold = 0;
     }
 
     private void Update()
     {
-        if (!isSliding)
-        {
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, ground);
-        }
-        else if (isSliding)
-        {
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance * 2, ground);
-        }
+        // Update grounded check
+        isGrounded = Physics.CheckSphere(groundCheck.position, isSliding ? groundDistance * 2 : groundDistance, ground);
         ableToCrouch = Physics.CheckSphere(groundCheck.position, crouchFloorDetectDist, ground);
-        CeilingCheck();
-        MyInput();
-        StartSlide();
+
+        CeilingCheck(); // Check if player is under ceiling
+        MyInput(); // Read player input
+        StartSlide(); // Try initiating slide
+
+        // Handle jumping
         if (Input.GetKeyDown(jumpKey) && isGrounded)
         {
             Jump();
@@ -126,51 +130,47 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
         }
 
-        if (isSliding && Input.GetKeyDown(jumpKey) ||isSliding && Input.GetKeyUp(slideKey))
+        // Slide jump or slide end
+        if ((isSliding && Input.GetKeyDown(jumpKey)) || (isSliding && Input.GetKeyUp(slideKey)))
         {
-            //animator.SetBool("IsJumping", true);
-
-            // Play the jump sound
             if (jumpSound != null && !jumpSound.isPlaying)
                 jumpSound.Play();
-            if (Input.GetKeyDown(jumpKey) && isGrounded || Input.GetKeyDown(jumpKey) && currentSlideCoyoteTime <= 0) //checks groundedness
+
+            if ((Input.GetKeyDown(jumpKey) && isGrounded) || currentSlideCoyoteTime <= 0)
             {
-                // has player jump forwards
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
                 rb.AddForce(transform.up * slideJumpForce, ForceMode.Impulse);
                 isJumping = true;
             }
-            StopSlide();
+
+            StopSlide(); // End slide
         }
 
-        Crouch();
-
-        currentVelocity = rb.linearVelocity.magnitude;
-
-        slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
-
-        UpdateAnimations();
-
-        // Walking, Running, Sliding, and Jump Sounds
-        HandleMovementSounds();
+        Crouch(); // Handle crouching logic
+        currentVelocity = rb.linearVelocity.magnitude; // Update velocity
+        slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal); // Adjust move direction on slopes
+        UpdateAnimations(); // Update animation parameters
+        HandleMovementSounds(); // Play appropriate movement sounds
     }
 
     private void FixedUpdate()
     {
-        ControlDrag();
-        ControlSpeed();
-        MovePlayer();
+        ControlDrag(); // Update drag based on grounded state
+        ControlSpeed(); // Update speed based on input
+        MovePlayer(); // Apply movement forces
+
         if (isSliding)
         {
-            SlideMovement();
+            SlideMovement(); // Apply sliding forces
         }
-
     }
 
     void MyInput()
     {
         horizontalMovement = Input.GetAxisRaw("Horizontal");
         verticalMovement = Input.GetAxisRaw("Vertical");
+
+        // Calculate direction based on orientation
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
     }
 
@@ -186,6 +186,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool OnSlope()
     {
+        // Check if player is on a slope
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.5f))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
@@ -198,52 +199,37 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         rb.WakeUp();
-        if (!isGrounded)
-        {
-            return;
-        }
 
-        if (isGrounded) //checks groundedness
-        {
-            // has player jump forwards
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        }
+        if (!isGrounded) return;
+
+        // Reset vertical velocity and apply upward force
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
         isJumping = true;
-        //animator.SetBool("IsJumping", true);
 
-        // Play the jump sound
         if (jumpSound != null && !jumpSound.isPlaying)
             jumpSound.Play();
     }
 
     void ControlSpeed()
     {
+        // Adjust moveSpeed based on sprint/crouch state
         if (Input.GetKey(sprintKey) && isGrounded && !isCrouching)
-        {
             moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
-            isSprinting = true;
-        }
         else if (isCrouching && !Input.GetKey(sprintKey))
-        {
             moveSpeed = Mathf.Lerp(moveSpeed, crouchMoveSpeed, acceleration * Time.deltaTime);
-            isSprinting = false;
-        }
         else if (Input.GetKey(sprintKey) && isCrouching)
-        {
             moveSpeed = Mathf.Lerp(moveSpeed, crouchSprintSpeed, acceleration * Time.deltaTime);
-            isSprinting = true;
-        }
         else
-        {
             moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
-            isSprinting = false;
-        }
+
+        isSprinting = Input.GetKey(sprintKey);
     }
 
     void ControlDrag()
     {
+        // Update drag based on grounded state
         rb.linearDamping = isGrounded ? groundDrag : airDrag;
     }
 
@@ -269,9 +255,9 @@ public class PlayerMovement : MonoBehaviour
 
     void CeilingCheck()
     {
+        // Check if there is a ceiling above the player when crouching or sliding
         if (isSliding || isCrouching)
         {
-
             if (Physics.Raycast(transform.position, Vector3.up, ceilingCheckRange))
             {
                 isUnderCeiling = true;
@@ -289,26 +275,33 @@ public class PlayerMovement : MonoBehaviour
 
     void StartSlide()
     {
+        // Start sliding if speed threshold is met and player is grounded and not crouching already
         if (Input.GetKeyDown(slideKey) && !isCrouching && currentVelocity >= requiredSlideSpeed && !isSliding && isGrounded)
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
             isSliding = true;
             currentSlideSpeed = slideForce;
+
+            // Set the slide direction based on player input
             slideDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+
+            // Set timers for coyote time and fall delay
             currentSlideDelayTime = slideFallDelay;
             currentSlideCoyoteTime = slideCoyoteTime;
+
             Debug.Log("fwoomp");
         }
     }
 
     void SlideMovement()
     {
-        // Get the player's current velocity in the direction of wallRunDirection
+        // Determine how fast player is moving in the forward direction
         float forwardSpeed = Vector3.Dot(rb.linearVelocity, orientation.forward);
 
-        // Accelerate only if under the desired wall run speed in that direction
+        // Only apply slide force if under the max slide speed
         if (forwardSpeed < maxSlideForce)
         {
+            // Wait for fall delay if not grounded
             if (!isGrounded)
             {
                 if (slideFallDelay >= 0)
@@ -321,7 +314,8 @@ public class PlayerMovement : MonoBehaviour
                     return;
                 }
             }
-            // Apply the movement force
+
+            // Apply slide force either on a slope or flat surface
             if (OnSlope())
             {
                 rb.AddForce(slopeMoveDirection * currentSlideSpeed, ForceMode.Force);
@@ -333,65 +327,63 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Applying Force (Flat)");
             }
         }
+
+        // Decrease coyote time over time
         currentSlideCoyoteTime -= Time.deltaTime;
     }
 
     void StopSlide()
     {
+        // Reset slide state and scale
         isSliding = false;
         transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     void UpdateAnimations()
     {
-        // Update the main animator
+        // Update first animator with current movement state
         animator.SetFloat("Speed", currentVelocity);
-        //animator.SetBool("IsGrounded", isGrounded);
         animator.SetBool("IsFalling", !isGrounded);
-        animator.SetBool("IsSliding", isSliding);  // Update sliding animation in first animator
+        animator.SetBool("IsSliding", isSliding);
 
-        // Update the second animator
-        //secondAnimator.SetFloat("Speed", currentVelocity);
-        //secondAnimator.SetBool("IsGrounded", isGrounded);
-        //secondAnimator.SetBool("IsFalling", !isGrounded);
-        secondAnimator.SetBool("IsSliding", isSliding);  // Update sliding animation in second animator
+        // Update second animator similarly (grounded and falling updates are commented)
+        secondAnimator.SetBool("IsSliding", isSliding);
 
-        // Prevent speed-up during attack animation
+        // Control animation playback speed based on velocity unless attacking
         if (!thirdAnimator.GetBool("IsAttacking"))
         {
             thirdAnimator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f);
-            secondAnimator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f); // Make sure the second animator matches the same speed
+            secondAnimator.speed = Mathf.Clamp(currentVelocity / 5f, 0.5f, 2f);
         }
-        else if (thirdAnimator.GetBool("IsAttacking")) // i added this because i'm insane
+        else if (thirdAnimator.GetBool("IsAttacking"))
         {
-            thirdAnimator.speed = 1f; // Keep attack animation at normal speed
-            secondAnimator.speed = 1f; // Keep second animator at normal speed
+            thirdAnimator.speed = 1f;
+            secondAnimator.speed = 1f;
         }
     }
 
     void HandleMovementSounds()
     {
-        // Only play sounds when grounded and not sliding
+        // Only play footstep sounds when grounded and not sliding
         if (isGrounded && !isSliding)
         {
-            // Walking Sound
-            if (currentVelocity > 0 && currentVelocity < sprintSpeed) // Walking
+            if (currentVelocity > 0 && currentVelocity < sprintSpeed)
             {
+                // Walking
                 if (!walkSound.isPlaying)
                     walkSound.Play();
 
-                // Adjust the pitch based on speed (higher speed = higher pitch)
                 walkSound.pitch = Mathf.Lerp(1f, 1.5f, currentVelocity / sprintSpeed);
 
                 if (runSound.isPlaying)
                     runSound.Stop();
             }
-            else if (currentVelocity >= sprintSpeed) // Running
+            else if (currentVelocity >= sprintSpeed)
             {
+                // Running
                 if (!runSound.isPlaying)
                     runSound.Play();
 
-                // Adjust the pitch based on speed (higher speed = higher pitch)
                 runSound.pitch = Mathf.Lerp(1f, 1.5f, (currentVelocity - sprintSpeed) / sprintSpeed);
 
                 if (walkSound.isPlaying)
@@ -399,6 +391,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
+                // Idle
                 if (walkSound.isPlaying)
                     walkSound.Stop();
 
@@ -406,30 +399,26 @@ public class PlayerMovement : MonoBehaviour
                     runSound.Stop();
             }
         }
-        else if (isSliding) // Play slide sound when sliding
+        else if (isSliding)
         {
+            // Sliding sound logic
             if (!slideSound.isPlaying)
                 slideSound.Play();
 
-            // Adjust the pitch based on sliding speed
             slideSound.pitch = Mathf.Lerp(1f, 1.5f, currentVelocity / sprintSpeed);
 
-            // Stop other sounds during slide
             if (walkSound.isPlaying)
                 walkSound.Stop();
-
             if (runSound.isPlaying)
                 runSound.Stop();
         }
         else
         {
-            // Stop sounds if not grounded
+            // Player is in air or not moving
             if (walkSound.isPlaying)
                 walkSound.Stop();
-
             if (runSound.isPlaying)
                 runSound.Stop();
-
             if (slideSound.isPlaying)
                 slideSound.Stop();
         }

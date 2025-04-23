@@ -27,7 +27,7 @@ public class WallRunAnimator : MonoBehaviour
 
         if (leftWallProperty == null || rightWallProperty == null)
         {
-            Debug.LogError("WallRunAnimator: Script must have public bools 'LeftWall' and 'RightWall'.");
+            //Debug.LogError("WallRunAnimator: Script must have public bools 'LeftWall' and 'RightWall'.");
             enabled = false;
         }
     }

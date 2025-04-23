@@ -18,15 +18,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa9b61b5d5414dd4fbe335229db097f7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 233.58228
+      value: 167.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa9b61b5d5414dd4fbe335229db097f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000076293945
+      value: 133.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa9b61b5d5414dd4fbe335229db097f7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 133.82286
+      value: 411.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa9b61b5d5414dd4fbe335229db097f7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -594,6 +594,8 @@ MonoBehaviour:
   speed: 5
   damage: 20
   isDead: 0
+  bodyCleanup: 0
+  enemyVisionRange: 10.2
 --- !u!54 &1398649849143826781
 Rigidbody:
   m_ObjectHideFlags: 0

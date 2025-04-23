@@ -5,11 +5,11 @@ public class SpeedMask : Mask
     public SpeedMask()
     {
         maskName = "Speed Boost Mask";
-        maskDesc = "A mask that boosts your speed as long as you have it equipped.";
+        maskDesc = "A mask that boosts your speed for 15 seconds when you hit F---has a cooldown of 30 seconds";
         currentUses = 1;
         maxUses = 1;
         currentCooldown = 0f;
-        cooldown = 30f;
+        cooldown = 15f;
     }
 
     bool isAble;
@@ -40,6 +40,9 @@ public class SpeedMask : Mask
             isAble = false;
             speedCooldown = 0;
         }
+
+        if (isAble)
+            currentCooldown = 0f;
     }
 }
 

@@ -5,7 +5,7 @@ public class DoubleJumpMask : Mask
     public DoubleJumpMask()
     {
         maskName = "Double Jump Mask";
-        maskDesc = "A mask that makes you jump regardless of where you are when you hit F; has a cooldown of 3 seconds.";
+        maskDesc = "A mask that makes you jump regardless of where you are when you hit F---has a cooldown of 3 seconds.";
         cooldown = 3f;
         currentCooldown = 0f;
         maxUses = 1;
@@ -14,6 +14,7 @@ public class DoubleJumpMask : Mask
 
     public override void MaskAbility()
     {
+        if(!GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().isSliding || !GameObject.FindGameObjectWithTag("Player").GetComponent<WallRun>().wallRunning)
         base.MaskAbility();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Rigidbody rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
