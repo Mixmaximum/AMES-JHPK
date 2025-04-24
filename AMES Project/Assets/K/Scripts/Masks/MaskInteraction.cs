@@ -17,6 +17,7 @@ public class MaskInteraction : MonoBehaviour
 
     [SerializeField] bool GiveMePlease;
     [SerializeField] TextMeshProUGUI maskEquipText; // text that shows what mask you currently have equipped.
+    [SerializeField] Image maskCooldown;
 
     void Update()
     {
