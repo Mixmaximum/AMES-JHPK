@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 9f439811717e07b4e9f247bec5c40296
   - enabled: 1
-    path: Assets/Scenes/Peyton Scene.unity
-    guid: fd5b756ca54e37240aa75765a5a9abfe
+    path: Assets/Scenes/Levels/Intro.unity
+    guid: 88ab0686584d45e42bd81021a9aa58a2
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 1.unity
+    guid: 3e2aca3802762254389c032b896678f5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
