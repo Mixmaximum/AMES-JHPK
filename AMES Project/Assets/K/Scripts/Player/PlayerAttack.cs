@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
 
     
 
-    public IEnumerator Attack()
+    public IEnumerator Attack() // plays the attack animation
     {
         anim.SetBool("IsAttacking", true);
         cooldown = 1.4f;
@@ -35,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
         StopCoroutine(Attack());
     }
 
-    public void AttackDetection()
+    public void AttackDetection() // detects if there is anything infront of the player when they attack
     {
         RaycastHit hit;
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
@@ -51,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    public IEnumerator Hitstop()
+    public IEnumerator Hitstop() // hitstop for more oomph
     {
         anim.enabled = false;
         Debug.Log("Hit");

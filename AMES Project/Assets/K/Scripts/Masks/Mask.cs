@@ -31,7 +31,7 @@ public class Mask : ScriptableObject
         // This function would be called when you pick up a mask.
         // This could potentially be used for static buffs to the player, like more health or speed.
         // You wouldn't use this for abilities you would want to activate with a key, or abilities you would want when the player has the mask equipped.
-        // Generally if you're using this function then this mask wouldn't necessarily be equippable at all since it would just be a static buff.
+        // Generally if you're using this method then this mask wouldn't necessarily be equippable at all since it would just be a static buff.
     }
 
     public void ResetUses()
@@ -48,7 +48,7 @@ public class Mask : ScriptableObject
 
     public virtual void OnEquip()
     {
-        // place code here that you want toe mask to do when it is equipped, like increasing the players speed for example.
+        // place code here that you want the mask to do when it is equipped, like increasing the players speed for example.
     }
 
     public virtual void OnUnequip()
