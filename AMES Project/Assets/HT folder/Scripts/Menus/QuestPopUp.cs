@@ -21,7 +21,7 @@ public class QuestPopUp : MonoBehaviour
     [SerializeField] private string thirdPrompt; // when you need to fight boss
 
     public bool withinMaskRange;
-    bool maskPickedUp;
+    public bool maskPickedUp;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

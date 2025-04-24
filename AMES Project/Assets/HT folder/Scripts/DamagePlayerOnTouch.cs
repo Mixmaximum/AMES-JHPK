@@ -17,7 +17,14 @@ public class DamagePlayerOnTouch : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "PlayerCollider")
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damageAmount);
+        }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damageAmount);
         }

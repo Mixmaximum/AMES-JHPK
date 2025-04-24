@@ -50,6 +50,7 @@ public class MaskInteraction : MonoBehaviour
         {
             equippedMask = maskInventory[0]; 
             equippedMask.OnEquip();
+            maskEquipText.text = equippedMask.GetName();
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && cycleCount + 1 <= maskInventory.Count - 1 && maskInventory.Count > 1) // the second part is "If adding to the index wouldnt go over the number of items in the list"
