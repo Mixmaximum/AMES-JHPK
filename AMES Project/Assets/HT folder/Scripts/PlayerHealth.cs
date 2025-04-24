@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
 
     float invincibilityTimeRemaining = 0f;
     bool isInvincible = false;
-    float healTimer;
+    public float healTimer;
     float maxHealth;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -61,11 +61,18 @@ public class PlayerHealth : MonoBehaviour
         {
             healTimer -= Time.deltaTime;
 
-            if (healTimer == 0)
+            if (healTimer <= 0)
             {
-                Heal(healAmount);
+                if (health + healAmount > maxHealth)
+                {
+                    health = maxHealth;
+                }
+                else
+                {
+                    Heal(healAmount);
+                }
 
-                if (health != maxHealth)
+                if (health < maxHealth)
                 {
                     healTimer = timeToHeal;
                 }
