@@ -1464,6 +1464,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2476926542935074817, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
+--- !u!114 &785789421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5029226913856464068, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+  m_PrefabInstance: {fileID: 989195525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &834828495 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5139928639550692851, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
@@ -30912,6 +30923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+  healthBar: {fileID: 785789421}
   health: 150
   healAmount: 150
   timeToHeal: 2
