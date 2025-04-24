@@ -21,7 +21,7 @@ public class QuestPopUp : MonoBehaviour
     [SerializeField] private string thirdPrompt; // when you need to fight boss
 
     public bool withinMaskRange;
-    bool maskPickedUp;
+    public bool maskPickedUp;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,7 +49,7 @@ public class QuestPopUp : MonoBehaviour
 
         if (maskPickedUp && GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
         {
-            missionText.text = ("Mission: ") + secondPrompt + GameObject.FindGameObjectsWithTag("Enemy").Length + ("left");
+            missionText.text = ("Mission: ") + secondPrompt + (" ") + GameObject.FindGameObjectsWithTag("Enemy").Length + (" left");
         }
         else if (maskPickedUp && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {

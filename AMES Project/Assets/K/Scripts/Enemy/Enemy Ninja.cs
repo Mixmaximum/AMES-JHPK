@@ -22,11 +22,12 @@ public class EnemyNinja : BaseEnemy
     Animator anim;
     Vector3 destination;
     Vector3 lookDir;
-    float maxCooldown = 1.3f;
+    [SerializeField] float maxCooldown = 2.0f;
     float currentCooldown;
     Rigidbody rBody;
     [SerializeField] float bodyCleanup;
     [SerializeField] float enemyVisionRange;
+    [SerializeField] float enemyAttackDetectionRange = 3.0f;
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class EnemyNinja : BaseEnemy
         dH = GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>();
         anim = GetComponent<Animator>();
         rBody = GetComponent<Rigidbody>();
-        currentCooldown = 0;
+        currentCooldown = maxCooldown;
     }
 
     public override void Movement() // Handles movement towards the player
@@ -51,12 +52,12 @@ public class EnemyNinja : BaseEnemy
         transform.LookAt(lookDir, Vector3.up); // handles the enemy looking at the player 
     }
 
-    public override void Attack()
+    public override void Attack() // handles the enemy attacking if the player is within range
     {
-        if (Vector3.Distance(destination, transform.position) <= 1.1f)
+        if (Vector3.Distance(destination, transform.position) <= 1.2f)
         {
             anim.SetBool("Close", true);
-            if (currentCooldown > maxCooldown)
+            if (currentCooldown >= maxCooldown)
             {
                 anim.SetTrigger("Attack");
                 StartCoroutine(Stun());
@@ -66,10 +67,14 @@ public class EnemyNinja : BaseEnemy
         else anim.SetBool("Close", false);
     }
 
-    public void AttackDetection()
+    public void AttackDetection() // detects if the player is within range of an attack
     {
-        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= 1.1f) // if the player is close at a specific point in the animation, then they take damage.
+        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= enemyAttackDetectionRange) // if the player is close at a specific point in the animation, then they take damage.
+        {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
+            Debug.Log("The player was hit!");
+        }
+
         if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health <= 0) // enemys stop running towards you when you die
             destination = transform.position;
     }
@@ -85,7 +90,7 @@ public class EnemyNinja : BaseEnemy
         PlayerDetection();
     }
 
-    public void PlayerDetection()
+    public void PlayerDetection() // detects if the player is within range of detection
     {
         RaycastHit hit;
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
@@ -96,33 +101,32 @@ public class EnemyNinja : BaseEnemy
             lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
             agent.destination = destination;
         }
-
     }
 
     private IEnumerator Stun() // fudge factor
     {
         agent.enabled = false;
         rBody.constraints = RigidbodyConstraints.FreezePositionY;
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.325f);
         rBody.constraints = RigidbodyConstraints.None;
         if(!isDead)
         agent.enabled = true;
         StopCoroutine(Stun());
     }
 
-    public override void Knockback()
+    public override void Knockback() // funny
     {
-        //rBody.AddForce(transform.forward * 100000000000000000000000f, ForceMode.Impulse);
+        rBody.AddForce(transform.forward * -1000f, ForceMode.Impulse);
     }
 
-    public override void OnDeath()
+    public override void OnDeath() // runs when the enemy dies
     {
         base.OnDeath();
-        Knockback();
         GetComponent<BoxCollider>().enabled = false;
         Debug.Log("I.. I am dead.");
         agent.enabled = false;
         anim.enabled = false;
+        Knockback();
         anim.speed = 0;
     }
 }

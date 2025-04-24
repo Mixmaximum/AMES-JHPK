@@ -2,10 +2,12 @@ using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] GameObject cam;
+    [SerializeField] Image healthBar;
 
     [Header("Health Settings")]
     [SerializeField] public float health;
@@ -19,12 +21,13 @@ public class PlayerHealth : MonoBehaviour
 
     float invincibilityTimeRemaining = 0f;
     bool isInvincible = false;
-    float healTimer;
+    public float healTimer;
     float maxHealth;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         maxHealth = health;
+        healthBar.fillAmount = health / maxHealth;
     }
 
     // Update is called once per frame
@@ -32,8 +35,6 @@ public class PlayerHealth : MonoBehaviour
     {
         HandleIFrames();
         HealOverTime();
-
-
     }
     public void TakeDamage(float damage)
     {
@@ -42,6 +43,7 @@ public class PlayerHealth : MonoBehaviour
             health -= damage;
             isInvincible = true;
             invincibilityTimeRemaining = invincibilityDuration;
+            healthBar.fillAmount = health / maxHealth;
             if (health <= 0)
             {
                 Die();
@@ -53,6 +55,7 @@ public class PlayerHealth : MonoBehaviour
     public void Heal(float healing) 
     {
         health += healing;
+        healthBar.fillAmount = health / maxHealth;
     }
 
     private void HealOverTime()
@@ -61,11 +64,19 @@ public class PlayerHealth : MonoBehaviour
         {
             healTimer -= Time.deltaTime;
 
-            if (healTimer == 0)
+            if (healTimer <= 0)
             {
-                Heal(healAmount);
+                if (health + healAmount > maxHealth)
+                {
+                    health = maxHealth;
+                    healthBar.fillAmount = health / maxHealth;
+                }
+                else
+                {
+                    Heal(healAmount);
+                }
 
-                if (health != maxHealth)
+                if (health < maxHealth)
                 {
                     healTimer = timeToHeal;
                 }
