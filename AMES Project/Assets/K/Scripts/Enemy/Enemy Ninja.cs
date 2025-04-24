@@ -74,7 +74,7 @@ public class EnemyNinja : BaseEnemy
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
             Debug.Log("The player was hit!");
         }
-        else rBody.AddForce(transform.up * -100);
+
         if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health <= 0) // enemys stop running towards you when you die
             destination = transform.position;
     }
@@ -101,7 +101,6 @@ public class EnemyNinja : BaseEnemy
             lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
             agent.destination = destination;
         }
-
     }
 
     private IEnumerator Stun() // fudge factor

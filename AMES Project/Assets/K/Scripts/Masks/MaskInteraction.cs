@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
+
 public class MaskInteraction : MonoBehaviour
 {
 
@@ -16,16 +17,18 @@ public class MaskInteraction : MonoBehaviour
 
     [SerializeField] bool GiveMePlease;
     [SerializeField] TextMeshProUGUI maskEquipText; // text that shows what mask you currently have equipped.
+    [SerializeField] Image maskCooldown;
 
     void Update()
     {
         CycleMasks();
         MaskControl();
+        maskCooldown.fillAmount = equippedMask.currentCooldown / equippedMask.cooldown;
     }
 
     private void Start()
     {
-        GiveAllMasks();
+       GiveAllMasks();
     }
 
     public void MaskControl()
