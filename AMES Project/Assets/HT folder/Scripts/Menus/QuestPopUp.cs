@@ -49,7 +49,7 @@ public class QuestPopUp : MonoBehaviour
 
         if (maskPickedUp && GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
         {
-            missionText.text = ("Mission: ") + secondPrompt + GameObject.FindGameObjectsWithTag("Enemy").Length + ("left");
+            missionText.text = ("Mission: ") + secondPrompt + (" ") + GameObject.FindGameObjectsWithTag("Enemy").Length + (" left");
         }
         else if (maskPickedUp && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {

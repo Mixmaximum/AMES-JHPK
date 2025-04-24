@@ -634,6 +634,28 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &427844197 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5029226913856464068, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+  m_PrefabInstance: {fileID: 774352466900935826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &450344045 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5568547607740191276, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+  m_PrefabInstance: {fileID: 774352466900935826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &506422696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,6 +1131,8 @@ Transform:
   - {fileID: 311234482}
   - {fileID: 1423847666}
   - {fileID: 2056513454}
+  - {fileID: 819108189}
+  - {fileID: 1466505134}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &680331810
@@ -1323,12 +1347,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819108185}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -10.601945, y: 0.567, z: -15.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 548663838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &819108190
 MonoBehaviour:
@@ -2406,12 +2430,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1466505130}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 19.55, y: 14, z: 15.97}
   m_LocalScale: {x: 3.9033, y: 1, z: 7.2799}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 548663838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1496372994
 GameObject:
@@ -5551,10 +5575,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+  healthBar: {fileID: 427844197}
   health: 150
   healAmount: 150
   timeToHeal: 2
-  invincibilityDuration: 2
+  invincibilityDuration: 0.5
+  healTimer: 0
 --- !u!1 &597198689433810315
 GameObject:
   m_ObjectHideFlags: 0
@@ -36465,8 +36491,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maskInventory: []
-  GiveMePlease: 1
-  maskEquipText: {fileID: 0}
+  GiveMePlease: 0
+  maskEquipText: {fileID: 450344045}
+  cooldownImage: {fileID: 0}
 --- !u!1 &5805776615992306189
 GameObject:
   m_ObjectHideFlags: 0
@@ -55433,11 +55460,9 @@ SceneRoots:
   - {fileID: 548663838}
   - {fileID: 1123005760}
   - {fileID: 1971976069}
-  - {fileID: 819108189}
   - {fileID: 1395281861}
   - {fileID: 1902286320}
   - {fileID: 111413690}
-  - {fileID: 1466505134}
   - {fileID: 1839161712}
   - {fileID: 774352466900935826}
   - {fileID: 5981890129997616172}
