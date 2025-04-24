@@ -61,4 +61,9 @@ public class Mask : ScriptableObject
         // this goes in update, and it goes for ALL masks. Put stuff in here that you want to be running all the time, regardless of whether it is equipped.
         // I'm mostly aiming to use this just for checks like "If time is stopped, then don't run down the cooldown!"
     }
+
+    public string GetName()
+    {
+        return maskName;
+    }
 }

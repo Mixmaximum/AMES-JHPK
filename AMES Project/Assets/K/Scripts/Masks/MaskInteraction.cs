@@ -58,7 +58,7 @@ public class MaskInteraction : MonoBehaviour
             cycleCount++; // cycles the count up, so that you can switch masks. It works the same way when you subtract
             equippedMask = maskInventory[cycleCount]; // set the equipped mask to what the index is set to
             equippedMask.OnEquip(); // runs the equip method for the new currently equipped mask, if it has one.
-            maskEquipText.text = equippedMask.name;
+            maskEquipText.text = equippedMask.GetName();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") > 0 && cycleCount + 1 > maskInventory.Count - 1 && maskInventory.Count > 1) // if adding to the index WOULD go over the number of items in the list
         {
@@ -67,7 +67,7 @@ public class MaskInteraction : MonoBehaviour
             cycleCount = 0; // reset the count to zero
             equippedMask = maskInventory[cycleCount];
             equippedMask.OnEquip();
-            maskEquipText.text = equippedMask.name;
+            maskEquipText.text = equippedMask.GetName();
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0 && cycleCount - 1 >= 0 && maskInventory.Count > 1) // if subtracting from the index wouldnt be less than zero
@@ -76,7 +76,7 @@ public class MaskInteraction : MonoBehaviour
             cycleCount--;
             equippedMask = maskInventory[cycleCount];
             equippedMask.OnEquip();
-            maskEquipText.text = equippedMask.name;
+            maskEquipText.text = equippedMask.GetName();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && cycleCount - 1 < 0 && maskInventory.Count > 1) //if it would be reset it to zero
         {
@@ -85,7 +85,7 @@ public class MaskInteraction : MonoBehaviour
             cycleCount = 0;
             equippedMask = maskInventory[cycleCount];
             equippedMask.OnEquip();
-            maskEquipText.text = equippedMask.name;
+            maskEquipText.text = equippedMask.GetName();
         }
     }
 

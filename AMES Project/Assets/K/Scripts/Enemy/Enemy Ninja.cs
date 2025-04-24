@@ -22,11 +22,12 @@ public class EnemyNinja : BaseEnemy
     Animator anim;
     Vector3 destination;
     Vector3 lookDir;
-    float maxCooldown = 1.3f;
+    [SerializeField] float maxCooldown = 2.0f;
     float currentCooldown;
     Rigidbody rBody;
     [SerializeField] float bodyCleanup;
     [SerializeField] float enemyVisionRange;
+    [SerializeField] float enemyAttackDetectionRange = 3.0f;
 
     private void Start()
     {
@@ -53,7 +54,7 @@ public class EnemyNinja : BaseEnemy
 
     public override void Attack() // handles the enemy attacking if the player is within range
     {
-        if (Vector3.Distance(destination, transform.position) <= 1.4f)
+        if (Vector3.Distance(destination, transform.position) <= 1.2f)
         {
             anim.SetBool("Close", true);
             if (currentCooldown >= maxCooldown)
@@ -68,8 +69,12 @@ public class EnemyNinja : BaseEnemy
 
     public void AttackDetection() // detects if the player is within range of an attack
     {
-        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= 1.4f) // if the player is close at a specific point in the animation, then they take damage.
+        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= enemyAttackDetectionRange) // if the player is close at a specific point in the animation, then they take damage.
+        {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
+            Debug.Log("The player was hit!");
+        }
+        else rBody.AddForce(transform.up * -100);
         if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health <= 0) // enemys stop running towards you when you die
             destination = transform.position;
     }
@@ -103,7 +108,7 @@ public class EnemyNinja : BaseEnemy
     {
         agent.enabled = false;
         rBody.constraints = RigidbodyConstraints.FreezePositionY;
-        yield return new WaitForSeconds(0.625f);
+        yield return new WaitForSeconds(0.325f);
         rBody.constraints = RigidbodyConstraints.None;
         if(!isDead)
         agent.enabled = true;
