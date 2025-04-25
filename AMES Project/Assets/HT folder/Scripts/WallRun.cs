@@ -123,8 +123,14 @@ public class WallRun : MonoBehaviour
 
     private void CheckWall()
     {
-        wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance);
-        wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
+        if (!wallRight)
+        {
+            wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance);
+        }
+        if (!wallLeft)
+        {
+            wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
+        }
     }
 
     void PreWallRun()
