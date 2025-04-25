@@ -12,6 +12,7 @@ TagManager:
   - Player Collider
   - HUD
   - MaskRangeTrigger
+  - Waypoint
   layers:
   - Default
   - TransparentFX
