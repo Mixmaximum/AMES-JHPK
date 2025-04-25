@@ -46003,6 +46003,7 @@ MonoBehaviour:
   maskInventory: []
   GiveMePlease: 1
   maskEquipText: {fileID: 0}
+  maskCooldown: {fileID: 0}
 --- !u!199 &2284864286352330244
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -52927,7 +52928,7 @@ Transform:
   m_GameObject: {fileID: 5527773653508658659}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.004, y: -0.139, z: -0.244}
+  m_LocalPosition: {x: -0.004, y: -0.177, z: -0.225}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -53524,8 +53525,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f20c0df6e72674eb418042cf6e28b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseShakeMagnitude: 0.16
-  maxShakeMagnitude: 5.78
+  baseShakeMagnitude: 0
+  maxShakeMagnitude: 0.02
   shakeSpeed: 20
   maxSpeed: 20
 --- !u!1 &3986051135576622739
@@ -61469,7 +61470,7 @@ Transform:
   m_GameObject: {fileID: 3858171603820974173}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.000000059604645, z: -0, w: 1}
-  m_LocalPosition: {x: -0.011426605, y: 0.19204426, z: 0.002995059}
+  m_LocalPosition: {x: -0.05, y: 0.19204426, z: -0.043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -63431,10 +63432,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+  healthBar: {fileID: 0}
   health: 150
   healAmount: 150
   timeToHeal: 2
   invincibilityDuration: 2
+  healTimer: 0
 --- !u!4 &5147285370063818175
 Transform:
   m_ObjectHideFlags: 0
@@ -64662,8 +64665,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2931850633220712760}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.04, y: 203.171, z: 34.05111}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 7.744, y: 202.883, z: 34.05111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -64675,7 +64678,7 @@ Transform:
   - {fileID: 5226259431318090569}
   - {fileID: 2964012922784289135}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &5407922294536712592
 Transform:
   m_ObjectHideFlags: 0
@@ -75766,7 +75769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c33f26445dcf96344815ab7c3a4f6f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swayAmount: 0.07
+  swayAmount: 0.04
   swaySpeed: 5
 --- !u!4 &6847242606330278627
 Transform:
@@ -86828,8 +86831,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8345555210200517601}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.04, y: 203.867, z: 34.05111}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 7.744, y: 203.579, z: 34.05111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -86837,7 +86840,7 @@ Transform:
   - {fileID: 1429385798724055570}
   - {fileID: 5771941882732649412}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &9129617126541683250
 GameObject:
   m_ObjectHideFlags: 0
