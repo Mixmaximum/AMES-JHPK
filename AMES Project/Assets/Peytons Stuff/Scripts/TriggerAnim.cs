@@ -3,7 +3,7 @@ using UnityEngine;
 public class DelayedDoorOpen : MonoBehaviour
 {
     [Tooltip("Delay (in seconds) before the door opens.")]
-    public float delay = 2f;
+    public float delay = 11f;
 
     private Animator animator;
 

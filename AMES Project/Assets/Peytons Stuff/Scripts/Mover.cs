@@ -12,6 +12,9 @@ public class Mover : MonoBehaviour
     public Animator animator; // Drag in the Animator
     public string animationTriggerName = "StartMoving";
 
+    [Header("Timing Settings")]
+    public float delayBeforeStart = 3f; // Set this in Inspector to trigger after a few seconds
+
     private float elapsedTime = 0f;
     private bool isMoving = false;
     private bool hasMoved = false;
@@ -25,6 +28,9 @@ public class Mover : MonoBehaviour
         }
 
         targetObject.position = startPosition;
+
+        // Automatically start moving after a delay
+        Invoke(nameof(StartMoving), delayBeforeStart);
     }
 
     void Update()
@@ -42,20 +48,9 @@ public class Mover : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (hasMoved) return;
-
-        if (other.CompareTag("Player Collider"))
-        {
-            Debug.Log("Player triggered elevator — moving map");
-            StartMoving();
-        }
-    }
-
     private void StartMoving()
     {
-        if (!isMoving)
+        if (!isMoving && !hasMoved)
         {
             elapsedTime = 0f;
             isMoving = true;
@@ -64,6 +59,8 @@ public class Mover : MonoBehaviour
             {
                 animator.SetTrigger(animationTriggerName);
             }
+
+            Debug.Log("Auto-triggered elevator movement after delay.");
         }
     }
 }
