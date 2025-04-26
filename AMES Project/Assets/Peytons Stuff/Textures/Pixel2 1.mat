@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pixel Effect
+  m_Name: Pixel2 1
   m_Shader: {fileID: 4800000, guid: 14ddf14efe8baf444adfe88dbffb33fa, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -26,7 +26,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Opacity: 1
-    - _PixelSize: 99959.57
+    - _PixelSize: 222.4
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

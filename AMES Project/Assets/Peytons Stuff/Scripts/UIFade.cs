@@ -4,33 +4,31 @@ using System.Collections;
 
 public class UIFade : MonoBehaviour
 {
-    public Image imageToFade;
+    public Graphic graphicToFade;
     public float fadeDuration = 2f;
-    public bool fadeOutOnStart = true;
+    public bool fadeInOnStart = true; // Only controls whether it fades in first
 
     private void Start()
     {
-        if (fadeOutOnStart && imageToFade != null)
+        if (graphicToFade != null)
         {
-            StartCoroutine(FadeImage(1f, 0f, fadeDuration));
+            StartCoroutine(FadeRoutine());
         }
     }
 
-    public void FadeIn()
+    private IEnumerator FadeRoutine()
     {
-        if (imageToFade != null)
-            StartCoroutine(FadeImage(0f, 1f, fadeDuration));
+        if (fadeInOnStart)
+        {
+            yield return StartCoroutine(FadeGraphic(0f, 1f, fadeDuration)); // Fade in
+        }
+
+        yield return StartCoroutine(FadeGraphic(1f, 0f, fadeDuration)); // Always fade out
     }
 
-    public void FadeOut()
+    private IEnumerator FadeGraphic(float startAlpha, float endAlpha, float duration)
     {
-        if (imageToFade != null)
-            StartCoroutine(FadeImage(1f, 0f, fadeDuration));
-    }
-
-    private IEnumerator FadeImage(float startAlpha, float endAlpha, float duration)
-    {
-        Color startColor = imageToFade.color;
+        Color startColor = graphicToFade.color;
         Color endColor = startColor;
         startColor.a = startAlpha;
         endColor.a = endAlpha;
@@ -38,10 +36,10 @@ public class UIFade : MonoBehaviour
         float time = 0f;
         while (time < duration)
         {
-            imageToFade.color = Color.Lerp(startColor, endColor, time / duration);
+            graphicToFade.color = Color.Lerp(startColor, endColor, time / duration);
             time += Time.deltaTime;
             yield return null;
         }
-        imageToFade.color = endColor;
+        graphicToFade.color = endColor;
     }
 }
