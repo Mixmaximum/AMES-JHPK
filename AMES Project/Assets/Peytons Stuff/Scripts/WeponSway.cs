@@ -13,7 +13,7 @@ public class WeaponSway : MonoBehaviour
         initialPosition = transform.localPosition;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Get mouse input (X and Y axis)
         float mouseX = Input.GetAxis("Mouse X");
