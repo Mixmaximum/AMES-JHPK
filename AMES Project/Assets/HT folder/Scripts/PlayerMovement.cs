@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 6f; // Movement speed
     [SerializeField] float movementMultiplier = 10f; // Ground movement force multiplier
     [SerializeField] float airMovementMultiplier = 0.4f; // Air movement force multiplier
+    [SerializeField] float maxVelocity;
 
     [Header("Sprinting")]
     [SerializeField] public float walkSpeed = 4f; // Walking speed
@@ -50,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float requiredSlideSpeed;
     [SerializeField] float slideForce;
     [SerializeField] float maxSlideForce;
+    [SerializeField] float minimumslideForce;
 
     [Header("Slide Jump/Fall Settings")]
     [SerializeField] float slideJumpForce = 10f;
@@ -231,15 +233,19 @@ public class PlayerMovement : MonoBehaviour
     void ControlDrag()
     {
         // Update drag based on grounded state
-        rb.linearDamping = isGrounded ? groundDrag : airDrag;
-        if (!isSliding && !isGrounded)
+        if (isSliding && !isGrounded)
         {
             rb.linearDamping = slideAirDrag;
+        }
+        else if (!isGrounded && !isSliding)
+        {
+            rb.linearDamping = airDrag;
         }
         else
         {
             rb.linearDamping = groundDrag;
         }
+        
     }
 
     void Crouch()
@@ -289,6 +295,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
             isSliding = true;
+            if ()
             currentSlideSpeed = slideForce;
 
             // Set the slide direction based on player input
