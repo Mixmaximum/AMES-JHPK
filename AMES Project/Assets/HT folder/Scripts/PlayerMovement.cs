@@ -295,7 +295,6 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchHeight.y, transform.localScale.z);
             isSliding = true;
-            if ()
             currentSlideSpeed = slideForce;
 
             // Set the slide direction based on player input
@@ -327,6 +326,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     Debug.Log("No ground, returning");
+                    StopSlide();
                     return;
                 }
             }
