@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Slide Jump/Fall Settings")]
     [SerializeField] float slideJumpForce = 10f;
+    [SerializeField] float slideAirDrag;
     [SerializeField] float slideFallDelay;
     [SerializeField] float slideCoyoteTime;
 
@@ -136,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
             if (jumpSound != null && !jumpSound.isPlaying)
                 jumpSound.Play();
 
-            if ((Input.GetKeyDown(jumpKey) && isGrounded) || currentSlideCoyoteTime <= 0)
+            if ((Input.GetKeyDown(jumpKey) && isGrounded) || Input.GetKeyDown(jumpKey) && currentSlideCoyoteTime <= 0)
             {
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
                 rb.AddForce(transform.up * slideJumpForce, ForceMode.Impulse);
@@ -231,6 +232,14 @@ public class PlayerMovement : MonoBehaviour
     {
         // Update drag based on grounded state
         rb.linearDamping = isGrounded ? groundDrag : airDrag;
+        if (!isSliding && !isGrounded)
+        {
+            rb.linearDamping = slideAirDrag;
+        }
+        else
+        {
+            rb.linearDamping = groundDrag;
+        }
     }
 
     void Crouch()
