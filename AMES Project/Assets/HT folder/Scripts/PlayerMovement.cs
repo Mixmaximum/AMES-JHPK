@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 6f; // Movement speed
     [SerializeField] float movementMultiplier = 10f; // Ground movement force multiplier
     [SerializeField] float airMovementMultiplier = 0.4f; // Air movement force multiplier
+    [SerializeField] float maxVelocity;
 
     [Header("Sprinting")]
     [SerializeField] public float walkSpeed = 4f; // Walking speed
@@ -50,9 +51,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float requiredSlideSpeed;
     [SerializeField] float slideForce;
     [SerializeField] float maxSlideForce;
+    [SerializeField] float minimumslideForce;
 
     [Header("Slide Jump/Fall Settings")]
     [SerializeField] float slideJumpForce = 10f;
+    [SerializeField] float slideAirDrag;
     [SerializeField] float slideFallDelay;
     [SerializeField] float slideCoyoteTime;
 
@@ -136,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
             if (jumpSound != null && !jumpSound.isPlaying)
                 jumpSound.Play();
 
-            if ((Input.GetKeyDown(jumpKey) && isGrounded) || currentSlideCoyoteTime <= 0)
+            if ((Input.GetKeyDown(jumpKey) && isGrounded) || Input.GetKeyDown(jumpKey) && currentSlideCoyoteTime <= 0)
             {
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
                 rb.AddForce(transform.up * slideJumpForce, ForceMode.Impulse);
@@ -230,7 +233,19 @@ public class PlayerMovement : MonoBehaviour
     void ControlDrag()
     {
         // Update drag based on grounded state
-        rb.linearDamping = isGrounded ? groundDrag : airDrag;
+        if (isSliding && !isGrounded)
+        {
+            rb.linearDamping = slideAirDrag;
+        }
+        else if (!isGrounded && !isSliding)
+        {
+            rb.linearDamping = airDrag;
+        }
+        else
+        {
+            rb.linearDamping = groundDrag;
+        }
+        
     }
 
     void Crouch()
@@ -311,6 +326,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     Debug.Log("No ground, returning");
+                    StopSlide();
                     return;
                 }
             }
