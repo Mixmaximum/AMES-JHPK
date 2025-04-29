@@ -29,6 +29,7 @@ public class WallRun : MonoBehaviour
 
     public bool wallLeft = false;
     public bool wallRight = false;
+    public bool isWallJumping;
     bool DirectionChosen = false;
 
     RaycastHit leftWallHit;
@@ -43,27 +44,14 @@ public class WallRun : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private WallRunCameraShake cameraShake;
 
-    [Header("Audio")]
-    [SerializeField] private AudioSource wallRunAudio;
-    [SerializeField] private AudioSource wallJumpAudio;
-    [SerializeField] private float maxPitch = 1.5f;
-    [SerializeField] private float basePitch = 1f;
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        if (wallRunAudio != null)
-        {
-            wallRunAudio.loop = true;
-            wallRunAudio.playOnAwake = false;
-        }
     }
 
     private void Update()
     {
         CheckWall();
-        UpdateWallRunAudio();
 
         if (pm.isGrounded && sameWallJumps != 0)
         {
@@ -179,12 +167,6 @@ public class WallRun : MonoBehaviour
         DirectionChosen = false;
 
         cameraShake?.StopShake();
-
-        // Stop sound
-        if (wallRunAudio && wallRunAudio.isPlaying)
-        {
-            wallRunAudio.Stop();
-        }
     }
 
     private void WallJump()
@@ -192,6 +174,7 @@ public class WallRun : MonoBehaviour
         Vector3 jumpDirection = transform.up;
         if (sameWallJumps <= maxJumpsOnOneWall)
         {
+            isWallJumping = true;
             if (wallLeft)
             {
                 jumpDirection += leftWallHit.normal;
@@ -222,28 +205,7 @@ public class WallRun : MonoBehaviour
             // Preserve some horizontal momentum, but reset vertical speed
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             rb.AddForce(jumpDirection.normalized * wallRunJumpForce, ForceMode.Impulse);
-
-            // Play jump sound
-            wallJumpAudio?.Play();
-        }
-    }
-    private void UpdateWallRunAudio()
-    {
-        if (wallRunAudio == null) return;
-
-        bool isMoving = rb.linearVelocity.magnitude > 1f;
-
-        if (wallRunning && isMoving)
-        {
-            if (!wallRunAudio.isPlaying)
-                wallRunAudio.Play();
-
-            float speedPercent = Mathf.Clamp01(rb.linearVelocity.magnitude / 10f);
-            wallRunAudio.pitch = Mathf.Lerp(basePitch, maxPitch, speedPercent);
-        }
-        else if (wallRunAudio.isPlaying)
-        {
-            wallRunAudio.Stop();
+            isWallJumping = false;
         }
     }
 }

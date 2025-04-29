@@ -4,23 +4,20 @@ public class PlayerAudio : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource audioSource2;
     [SerializeField] PlayerMovement pm;
     [SerializeField] WallRun wr;
 
     [Header("Audio Clips")]
     [SerializeField] AudioClip moveSound;
+    [SerializeField] AudioClip runSound;
     [SerializeField] AudioClip slideSound;
     [SerializeField] AudioClip jumpSound;
     [SerializeField] AudioClip wallJumpSound;
     [SerializeField] AudioClip attackSound;
 
-    [Header("Timers")]
-    [SerializeField] float walkAudioTimer;
-    [SerializeField] float runAudioTimer;
-    
-
-    float currentWalkTime;
-    float currentRunTime;
+    bool audioStopped;
+    bool soundplayed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,34 +28,92 @@ public class PlayerAudio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateSound();
+        UpdateSoundLoops();
+        UpdateSoundsUnlooped();
     }
 
-    void UpdateSound()
+    void UpdateSoundLoops()
     {
         if (pm.isGrounded && pm.currentVelocity > 0.5f && !pm.isSliding)
         {
-            if (!pm.isSprinting)
+            if (!pm.isSprinting && !pm.isSliding)
             {
+                AudioClip clip = audioSource.clip;
                 audioSource.clip = moveSound;
-                currentWalkTime += Time.deltaTime;
-                if (currentWalkTime >= walkAudioTimer)
+                if (clip != moveSound)//currentWalkTime >= walkAudioTimer)
                 {
                     audioSource.Play();
-                    currentWalkTime = 0;
+                    //currentWalkTime = 0;
+                }
+                else if (audioStopped)
+                {
+                    audioSource.Play();
+                    audioStopped = false;
                 }
             }
             else if (pm.isSprinting)
             {
-                audioSource.clip = moveSound;
-                currentRunTime += Time.deltaTime;
-                if (currentRunTime >= runAudioTimer)
+                AudioClip clip = audioSource.clip;
+                audioSource.clip = runSound;
+                if (clip != runSound) //currentRunTime >= runAudioTimer)
                 {
                     audioSource.Play();
-                    currentRunTime = 0;
+                    //currentRunTime = 0;
+                }
+                else if (audioStopped)
+                {
+                    audioSource.Play();
+                    audioStopped = false;
                 }
             }
         }
+        else if (pm.isSliding)
+        {
+            AudioClip clip = audioSource.clip;
+            Debug.Log("sSlide");
+            audioSource.clip = slideSound; 
+            if (clip != slideSound)//currentWalkTime >= walkAudioTimer)
+            {
+                audioSource.Play();
+                //currentWalkTime = 0;
+            }
+            else if (audioStopped)
+            {
+                audioSource.Play();
+                audioStopped = false;
+            }
+        }
+        else
+        {
+            audioSource.Stop();
+            audioStopped = true;
+            Debug.Log("Stopping audio");
+        }
         
+    }
+    void UpdateSoundsUnlooped()
+    {
+        if (pm.isJumping)
+        {
+            audioSource2.clip = jumpSound;
+            if (!soundplayed)
+            {
+                audioSource2.Play();
+                soundplayed = true;
+            }
+        }
+        else if (wr.isWallJumping)
+        {
+            audioSource2.clip = wallJumpSound;
+            if (!soundplayed)
+            {
+                audioSource2.Play();
+                soundplayed = true;   
+            }
+        }
+        else
+        {
+            soundplayed = false;
+        }
     }
 }

@@ -10006,6 +10006,7 @@ GameObject:
   - component: {fileID: 5466029938333005156}
   - component: {fileID: 2622038449705813090}
   - component: {fileID: 8855282127615538396}
+  - component: {fileID: 3645908849350237697}
   m_Layer: 0
   m_Name: Player Model
   m_TagString: Player
@@ -10116,6 +10117,8 @@ MonoBehaviour:
   isSliding: 0
   isSprinting: 0
   isGrounded: 0
+  isCrouching: 0
+  isJumping: 0
 --- !u!114 &2879558471766779798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10162,13 +10165,10 @@ MonoBehaviour:
   camTiltTime: 20
   wallLeft: 0
   wallRight: 0
+  isWallJumping: 0
   wallRunning: 0
   anim: {fileID: 6919346516436425439}
   cameraShake: {fileID: 4322457665570173401}
-  wallRunAudio: {fileID: 0}
-  wallJumpAudio: {fileID: 0}
-  maxPitch: 1.5
-  basePitch: 1
 --- !u!114 &1813936180498689404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10341,15 +10341,114 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab13976a15926d143a2663e4165dfe1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioSource: {fileID: 8855282127615538396}
+  audioSource: {fileID: 8855282127615538396}
+  audioSource2: {fileID: 3645908849350237697}
   pm: {fileID: 2349288862419533110}
   wr: {fileID: 1803145563105211597}
-  moveSound: {fileID: 0}
-  slideSound: {fileID: 0}
-  jumpSound: {fileID: 0}
-  wallJumpSound: {fileID: 0}
-  attackSound: {fileID: 0}
+  moveSound: {fileID: 8300000, guid: 5562da9231ae82f4f90c4a5e50d34ac3, type: 3}
+  runSound: {fileID: 8300000, guid: 06ce563f3031ea54096af8e1cc129698, type: 3}
+  slideSound: {fileID: 8300000, guid: 3165e1c539777ef479693f3045497e00, type: 3}
+  jumpSound: {fileID: 8300000, guid: eb7ae952d2d61fd45881378d22c81dba, type: 3}
+  wallJumpSound: {fileID: 8300000, guid: c18d20429131ceb4a91ffa6f9faf17ad, type: 3}
+  attackSound: {fileID: 8300000, guid: 412431a7111781249aa9518e98c1dc6f, type: 3}
 --- !u!82 &8855282127615538396
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595144038440916032}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &3645908849350237697
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46016,7 +46115,7 @@ Transform:
   m_GameObject: {fileID: 9179063238183630489}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.464, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -20,6 +20,6 @@ public class DoubleJumpMask : Mask
         Rigidbody rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        rb.AddForce(player.transform.up * 10f, ForceMode.Impulse); // we can always change how high the player can go.
+        rb.AddForce(player.transform.up * 25f, ForceMode.Impulse); // we can always change how high the player can go.
     }
 }
