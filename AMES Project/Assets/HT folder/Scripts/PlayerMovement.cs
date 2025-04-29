@@ -59,12 +59,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float slideFallDelay;
     [SerializeField] float slideCoyoteTime;
 
-    [Header("Audio")]
-    [SerializeField] private AudioSource walkSound;
-    [SerializeField] private AudioSource runSound;
-    [SerializeField] private AudioSource slideSound;
-    [SerializeField] private AudioSource jumpSound;
-
     // Runtime variables
     public float currentVelocity;
     float horizontalMovement;
@@ -136,9 +130,6 @@ public class PlayerMovement : MonoBehaviour
         // Slide jump or slide end
         if ((isSliding && Input.GetKeyDown(jumpKey)) || (isSliding && Input.GetKeyUp(slideKey)))
         {
-            if (jumpSound != null && !jumpSound.isPlaying)
-                jumpSound.Play();
-
             if ((Input.GetKeyDown(jumpKey) && isGrounded) || Input.GetKeyDown(jumpKey) && currentSlideCoyoteTime <= 0)
             {
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
@@ -153,7 +144,6 @@ public class PlayerMovement : MonoBehaviour
         currentVelocity = rb.linearVelocity.magnitude; // Update velocity
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal); // Adjust move direction on slopes
         UpdateAnimations(); // Update animation parameters
-        HandleMovementSounds(); // Play appropriate movement sounds
     }
 
     private void FixedUpdate()
@@ -210,9 +200,6 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
         isJumping = true;
-
-        if (jumpSound != null && !jumpSound.isPlaying)
-            jumpSound.Play();
     }
 
     void ControlSpeed()
@@ -375,68 +362,6 @@ public class PlayerMovement : MonoBehaviour
         {
             thirdAnimator.speed = 1f;
             secondAnimator.speed = 1f;
-        }
-    }
-
-    void HandleMovementSounds()
-    {
-        // Only play footstep sounds when grounded and not sliding
-        if (isGrounded && !isSliding)
-        {
-            if (currentVelocity > 0 && currentVelocity < sprintSpeed)
-            {
-                // Walking
-                if (!walkSound.isPlaying)
-                    walkSound.Play();
-
-                walkSound.pitch = Mathf.Lerp(1f, 1.5f, currentVelocity / sprintSpeed);
-
-                if (runSound.isPlaying)
-                    runSound.Stop();
-            }
-            else if (currentVelocity >= sprintSpeed)
-            {
-                // Running
-                if (!runSound.isPlaying)
-                    runSound.Play();
-
-                runSound.pitch = Mathf.Lerp(1f, 1.5f, (currentVelocity - sprintSpeed) / sprintSpeed);
-
-                if (walkSound.isPlaying)
-                    walkSound.Stop();
-            }
-            else
-            {
-                // Idle
-                if (walkSound.isPlaying)
-                    walkSound.Stop();
-
-                if (runSound.isPlaying)
-                    runSound.Stop();
-            }
-        }
-        else if (isSliding)
-        {
-            // Sliding sound logic
-            if (!slideSound.isPlaying)
-                slideSound.Play();
-
-            slideSound.pitch = Mathf.Lerp(1f, 1.5f, currentVelocity / sprintSpeed);
-
-            if (walkSound.isPlaying)
-                walkSound.Stop();
-            if (runSound.isPlaying)
-                runSound.Stop();
-        }
-        else
-        {
-            // Player is in air or not moving
-            if (walkSound.isPlaying)
-                walkSound.Stop();
-            if (runSound.isPlaying)
-                runSound.Stop();
-            if (slideSound.isPlaying)
-                slideSound.Stop();
         }
     }
 }

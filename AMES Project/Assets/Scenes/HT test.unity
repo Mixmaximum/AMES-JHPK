@@ -47589,6 +47589,7 @@ MonoBehaviour:
   moveSpeed: 0
   movementMultiplier: 9
   airMovementMultiplier: 0.5
+  maxVelocity: 0
   walkSpeed: 7
   sprintSpeed: 10
   acceleration: 11
@@ -47611,13 +47612,11 @@ MonoBehaviour:
   requiredSlideSpeed: 9
   slideForce: 200
   maxSlideForce: 250
+  minimumslideForce: 0
   slideJumpForce: 10
+  slideAirDrag: 1.4
   slideFallDelay: 0.05
   slideCoyoteTime: 0.25
-  walkSound: {fileID: 2603083545287815169}
-  runSound: {fileID: 5906109243741267614}
-  slideSound: {fileID: 5906109243741267614}
-  jumpSound: {fileID: 1700154313581333057}
   currentVelocity: 0
   isSliding: 0
   isSprinting: 0
