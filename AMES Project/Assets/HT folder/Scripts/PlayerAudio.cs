@@ -17,10 +17,16 @@ public class PlayerAudio : MonoBehaviour
     [Header("Timers")]
     [SerializeField] float walkAudioTimer;
     [SerializeField] float runAudioTimer;
+    [SerializeField] float slideAudioTimer;
     
 
     float currentWalkTime;
     float currentRunTime;
+    float currentSlideTime;
+
+    bool audioStartW;
+    bool audioStartR;
+    bool audioStartS;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,13 +42,18 @@ public class PlayerAudio : MonoBehaviour
 
     void UpdateSound()
     {
-        if (pm.isGrounded && pm.currentVelocity > 0.5f && !pm.isSliding)
+        if (pm.isGrounded && pm.currentVelocity > 0.5f )
         {
-            if (!pm.isSprinting)
+            if (!pm.isSprinting && !pm.isSliding)
             {
                 audioSource.clip = moveSound;
                 currentWalkTime += Time.deltaTime;
-                if (currentWalkTime >= walkAudioTimer)
+                if (!audioStartW)
+                {
+                    audioSource.Play();
+                    audioStartW = true;
+                }
+                else if (currentWalkTime >= walkAudioTimer)
                 {
                     audioSource.Play();
                     currentWalkTime = 0;
@@ -58,6 +69,21 @@ public class PlayerAudio : MonoBehaviour
                     currentRunTime = 0;
                 }
             }
+            if (pm.isSliding)
+            {
+                audioSource.clip = slideSound;
+                currentSlideTime += Time.deltaTime;
+                if (currentSlideTime >= slideAudioTimer)
+                {
+                    audioSource.Play();
+                    currentSlideTime = 0;
+                    Debug.Log("slide");
+                }
+            }
+        }
+        else
+        {
+            audioSource.Stop();
         }
         
     }
