@@ -63,7 +63,6 @@ public class WallRun : MonoBehaviour
     private void Update()
     {
         CheckWall();
-        UpdateWallRunAudio();
 
         if (pm.isGrounded && sameWallJumps != 0)
         {
@@ -222,28 +221,6 @@ public class WallRun : MonoBehaviour
             // Preserve some horizontal momentum, but reset vertical speed
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             rb.AddForce(jumpDirection.normalized * wallRunJumpForce, ForceMode.Impulse);
-
-            // Play jump sound
-            wallJumpAudio?.Play();
-        }
-    }
-    private void UpdateWallRunAudio()
-    {
-        if (wallRunAudio == null) return;
-
-        bool isMoving = rb.linearVelocity.magnitude > 1f;
-
-        if (wallRunning && isMoving)
-        {
-            if (!wallRunAudio.isPlaying)
-                wallRunAudio.Play();
-
-            float speedPercent = Mathf.Clamp01(rb.linearVelocity.magnitude / 10f);
-            wallRunAudio.pitch = Mathf.Lerp(basePitch, maxPitch, speedPercent);
-        }
-        else if (wallRunAudio.isPlaying)
-        {
-            wallRunAudio.Stop();
         }
     }
 }

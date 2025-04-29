@@ -72,9 +72,9 @@ public class PlayerMovement : MonoBehaviour
     public bool isSliding;
     public bool isSprinting;
     public bool isGrounded;
-    bool isCrouching;
+    public bool isCrouching;
     bool ableToCrouch;
-    bool isJumping;
+    public bool isJumping;
     bool slidingOnSlope;
     bool isUnderCeiling;
 
@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         StartSlide(); // Try initiating slide
 
         // Handle jumping
-        if (Input.GetKeyDown(jumpKey) && isGrounded)
+        if (Input.GetKeyDown(jumpKey) && isGrounded && Time.timeScale != 0)
         {
             Jump();
         }
