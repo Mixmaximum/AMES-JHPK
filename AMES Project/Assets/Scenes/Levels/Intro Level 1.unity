@@ -19927,7 +19927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1272898895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24212,7 +24212,7 @@ PrefabInstance:
       objectReference: {fileID: 1272898895}
     - target: {fileID: 3804048113675222801, guid: a5704f37ab05ae74a917df9547930d4b, type: 3}
       propertyPath: delayBeforePause
-      value: 13
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3806866636425633817, guid: a5704f37ab05ae74a917df9547930d4b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -42259,13 +42259,10 @@ MonoBehaviour:
   camTiltTime: 20
   wallLeft: 0
   wallRight: 0
+  isWallJumping: 0
   wallRunning: 0
   anim: {fileID: 7244902658819793813}
   cameraShake: {fileID: 4571452904325662867}
-  wallRunAudio: {fileID: 0}
-  wallJumpAudio: {fileID: 0}
-  maxPitch: 1.5
-  basePitch: 1
 --- !u!114 &2134989013262619702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48066,16 +48063,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+  audioSource2: {fileID: 0}
   pm: {fileID: 2600615134384030844}
   wr: {fileID: 2128913155815771527}
   moveSound: {fileID: 0}
+  runSound: {fileID: 0}
   slideSound: {fileID: 0}
   jumpSound: {fileID: 0}
   wallJumpSound: {fileID: 0}
   attackSound: {fileID: 0}
-  walkAudioTimer: 0
-  runAudioTimer: 0
-  slideAudioTimer: 0
 --- !u!1 &2381553318360529439
 GameObject:
   m_ObjectHideFlags: 0
