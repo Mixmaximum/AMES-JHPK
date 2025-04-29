@@ -4,56 +4,67 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    Canvas pauseMenuCanvas; // reference to the pause menu canvas
+    Canvas pauseMenuCanvas;
     [SerializeField] Canvas Canvas2;
     [SerializeField] Canvas ControlCanvas;
+
+    [SerializeField] private float delayBeforePause = 3f;  // Time (in seconds) before pause menu can be used
+    private float timeSinceStart = 0f;  // Tracks time since the game started
+    private bool canPause = false;  // Flag to allow pausing after the delay
 
     void Start()
     {
         pauseMenuCanvas = GetComponent<Canvas>();
-        pauseMenuCanvas.enabled = false; // the pause menu shouldn't be showing on startup 
+        pauseMenuCanvas.enabled = false;
         Canvas2.GetComponent<Canvas>().enabled = false;
         ControlCanvas.GetComponent<Canvas>().enabled = false;
     }
 
-    
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 1) // these four lines are just "If the canvas is disabled enable it else disable it"
+        // Track time since the game started
+        timeSinceStart += Time.unscaledDeltaTime;
+
+        // Allow pausing after the specified delay
+        if (timeSinceStart >= delayBeforePause)
         {
-            pauseMenuCanvas.enabled = true;
+            canPause = true;
         }
-        else if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 0)
+
+        if (canPause)
         {
-            pauseMenuCanvas.enabled = false;
-            Canvas2.GetComponent<Canvas>().enabled = false;
-            ControlCanvas.GetComponent<Canvas>().enabled = false;
+            if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 1)
+            {
+                pauseMenuCanvas.enabled = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 0)
+            {
+                pauseMenuCanvas.enabled = false;
+                Canvas2.GetComponent<Canvas>().enabled = false;
+                ControlCanvas.GetComponent<Canvas>().enabled = false;
+            }
         }
+
         PauseGame();
-        //Debug.Log($"Time.timeScale == {Time.timeScale.ToString()}"); // Sanity check to make sure that the time is actually changing when it should.
     }
 
     private void PauseGame()
     {
-        if (pauseMenuCanvas.enabled == true) // I'm trying something a little different than usual here, basically time is stopped when the canvas is enabled 
+        if (pauseMenuCanvas.enabled == true || Canvas2.enabled == true || ControlCanvas.enabled == true)
         {
             Time.timeScale = 0;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLook>().enabled = false; // disables the script that allows the player to look around.
-            //GameObject.FindGameObjectWithTag("Player").GetComponent<RaycastInteract>().enabled = false; // disables the script that allows the player to interact w/ objects
-            Cursor.lockState = CursorLockMode.None; // these two lines just mess with the cursor
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLook>().enabled = false;
+            Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        else // if the canvas is disabled then time is always unpaused, we'll see how this works.
+        else
         {
             Time.timeScale = 1;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLook>().enabled = true;
-            //GameObject.FindGameObjectWithTag("Player").GetComponent<RaycastInteract>().enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
     }
-
-    // methods for the buttons
 
     public void UnpauseGame()
     {
@@ -63,7 +74,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu"); // We don't actually have a main menu scene yet, so this is just kind of there at the moment
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
@@ -74,19 +85,24 @@ public class PauseMenu : MonoBehaviour
     public void OpenCanvas2()
     {
         Canvas2.GetComponent<Canvas>().enabled = true;
+        pauseMenuCanvas.enabled = false; // Hide pause menu when opening Canvas2
     }
+
     public void CloseCanvas2()
     {
         Canvas2.GetComponent<Canvas>().enabled = false;
+        pauseMenuCanvas.enabled = true; // Re-enable pause menu when closing Canvas2
     }
 
     public void OpenControlCanvas()
     {
         ControlCanvas.GetComponent<Canvas>().enabled = true;
+        pauseMenuCanvas.enabled = false; // Hide pause menu when opening Controls
     }
 
     public void CloseControlCanvas()
     {
         ControlCanvas.GetComponent<Canvas>().enabled = false;
+        pauseMenuCanvas.enabled = true; // Re-enable pause menu when closing Controls
     }
 }
