@@ -10078,6 +10078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 4020925966413599365}
   wallrun: {fileID: 1803145563105211597}
+  pa: {fileID: 0}
   animator: {fileID: 6919346516436425439}
   secondAnimator: {fileID: 669398408934630937}
   thirdAnimator: {fileID: 6919346516436425439}
@@ -10152,6 +10153,7 @@ MonoBehaviour:
   maxJumpsOnOneWall: 2
   orientation: {fileID: 4020925966413599365}
   pm: {fileID: 2349288862419533110}
+  pa: {fileID: 0}
   wallDistance: 1
   minimumJumpHeight: 1.5
   wallRunGravity: 1.5
@@ -10458,8 +10460,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 412431a7111781249aa9518e98c1dc6f, type: 3}
+  m_Resource: {fileID: 8300000, guid: 412431a7111781249aa9518e98c1dc6f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -17477,8 +17479,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796b564973e529d4fb2a41c74359495a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pa: {fileID: 0}
   attackRange: 5
   damage: 50
+  maxCooldown: 1.465
+  attackCooldownImage: {fileID: 0}
 --- !u!1 &4125582480777183952
 GameObject:
   m_ObjectHideFlags: 0

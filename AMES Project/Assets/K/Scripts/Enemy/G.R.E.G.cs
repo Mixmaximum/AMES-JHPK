@@ -155,7 +155,8 @@ public class GREG : BaseEnemy
             if (!agent.hasPath && !playerDetected && agent.enabled || agent.velocity.sqrMagnitude == 0f && !playerDetected && agent.enabled)
             {
                 currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-                agent.SetDestination(waypoints[currentWaypointIndex].position);
+                lookDir = waypoints[currentWaypointIndex].position;
+                agent.SetDestination(new Vector3(waypoints[currentWaypointIndex].transform.position.x + 1.5f, waypoints[currentWaypointIndex].transform.position.y + 1.5f, waypoints[currentWaypointIndex].transform.position.z + 1.5f));
             }
         }
     }
