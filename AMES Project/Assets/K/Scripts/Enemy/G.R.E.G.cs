@@ -130,7 +130,7 @@ public class GREG : BaseEnemy
 
     public override void Knockback() // funny
     {
-        rBody.AddForce(transform.forward * -1000f, ForceMode.Impulse);
+        rBody.AddForce(-transform.forward * -1000f, ForceMode.Impulse);
     }
 
     public override void OnDeath() // runs when the enemy dies
