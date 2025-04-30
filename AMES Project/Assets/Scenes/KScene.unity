@@ -3050,6 +3050,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WalkEnemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4026298784431884209, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: enemyAttackDetectionRange
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6428,7 +6432,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2865043169146508281, guid: eaebe44dfcb7b77489e08f03d471b2ba, type: 3}
   m_PrefabInstance: {fileID: 5231036374709124164}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2595144038686457787}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e7540fec7feb6641a784c6ad6e4828d, type: 3}
@@ -13661,6 +13665,11 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &2595144038686457787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8551657629970392803, guid: eaebe44dfcb7b77489e08f03d471b2ba, type: 3}
+  m_PrefabInstance: {fileID: 5231036374709124164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2605455467309443368
 Transform:
   m_ObjectHideFlags: 0
@@ -19434,7 +19443,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8551657629970392803, guid: eaebe44dfcb7b77489e08f03d471b2ba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8232530927813567768}
   m_SourcePrefab: {fileID: 100100000, guid: eaebe44dfcb7b77489e08f03d471b2ba, type: 3}
 --- !u!1 &5232303166758960371
 GameObject:
@@ -32722,6 +32734,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: G.R.E.G
       objectReference: {fileID: 0}
+    - target: {fileID: 1803943289910318163, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
+      propertyPath: enemyAttackDetectionRange
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34801,6 +34817,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8232530927813567768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595144038686457787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab13976a15926d143a2663e4165dfe1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 8855282127615538396, guid: 7ce58905982ae8b459e7a427427563fb, type: 3}
+  audioSource2: {fileID: 3645908849350237697, guid: 7ce58905982ae8b459e7a427427563fb, type: 3}
+  pm: {fileID: 2349288862419533110, guid: 7ce58905982ae8b459e7a427427563fb, type: 3}
+  wr: {fileID: 1803145563105211597, guid: 7ce58905982ae8b459e7a427427563fb, type: 3}
+  moveSound: {fileID: 8300000, guid: 5562da9231ae82f4f90c4a5e50d34ac3, type: 3}
+  runSound: {fileID: 8300000, guid: 06ce563f3031ea54096af8e1cc129698, type: 3}
+  slideSound: {fileID: 8300000, guid: 3165e1c539777ef479693f3045497e00, type: 3}
+  jumpSound: {fileID: 8300000, guid: eb7ae952d2d61fd45881378d22c81dba, type: 3}
+  wallJumpSound: {fileID: 8300000, guid: c18d20429131ceb4a91ffa6f9faf17ad, type: 3}
+  attackSound: {fileID: 8300000, guid: 412431a7111781249aa9518e98c1dc6f, type: 3}
 --- !u!4 &8241586590381105893
 Transform:
   m_ObjectHideFlags: 0
@@ -35174,6 +35212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796b564973e529d4fb2a41c74359495a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pa: {fileID: 0}
   attackRange: 5
   damage: 50
   attackCooldownImage: {fileID: 2010501522}
