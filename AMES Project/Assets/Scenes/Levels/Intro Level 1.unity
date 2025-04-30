@@ -54250,6 +54250,7 @@ GameObject:
   - component: {fileID: 5603165115119625720}
   - component: {fileID: 3675064198789665652}
   - component: {fileID: 4571452904325662867}
+  - component: {fileID: 8071810255397122223}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -83070,6 +83071,21 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &8071810255397122223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782855293359812195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fe4e7d41e49144fa2e06a9ac002297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeMagnitude: 0.04
+  shakeDuration: 9
+  infiniteShake: 0
 --- !u!1 &8074793420591340144
 GameObject:
   m_ObjectHideFlags: 0
@@ -85249,7 +85265,7 @@ Transform:
   m_GameObject: {fileID: 8930621618732077011}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.31, y: 205.441, z: 33.95}
+  m_LocalPosition: {x: -4.31, y: 205.756, z: 33.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
