@@ -54,7 +54,7 @@ public class EnemyNinja : BaseEnemy
 
     public override void Attack() // handles the enemy attacking if the player is within range
     {
-        if (Vector3.Distance(destination, transform.position) <= 1.2f)
+        if (Vector3.Distance(destination, transform.position) <= 1.6f)
         {
             anim.SetBool("Close", true);
             if (currentCooldown >= maxCooldown)
@@ -93,12 +93,13 @@ public class EnemyNinja : BaseEnemy
     public void PlayerDetection() // detects if the player is within range of detection
     {
         RaycastHit hit;
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        Ray ray = new Ray(transform.position, transform.forward);
 
-        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 30f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
+        if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 15f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
         {
             destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
             lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
+            if(!isDead)
             agent.destination = destination;
         }
     }
