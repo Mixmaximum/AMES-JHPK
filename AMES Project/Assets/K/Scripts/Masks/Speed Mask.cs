@@ -21,8 +21,10 @@ public class SpeedMask : Mask
         isAble = true;
     }
 
+
     public override void MaskUpdate()
     {
+        maskIcon = Resources.Load<Sprite>("2");
         base.MaskUpdate();
         if (isAble)
         {

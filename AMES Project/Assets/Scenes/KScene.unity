@@ -1761,6 +1761,17 @@ PrefabInstance:
       addedObject: {fileID: 2010501521}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+--- !u!114 &989195526 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5802451388817235680, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+  m_PrefabInstance: {fileID: 989195525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1002267044 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8924525646571099503, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
@@ -19360,6 +19371,10 @@ PrefabInstance:
       propertyPath: maskEquipText
       value: 
       objectReference: {fileID: 2033219652}
+    - target: {fileID: 2865043169146508281, guid: eaebe44dfcb7b77489e08f03d471b2ba, type: 3}
+      propertyPath: maskIconImage
+      value: 
+      objectReference: {fileID: 989195526}
     - target: {fileID: 3387386094013216220, guid: eaebe44dfcb7b77489e08f03d471b2ba, type: 3}
       propertyPath: speedParticles
       value: 
@@ -35215,6 +35230,7 @@ MonoBehaviour:
   pa: {fileID: 0}
   attackRange: 5
   damage: 50
+  maxCooldown: 1.465
   attackCooldownImage: {fileID: 2010501522}
 --- !u!1 &8391115629234002172
 GameObject:
