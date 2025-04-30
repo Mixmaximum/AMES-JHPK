@@ -1,19 +1,16 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
-public class EnemyNinja : BaseEnemy
+public class GREG : BaseEnemy
 {
-
-    // knockback into enemy falling on the ground (RDR2 Euphoria)
-
-    public EnemyNinja()
+    public GREG()
     {
-        enemyName = "Enemy Ninja";
-        maxHealth = 150;
+        enemyName = "G.R.E.G";
+        maxHealth = _maxHealth;
         health = maxHealth;
-        speed = 5f;
-        damage = 20;
+        speed = 7f;
+        damage = _damage;
         isDead = false;
     }
 
@@ -25,11 +22,13 @@ public class EnemyNinja : BaseEnemy
     [SerializeField] float maxCooldown = 2.0f;
     float currentCooldown;
     Rigidbody rBody;
-    [SerializeField] float bodyCleanup;
     [SerializeField] float enemyVisionRange;
     [SerializeField] float enemyAttackDetectionRange = 3.0f;
     [SerializeField] Transform[] waypoints;
     private int currentWaypointIndex = 0;
+    [SerializeField] int _maxHealth = 500;
+    [SerializeField] int _damage = 50; // these values were chosen arbitrarily, feel free to change them i dont care.
+    bool playerDetected;
 
     private void Start()
     {
@@ -38,6 +37,19 @@ public class EnemyNinja : BaseEnemy
         anim = GetComponent<Animator>();
         rBody = GetComponent<Rigidbody>();
         currentCooldown = maxCooldown;
+
+        GameObject[] waypointObjects = GameObject.FindGameObjectsWithTag("Waypoint");
+        waypoints = new Transform[waypointObjects.Length];
+
+        for (int i = 0; i < waypointObjects.Length; i++)
+        {
+            waypoints[i] = waypointObjects[i].transform;
+        }
+
+        if (waypoints.Length > 0)
+        {
+            agent.SetDestination(waypoints[currentWaypointIndex].position);
+        }
     }
 
     public override void Movement() // Handles movement towards the player
@@ -50,8 +62,8 @@ public class EnemyNinja : BaseEnemy
             anim.SetInteger("Walking", (int)agent.velocity.z);
         anim.speed = dH.timeMultiplier;
 
-        if(!isDead)
-        transform.LookAt(lookDir, Vector3.up); // handles the enemy looking at the player 
+        if (!isDead)
+            transform.LookAt(lookDir, Vector3.up); // handles the enemy looking at the player 
     }
 
     public override void Attack() // handles the enemy attacking if the player is within range
@@ -81,14 +93,12 @@ public class EnemyNinja : BaseEnemy
             destination = transform.position;
     }
 
-    public override void EnemyUpdate() 
+    public override void EnemyUpdate()
     {
         if (currentCooldown < maxCooldown) // handles enemy attack cooldown
             currentCooldown += Time.deltaTime;
-        if (isDead)
-            bodyCleanup += Time.deltaTime;
-        if (bodyCleanup >= 30)
-            Destroy(gameObject);
+        ChangeDestination();
+
         PlayerDetection();
     }
 
@@ -99,11 +109,13 @@ public class EnemyNinja : BaseEnemy
 
         if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 15f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
         {
+            playerDetected = true;
             destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
             lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
-            if(!isDead)
-            agent.destination = destination;
+            if (!isDead)
+                agent.destination = destination;
         }
+        else playerDetected = false;
     }
 
     private IEnumerator Stun() // fudge factor
@@ -112,8 +124,8 @@ public class EnemyNinja : BaseEnemy
         rBody.constraints = RigidbodyConstraints.FreezePositionY;
         yield return new WaitForSeconds(0.325f);
         rBody.constraints = RigidbodyConstraints.None;
-        if(!isDead)
-        agent.enabled = true;
+        if (!isDead)
+            agent.enabled = true;
         StopCoroutine(Stun());
     }
 
@@ -131,5 +143,21 @@ public class EnemyNinja : BaseEnemy
         anim.enabled = false;
         Knockback();
         anim.speed = 0;
+    }
+
+    void ChangeDestination()
+    {
+        if (waypoints.Length == 0 || agent.pathPending) return;
+
+        // Check if we've reached the destination
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            // Optionally check if the agent has stopped moving
+            if (!agent.hasPath  && !playerDetected || agent.velocity.sqrMagnitude == 0f && !playerDetected)
+            {
+                currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+                agent.SetDestination(waypoints[currentWaypointIndex].position);
+            }
+        }
     }
 }
