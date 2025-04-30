@@ -28,6 +28,8 @@ public class EnemyNinja : BaseEnemy
     [SerializeField] float bodyCleanup;
     [SerializeField] float enemyVisionRange;
     [SerializeField] float enemyAttackDetectionRange = 3.0f;
+    [SerializeField] Transform[] waypoints;
+    private int currentWaypointIndex = 0;
 
     private void Start()
     {
