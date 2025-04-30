@@ -50,7 +50,7 @@ public class EnemyNinja : BaseEnemy
             anim.SetInteger("Walking", (int)agent.velocity.z);
         anim.speed = dH.timeMultiplier;
 
-        if(!isDead)
+        if(!isDead && agent.enabled)
         transform.LookAt(lookDir, Vector3.up); // handles the enemy looking at the player 
     }
 
@@ -71,7 +71,10 @@ public class EnemyNinja : BaseEnemy
 
     public void AttackDetection() // detects if the player is within range of an attack
     {
-        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= enemyAttackDetectionRange) // if the player is close at a specific point in the animation, then they take damage.
+        RaycastHit hit;
+        Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.forward);
+
+        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= enemyAttackDetectionRange && Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player")) // if the player is close at a specific point in the animation, then they take damage.
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
             Debug.Log("The player was hit!");
@@ -95,13 +98,13 @@ public class EnemyNinja : BaseEnemy
     public void PlayerDetection() // detects if the player is within range of detection
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.forward);
 
         if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 15f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
         {
             destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
             lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
-            if(!isDead)
+            if(!isDead && agent.enabled)
             agent.destination = destination;
         }
     }
