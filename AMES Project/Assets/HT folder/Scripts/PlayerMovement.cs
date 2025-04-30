@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform orientation; // Used to determine movement direction based on camera/player rotation
     [SerializeField] WallRun wallrun; // Reference to the WallRun script (if applicable)
+    [SerializeField] PlayerAudio pa;
     [SerializeField] Animator animator; // Primary animator for player animations
     [SerializeField] Animator secondAnimator; // Additional animator
     [SerializeField] Animator thirdAnimator; // Third animator, possibly for combat or special animations
@@ -95,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true; // Prevents player from tipping over
+        pa = GetComponent<PlayerAudio>();
 
         // Ensure max slide force is at least as large as slide force
         if (maxSlideForce < slideForce)
@@ -198,6 +200,7 @@ public class PlayerMovement : MonoBehaviour
         // Reset vertical velocity and apply upward force
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        pa.JumpSound();
 
         isJumping = true;
     }

@@ -7,6 +7,7 @@ public class WallRun : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform orientation;
     [SerializeField] PlayerMovement pm;
+    [SerializeField] PlayerAudio pa;
 
     [Header("Wall Detection")]
     [SerializeField] float wallDistance = 0.5f;
@@ -47,6 +48,7 @@ public class WallRun : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        pa = GetComponent<PlayerAudio>();
     }
 
     private void Update()
@@ -174,7 +176,6 @@ public class WallRun : MonoBehaviour
         Vector3 jumpDirection = transform.up;
         if (sameWallJumps <= maxJumpsOnOneWall)
         {
-            isWallJumping = true;
             if (wallLeft)
             {
                 jumpDirection += leftWallHit.normal;
@@ -205,7 +206,7 @@ public class WallRun : MonoBehaviour
             // Preserve some horizontal momentum, but reset vertical speed
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             rb.AddForce(jumpDirection.normalized * wallRunJumpForce, ForceMode.Impulse);
-            isWallJumping = false;
+            pa.WallJumpSound();
         }
     }
 }

@@ -29,12 +29,11 @@ public class PlayerAudio : MonoBehaviour
     void Update()
     {
         UpdateSoundLoops();
-        UpdateSoundsUnlooped();
     }
 
     void UpdateSoundLoops()
     {
-        if (pm.isGrounded && pm.currentVelocity > 0.5f && !pm.isSliding)
+        if (pm.isGrounded && pm.currentVelocity > 0.5f && !pm.isSliding && !wr.wallLeft && !wr.wallRight)
         {
             if (!pm.isSprinting && !pm.isSliding)
             {
@@ -83,7 +82,7 @@ public class PlayerAudio : MonoBehaviour
                 audioStopped = false;
             }
         }
-        else
+        else if (audioSource.isPlaying)
         {
             audioSource.Stop();
             audioStopped = true;
@@ -91,29 +90,19 @@ public class PlayerAudio : MonoBehaviour
         }
         
     }
-    void UpdateSoundsUnlooped()
+    public void WallJumpSound()
     {
-        if (pm.isJumping)
-        {
-            audioSource2.clip = jumpSound;
-            if (!soundplayed)
-            {
-                audioSource2.Play();
-                soundplayed = true;
-            }
-        }
-        else if (wr.isWallJumping)
-        {
-            audioSource2.clip = wallJumpSound;
-            if (!soundplayed)
-            {
-                audioSource2.Play();
-                soundplayed = true;   
-            }
-        }
-        else
-        {
-            soundplayed = false;
-        }
+        audioSource2.clip = wallJumpSound;
+        audioSource2.Play();
+    }
+    public void JumpSound()
+    {
+        audioSource2.clip = jumpSound;
+        audioSource2.Play();
+    }
+    public void AttackSound()
+    {
+        audioSource2.clip = attackSound;
+        audioSource2.Play();
     }
 }
