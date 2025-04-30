@@ -4,14 +4,13 @@ using UnityEngine;
 public class CarOfDeath : MonoBehaviour
 {
     [SerializeField] float speed = 3f;
-    Vector3 target;
+    [SerializeField] Vector3 target;
     Vector3 startingPos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         startingPos = transform.position;
-        target = GameObject.FindGameObjectWithTag("Car Target").transform.position;
     }
 
     // Update is called once per frame
