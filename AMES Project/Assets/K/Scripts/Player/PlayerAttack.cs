@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField] PlayerAudio pa;
 
     Animator anim;
     [SerializeField] int attackRange = 3;
@@ -16,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         cooldown = maxCooldown;
+        pa = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudio>();
     }
 
     private void Update()
@@ -36,6 +38,7 @@ public class PlayerAttack : MonoBehaviour
 
     public IEnumerator Attack() // plays the attack animation
     {
+        pa.AttackSound();
         anim.SetBool("IsAttacking", true);
         cooldown = 0;
         yield return new WaitForSeconds(1f);
