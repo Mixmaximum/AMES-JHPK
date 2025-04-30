@@ -1,27 +1,35 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
 
     Animator anim;
-    [SerializeField] int attackRange = 4;
+    [SerializeField] int attackRange = 3;
     [SerializeField] int damage;
     float cooldown;
+    float maxCooldown = 1.465f;
+    [SerializeField] Image attackCooldownImage;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
-        cooldown = 0;
+        cooldown = maxCooldown;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && cooldown <= 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && cooldown >= maxCooldown)
             StartCoroutine(Attack());
-        if (cooldown > 0)
-            cooldown -= Time.deltaTime;
+        if (cooldown < maxCooldown)
+            cooldown += Time.deltaTime;
+
+        attackCooldownImage.fillAmount = cooldown / maxCooldown;
+
+        if(cooldown >= maxCooldown)
+        attackCooldownImage.enabled = false;
+        else attackCooldownImage.enabled = true;
     }
 
     
@@ -29,8 +37,8 @@ public class PlayerAttack : MonoBehaviour
     public IEnumerator Attack() // plays the attack animation
     {
         anim.SetBool("IsAttacking", true);
-        cooldown = 1.4f;
-        yield return new WaitForSeconds(1.1f);
+        cooldown = 0;
+        yield return new WaitForSeconds(1f);
         anim.SetBool("IsAttacking", false);
         StopCoroutine(Attack());
     }
