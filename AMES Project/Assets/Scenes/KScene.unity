@@ -1661,6 +1661,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 3623706945093140814, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327484806084561320, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5389791704057161792, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1756,6 +1764,10 @@ PrefabInstance:
     - target: {fileID: 5927407725756030023, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
       propertyPath: m_FillAmount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7266242244863833439, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

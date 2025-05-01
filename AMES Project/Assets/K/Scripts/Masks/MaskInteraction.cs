@@ -36,6 +36,9 @@ public class MaskInteraction : MonoBehaviour
 
        foreach(Mask mask in maskInventory)
        mask.MaskOnStart();
+
+       if(maskInventory.Count == 0)
+            maskIconImage.enabled = false;
     }
 
     public void MaskControl()
@@ -58,6 +61,7 @@ public class MaskInteraction : MonoBehaviour
 
         if(maskInventory.Count != 0 && equippedMask == null) // These lines are basically placeholders for equipping a mask if you have none
         {
+            maskIconImage.enabled = true;
             equippedMask = maskInventory[0]; 
             equippedMask.OnEquip();
             maskIconImage.sprite = equippedMask.GetIcon();
