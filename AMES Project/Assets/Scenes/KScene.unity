@@ -1653,9 +1653,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 99823578905862758, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+      propertyPath: m_Name
+      value: Mask Icon
+      objectReference: {fileID: 0}
     - target: {fileID: 2799245715659428896, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623706945093140814, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4327484806084561320, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5389791704057161792, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
       propertyPath: m_Pivot.x
@@ -1749,18 +1761,36 @@ PrefabInstance:
       propertyPath: maskBarrier
       value: 
       objectReference: {fileID: 339262170}
+    - target: {fileID: 5927407725756030023, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7266242244863833439, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4858045366463456362, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+    - {fileID: 3621656813684356858, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+    - {fileID: 2028677082470111699, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5389791704057161792, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
       insertIndex: 0
-      addedObject: {fileID: 1740178875}
-    - targetCorrespondingSourceObject: {fileID: 5389791704057161792, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
-      insertIndex: 1
       addedObject: {fileID: 2010501521}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+--- !u!114 &989195526 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5802451388817235680, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+  m_PrefabInstance: {fileID: 989195525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1002267044 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8924525646571099503, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
@@ -1869,6 +1899,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6260334015014247313, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
+--- !u!114 &1059879817 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5927407725756030023, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+  m_PrefabInstance: {fileID: 989195525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1061013901
 GameObject:
   m_ObjectHideFlags: 0
@@ -2891,81 +2932,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6982167362120075349, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
---- !u!1 &1740178874
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1740178875}
-  - component: {fileID: 1740178877}
-  - component: {fileID: 1740178876}
-  m_Layer: 5
-  m_Name: Cooldown
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1740178875
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740178874}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -0.4, y: 0.18, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1781061623}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -13.2}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1740178876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740178874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1ff3d4a1476c26c49b5e1ab976bbaa17, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1740178877
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740178874}
-  m_CullTransparentMesh: 1
 --- !u!1 &1742340653 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4145704731788730482, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
@@ -19355,11 +19321,15 @@ PrefabInstance:
     - target: {fileID: 2865043169146508281, guid: eaebe44dfcb7b77489e08f03d471b2ba, type: 3}
       propertyPath: maskCooldown
       value: 
-      objectReference: {fileID: 1740178876}
+      objectReference: {fileID: 1059879817}
     - target: {fileID: 2865043169146508281, guid: eaebe44dfcb7b77489e08f03d471b2ba, type: 3}
       propertyPath: maskEquipText
       value: 
       objectReference: {fileID: 2033219652}
+    - target: {fileID: 2865043169146508281, guid: eaebe44dfcb7b77489e08f03d471b2ba, type: 3}
+      propertyPath: maskIconImage
+      value: 
+      objectReference: {fileID: 989195526}
     - target: {fileID: 3387386094013216220, guid: eaebe44dfcb7b77489e08f03d471b2ba, type: 3}
       propertyPath: speedParticles
       value: 
@@ -35215,6 +35185,7 @@ MonoBehaviour:
   pa: {fileID: 0}
   attackRange: 5
   damage: 50
+  maxCooldown: 1.465
   attackCooldownImage: {fileID: 2010501522}
 --- !u!1 &8391115629234002172
 GameObject:

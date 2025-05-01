@@ -10,6 +10,7 @@ public class Mask : ScriptableObject
     public int maxUses; // The uses a given mask has.
     public int currentUses; // The uses a mask currently has available, so if maxUses == 3 and you use the ability once, then currentUses == 2 because currentUses == maxUses.
                             // after a cooldown currentUses = maxUses to reset the available uses.
+    public Sprite maskIcon;
 	public virtual void MaskAbility()
 	{
         currentUses--; // Every mask loses a use upon.. using it. Instead of adding currentUses--; to every MaskAbility() function, just call base.MaskAbility(); It should automatically
@@ -65,5 +66,15 @@ public class Mask : ScriptableObject
     public string GetName()
     {
         return maskName;
+    }
+
+    public Sprite GetIcon()
+    {
+        return maskIcon;
+    }
+
+    public virtual void MaskOnStart()
+    {
+        // I don't know why I'm bothering to write anything here like anyone else is going to bother learning inheritance right now
     }
 }
