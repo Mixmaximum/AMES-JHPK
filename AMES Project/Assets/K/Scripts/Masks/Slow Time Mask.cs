@@ -12,6 +12,7 @@ public class SlowTimeMask : Mask
         currentCooldown = 0f; // this is always just 0 at the beginning lol
         maxUses = 1;
         currentUses = maxUses; // at the beginning this should always equal the max uses.
+        
     }
 
     public override void MaskAbility()
@@ -22,6 +23,7 @@ public class SlowTimeMask : Mask
 
     void SlowTime()
     {
+
         // so the way this is going to work is that enemies, objects, and whatever are going to have their speeds tied to a variable so that they can be manipulated individually
         // what does this mean? Well basically instead of manipulating Time.timeScale directly (which would potentially introduce a whole heap of issues, one would be messing with pausing)
         // We manipulate a variable that affects the time of enemies, objects, and anything else independently. So enemies might have their speeds, animations, look like this:
@@ -35,10 +37,23 @@ public class SlowTimeMask : Mask
 
     public override void MaskUpdate() // checks if time is slowed, if it is then the cooldown doesn't start resetting
     {
+        
         if (GameObject.Find("Data Handler").GetComponent<DataHandler>().timeMultiplier == 0.5f)
             currentCooldown = 0f;
         // this function is necessary because if you dont have it the mask will automatically start cooling down instead of 
         // waiting until after the effects are over.
+    }
+
+    public override void MaskOnStart()
+    {
+        base.MaskOnStart();
+        maskIcon = Resources.Load<Sprite>("3");
+    }
+
+    public override void AbilityOnPickup()
+    {
+        base.AbilityOnPickup();
+        maskIcon = Resources.Load<Sprite>("3");
     }
 }
 

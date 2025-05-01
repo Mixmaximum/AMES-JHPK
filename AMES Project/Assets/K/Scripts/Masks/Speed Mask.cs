@@ -21,6 +21,7 @@ public class SpeedMask : Mask
         isAble = true;
     }
 
+
     public override void MaskUpdate()
     {
         base.MaskUpdate();
@@ -43,6 +44,18 @@ public class SpeedMask : Mask
 
         if (isAble)
             currentCooldown = 0f;
+    }
+
+    public override void MaskOnStart()
+    {
+        base.MaskOnStart();
+        maskIcon = Resources.Load<Sprite>("2");
+    }
+
+    public override void AbilityOnPickup()
+    {
+        base.AbilityOnPickup();
+        maskIcon = Resources.Load<Sprite>("2");
     }
 }
 

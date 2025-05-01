@@ -22,7 +22,7 @@ public class GREG : BaseEnemy
     [SerializeField] float maxCooldown = 2.0f;
     float currentCooldown;
     Rigidbody rBody;
-    [SerializeField] float enemyVisionRange;
+    [SerializeField] float enemyVisionRange = 50;
     [SerializeField] float enemyAttackDetectionRange = 3.0f;
     [SerializeField] Transform[] waypoints;
     private int currentWaypointIndex = 0;
@@ -68,22 +68,20 @@ public class GREG : BaseEnemy
 
     public override void Attack() // handles the enemy attacking if the player is within range
     {
-        if (Vector3.Distance(destination, transform.position) <= 1.6f)
+        if (Vector3.Distance(destination, transform.position) <= 1.6f && currentCooldown >= maxCooldown)
         {
-            anim.SetBool("Close", true);
-            if (currentCooldown >= maxCooldown)
-            {
-                anim.SetTrigger("Attack");
-                StartCoroutine(Stun());
-                currentCooldown = 0f;
-            }
+            currentCooldown = 0f;
+            StartCoroutine(Stun());
+            anim.SetTrigger("Attack");
         }
-        else anim.SetBool("Close", false);
     }
 
-    public void AttackDetection() // detects if the player is within range of an attack
+    public void AttackDetection() // detects if the player is within range of an attack and if the enemy is looking at the player
     {
-        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= enemyAttackDetectionRange) // if the player is close at a specific point in the animation, then they take damage.
+        RaycastHit hit;
+        Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.forward);
+
+        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= enemyAttackDetectionRange && Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
             Debug.Log("The player was hit!");
@@ -105,14 +103,15 @@ public class GREG : BaseEnemy
     public void PlayerDetection() // detects if the player is within range of detection
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.forward);
+        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.forward, Color.green, enemyVisionRange);
 
         if (Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 15f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
         {
             playerDetected = true;
             destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
             lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
-            if (!isDead)
+            if (!isDead && agent.enabled)
                 agent.destination = destination;
         }
         else playerDetected = false;
@@ -131,7 +130,7 @@ public class GREG : BaseEnemy
 
     public override void Knockback() // funny
     {
-        rBody.AddForce(transform.forward * -1000f, ForceMode.Impulse);
+        rBody.AddForce(-transform.forward * -1000f, ForceMode.Impulse);
     }
 
     public override void OnDeath() // runs when the enemy dies
@@ -145,18 +144,19 @@ public class GREG : BaseEnemy
         anim.speed = 0;
     }
 
-    void ChangeDestination()
+    void ChangeDestination() // extrapolated from hunters greg script
     {
         if (waypoints.Length == 0 || agent.pathPending) return;
 
         // Check if we've reached the destination
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        if (agent.enabled && agent.remainingDistance <= agent.stoppingDistance)
         {
             // Optionally check if the agent has stopped moving
-            if (!agent.hasPath  && !playerDetected || agent.velocity.sqrMagnitude == 0f && !playerDetected)
+            if (!agent.hasPath && !playerDetected && agent.enabled || agent.velocity.sqrMagnitude == 0f && !playerDetected && agent.enabled)
             {
                 currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-                agent.SetDestination(waypoints[currentWaypointIndex].position);
+                lookDir = waypoints[currentWaypointIndex].position;
+                agent.SetDestination(new Vector3(waypoints[currentWaypointIndex].transform.position.x + 1.5f, waypoints[currentWaypointIndex].transform.position.y + 1.5f, waypoints[currentWaypointIndex].transform.position.z + 1.5f));
             }
         }
     }

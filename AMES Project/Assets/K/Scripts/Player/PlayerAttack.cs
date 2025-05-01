@@ -10,7 +10,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] int attackRange = 3;
     [SerializeField] int damage;
     float cooldown;
-    float maxCooldown = 1.465f;
+    [SerializeField] float maxCooldown = 1.465f;
     [SerializeField] Image attackCooldownImage;
 
     private void Start()
