@@ -26,8 +26,10 @@ public class MaskInteraction : MonoBehaviour
         MaskControl();
         maskCooldown.fillAmount = equippedMask.currentCooldown / equippedMask.cooldown;
 
-        if(equippedMask.currentCooldown == 0f)
+        if(equippedMask.currentUses >= 1)
             maskCooldown.fillAmount = 100;
+        if (equippedMask.currentCooldown == 0f && equippedMask.currentUses != 1)
+            maskCooldown.fillAmount = 0;
     }
 
     private void Start()
@@ -52,7 +54,7 @@ public class MaskInteraction : MonoBehaviour
                 mask.ResetUses(); // manages the cooldown for all of the masks in the list, so that even when you unequip a mask the cooldown still ticks down, or up I guess.
                 mask.MaskUpdate(); // manages code for masks that is supposed to be always running, even if its not equipped
             }
-            equippedMask.EquippedUpdate(); // Runs the function for an equipped masks ability that would constantly update, if it has none nothing happens.
+            equippedMask.EquippedUpdate(); // Runs the method for an equipped masks ability that would constantly update, if it has none nothing happens.
         }
     }
 
