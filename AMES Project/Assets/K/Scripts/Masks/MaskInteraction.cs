@@ -26,8 +26,10 @@ public class MaskInteraction : MonoBehaviour
         MaskControl();
         maskCooldown.fillAmount = equippedMask.currentCooldown / equippedMask.cooldown;
 
-        if(equippedMask.currentCooldown == 0f)
+        if(equippedMask.currentUses >= 1)
             maskCooldown.fillAmount = 100;
+        if (equippedMask.currentCooldown == 0f && equippedMask.currentUses != 1)
+            maskCooldown.fillAmount = 0;
     }
 
     private void Start()

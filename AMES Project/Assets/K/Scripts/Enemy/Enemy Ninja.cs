@@ -126,11 +126,21 @@ public class EnemyNinja : BaseEnemy
     public override void OnDeath() // runs when the enemy dies
     {
         base.OnDeath();
+        isDead = true;
         GetComponent<BoxCollider>().enabled = false;
         Debug.Log("I.. I am dead.");
         agent.enabled = false;
         anim.enabled = false;
         Knockback();
         anim.speed = 0;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<PlayerMovement>().isSliding)
+        {
+            OnDeath();
+        }
+
     }
 }

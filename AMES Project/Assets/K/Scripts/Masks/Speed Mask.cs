@@ -25,13 +25,13 @@ public class SpeedMask : Mask
     public override void MaskUpdate()
     {
         base.MaskUpdate();
-        if (isAble)
+        if (isAble && GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().playerTimeSlowMultiplier != 0.5f)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().walkSpeed = 12f;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().sprintSpeed = 20f;
             speedCooldown += Time.deltaTime;
         }
-        else if (!isAble)
+        else if (!isAble || GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().playerTimeSlowMultiplier == 0.5f)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().walkSpeed = 7f;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().sprintSpeed = 10f;

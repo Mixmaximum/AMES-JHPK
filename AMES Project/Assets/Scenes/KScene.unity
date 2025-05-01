@@ -3016,10 +3016,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WalkEnemy (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 4026298784431884209, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
-      propertyPath: enemyAttackDetectionRange
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3273,6 +3269,63 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 945933758542549791, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
+--- !u!1001 &2066330020
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 152.52869
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 153.86292
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 417.51892
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884962777322183022, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_Name
+      value: WalkEnemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
 --- !u!1 &2071591048 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2822060118851848489, guid: 5e9ddd0a6a5ed904485027b7a288f070, type: 3}
@@ -32705,8 +32758,20 @@ PrefabInstance:
       value: G.R.E.G
       objectReference: {fileID: 0}
     - target: {fileID: 1803943289910318163, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
+      propertyPath: gregSpeedUpTime
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803943289910318163, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
+      propertyPath: gregAbilityCooldown
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803943289910318163, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
       propertyPath: enemyAttackDetectionRange
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339167545064161630, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36407,6 +36472,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3385071996670139166, guid: 2b7877113701d004fbe7fdd10418044b, type: 3}
+      propertyPath: playerTimeSlowDuration
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3666401682111926808, guid: 2b7877113701d004fbe7fdd10418044b, type: 3}
       propertyPath: m_Name
       value: Data Handler
@@ -36916,3 +36985,4 @@ SceneRoots:
   - {fileID: 1598027591}
   - {fileID: 242627545}
   - {fileID: 1261475199}
+  - {fileID: 2066330020}
