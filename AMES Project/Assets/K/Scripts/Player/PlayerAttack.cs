@@ -32,6 +32,11 @@ public class PlayerAttack : MonoBehaviour
         if(cooldown >= maxCooldown)
         attackCooldownImage.enabled = false;
         else attackCooldownImage.enabled = true;
+
+        anim.speed = anim.speed * GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().playerTimeSlowMultiplier;
+        if (GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().playerTimeSlowMultiplier == 0.5f)
+            maxCooldown = 3f;
+        else maxCooldown = 1.465f;
     }
 
     
