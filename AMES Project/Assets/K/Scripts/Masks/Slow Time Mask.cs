@@ -37,11 +37,23 @@ public class SlowTimeMask : Mask
 
     public override void MaskUpdate() // checks if time is slowed, if it is then the cooldown doesn't start resetting
     {
-        maskIcon = Resources.Load<Sprite>("3");
+        
         if (GameObject.Find("Data Handler").GetComponent<DataHandler>().timeMultiplier == 0.5f)
             currentCooldown = 0f;
         // this function is necessary because if you dont have it the mask will automatically start cooling down instead of 
         // waiting until after the effects are over.
+    }
+
+    public override void MaskOnStart()
+    {
+        base.MaskOnStart();
+        maskIcon = Resources.Load<Sprite>("3");
+    }
+
+    public override void AbilityOnPickup()
+    {
+        base.AbilityOnPickup();
+        maskIcon = Resources.Load<Sprite>("3");
     }
 }
 

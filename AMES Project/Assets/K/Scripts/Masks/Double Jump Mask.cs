@@ -28,6 +28,17 @@ public class DoubleJumpMask : Mask
     public override void MaskUpdate()
     {
         base.MaskUpdate();
+    }
+
+    public override void MaskOnStart()
+    {
+        base.MaskOnStart();
+        maskIcon = Resources.Load<Sprite>("1.1");
+    }
+
+    public override void AbilityOnPickup()
+    {
+        base.AbilityOnPickup();
         maskIcon = Resources.Load<Sprite>("1.1");
     }
 }

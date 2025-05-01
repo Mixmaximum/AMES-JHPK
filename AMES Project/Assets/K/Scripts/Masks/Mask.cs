@@ -72,4 +72,9 @@ public class Mask : ScriptableObject
     {
         return maskIcon;
     }
+
+    public virtual void MaskOnStart()
+    {
+        // I don't know why I'm bothering to write anything here like anyone else is going to bother learning inheritance right now
+    }
 }
