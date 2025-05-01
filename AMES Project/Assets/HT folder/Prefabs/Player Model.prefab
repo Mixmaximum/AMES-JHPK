@@ -10299,6 +10299,7 @@ MonoBehaviour:
   GiveMePlease: 1
   maskEquipText: {fileID: 0}
   maskCooldown: {fileID: 0}
+  maskIconImage: {fileID: 0}
 --- !u!114 &4529802426374235587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10460,8 +10461,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 412431a7111781249aa9518e98c1dc6f, type: 3}
+  m_Resource: {fileID: 8300000, guid: 412431a7111781249aa9518e98c1dc6f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -17482,6 +17483,7 @@ MonoBehaviour:
   pa: {fileID: 0}
   attackRange: 5
   damage: 50
+  maxCooldown: 1.465
   attackCooldownImage: {fileID: 0}
 --- !u!1 &4125582480777183952
 GameObject:

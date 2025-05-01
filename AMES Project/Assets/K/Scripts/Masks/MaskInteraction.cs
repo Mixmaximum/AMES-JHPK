@@ -25,11 +25,17 @@ public class MaskInteraction : MonoBehaviour
         CycleMasks();
         MaskControl();
         maskCooldown.fillAmount = equippedMask.currentCooldown / equippedMask.cooldown;
+
+        if(equippedMask.currentCooldown == 0f)
+            maskCooldown.fillAmount = 100;
     }
 
     private void Start()
     {
        GiveAllMasks();
+
+       foreach(Mask mask in maskInventory)
+       mask.MaskOnStart();
     }
 
     public void MaskControl()
@@ -87,8 +93,8 @@ public class MaskInteraction : MonoBehaviour
         {
             if(cycleCount != 0)
             maskInventory[cycleCount].OnUnequip();
-            cycleCount = 0;
-            equippedMask = maskInventory[cycleCount];
+            cycleCount = maskInventory.Count - 1;
+            equippedMask = maskInventory[maskInventory.Count-1];  
             equippedMask.OnEquip();
             maskIconImage.sprite = equippedMask.GetIcon();
         }
