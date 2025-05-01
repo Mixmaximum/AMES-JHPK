@@ -29,6 +29,9 @@ public class GREG : BaseEnemy
     [SerializeField] int _maxHealth = 500;
     [SerializeField] int _damage = 50; // these values were chosen arbitrarily, feel free to change them i dont care.
     bool playerDetected;
+    [SerializeField] float gregSpeedUpTime;
+    [SerializeField] float gregAbilityCooldownCurrent;
+    [SerializeField] float gregAbilityCooldown = 20f;
 
     private void Start()
     {
@@ -71,7 +74,6 @@ public class GREG : BaseEnemy
         if (Vector3.Distance(destination, transform.position) <= 1.6f && currentCooldown >= maxCooldown)
         {
             currentCooldown = 0f;
-            StartCoroutine(Stun());
             anim.SetTrigger("Attack");
         }
     }
@@ -95,9 +97,12 @@ public class GREG : BaseEnemy
     {
         if (currentCooldown < maxCooldown) // handles enemy attack cooldown
             currentCooldown += Time.deltaTime;
-        ChangeDestination();
-
-        PlayerDetection();
+        if(!isDead)
+        {
+            PlayerDetection();
+            ChangeDestination();
+            GregRandomAbility();
+        }
     }
 
     public void PlayerDetection() // detects if the player is within range of detection
@@ -159,5 +164,54 @@ public class GREG : BaseEnemy
                 agent.SetDestination(new Vector3(waypoints[currentWaypointIndex].transform.position.x + 1.5f, waypoints[currentWaypointIndex].transform.position.y + 1.5f, waypoints[currentWaypointIndex].transform.position.z + 1.5f));
             }
         }
+    }
+
+    void GregAbilities()
+    {
+        switch (RandNum())
+        {
+            case 1:
+                GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().StartCoroutine(GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().GregSlowTime());
+                return;
+            case 2:
+                StartCoroutine(GregSpeedUp());
+                return;
+            case 3:
+                transform.position = destination;
+                return;
+        }
+    }
+
+    void GregRandomAbility()
+    {
+        if (gregAbilityCooldownCurrent <= 0 && playerDetected)
+        {
+            GregAbilities();
+            gregAbilityCooldownCurrent = gregAbilityCooldown;
+        }
+        else if (playerDetected) gregAbilityCooldownCurrent -= Time.deltaTime;
+    }
+
+    IEnumerator GregSpeedUp()
+    {
+        speed = speed * 4;
+        anim.speed = anim.speed * 4;
+        yield return new WaitForSeconds(gregSpeedUpTime);
+        speed = speed / 4;
+        anim.speed = anim.speed / 4;
+        StopCoroutine(GregSpeedUp());
+    }
+
+    int RandNum()
+    {
+        int randomInteger;
+        randomInteger = Random.Range(1, 4);
+        return randomInteger;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && speed > 7f)
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
     }
 }

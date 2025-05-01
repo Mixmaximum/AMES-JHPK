@@ -24,14 +24,14 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && cooldown >= maxCooldown)
             StartCoroutine(Attack());
+        FillAmountControl();
         if (cooldown < maxCooldown)
             cooldown += Time.deltaTime;
 
-        attackCooldownImage.fillAmount = cooldown / maxCooldown;
-
-        if(cooldown >= maxCooldown)
-        attackCooldownImage.enabled = false;
-        else attackCooldownImage.enabled = true;
+        anim.speed = anim.speed * GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().playerTimeSlowMultiplier;
+        if (GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().playerTimeSlowMultiplier == 0.5f)
+            maxCooldown = 3f;
+        else maxCooldown = 1.465f;
     }
 
     
@@ -70,6 +70,18 @@ public class PlayerAttack : MonoBehaviour
         anim.enabled = true;
         Debug.Log("Stop!");
         StopCoroutine(Hitstop());
+    }
+
+    void FillAmountControl()
+    {
+        attackCooldownImage.fillAmount = cooldown / maxCooldown;
+        if (cooldown == 0)
+            attackCooldownImage.fillAmount = 0;
+
+
+        if (cooldown >= maxCooldown)
+            attackCooldownImage.enabled = false;
+        else attackCooldownImage.enabled = true;
     }
 
 }

@@ -390,6 +390,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263378944}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &276923521
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3250306883628237597, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e707d829be231f4096b7371f1610820, type: 2}
+    - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: speed
+      value: 51.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: targetObject
+      value: 
+      objectReference: {fileID: 951523599993845698, guid: aa8927338aaa94f43881984d952af902, type: 3}
+    - target: {fileID: 8027955132961857864, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_Name
+      value: Car of Death (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.260595
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5108004
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 87.54504
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
 --- !u!1 &299567107
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,6 +873,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &405753247
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3250306883628237597, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e707d829be231f4096b7371f1610820, type: 2}
+    - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: speed
+      value: 92.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: targetObject
+      value: 
+      objectReference: {fileID: 1016448881}
+    - target: {fileID: 8027955132961857864, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_Name
+      value: Car of Death (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -24.907356
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5108014
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 119.48722
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
 --- !u!1 &418889147
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,6 +1059,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &472500359
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3250306883628237597, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e707d829be231f4096b7371f1610820, type: 2}
+    - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: speed
+      value: 76.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: targetObject
+      value: 
+      objectReference: {fileID: 1016448881}
+    - target: {fileID: 8027955132961857864, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_Name
+      value: Car of Death (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.327798
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5108004
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 94.02942
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
 --- !u!1 &506422696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,6 +2063,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934161631}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1016448881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 951523599993845698, guid: aa8927338aaa94f43881984d952af902, type: 3}
+  m_PrefabInstance: {fileID: 1604728893}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1051709831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,11 +2277,17 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1135095170 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 951523599993845698, guid: aa8927338aaa94f43881984d952af902, type: 3}
-  m_PrefabInstance: {fileID: 661301420333110719}
+--- !u!114 &1208293193 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 33718472902229368, guid: 582006f39984ac644b75b790fdedc51b, type: 3}
+  m_PrefabInstance: {fileID: 774352466900935826}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1215482478
 Mesh:
   m_ObjectHideFlags: 0
@@ -2960,6 +3178,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496372994}
   m_CullTransparentMesh: 1
+--- !u!1001 &1604728893
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 951523599993845698, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_Name
+      value: Car Target (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851873006455430914, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.500893
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851873006455430914, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.44000053
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851873006455430914, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 127.906334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851873006455430914, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851873006455430914, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851873006455430914, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851873006455430914, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851873006455430914, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851873006455430914, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851873006455430914, guid: aa8927338aaa94f43881984d952af902, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aa8927338aaa94f43881984d952af902, type: 3}
 --- !u!1 &1704655561
 GameObject:
   m_ObjectHideFlags: 0
@@ -3786,6 +4061,144 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &2094762211
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3250306883628237597, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e707d829be231f4096b7371f1610820, type: 2}
+    - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: speed
+      value: 17.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: targetObject
+      value: 
+      objectReference: {fileID: 1016448881}
+    - target: {fileID: 8027955132961857864, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_Name
+      value: Car of Death (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.6201382
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.51079947
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 89.50039
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+--- !u!1001 &2122850684
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3250306883628237597, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e707d829be231f4096b7371f1610820, type: 2}
+    - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: speed
+      value: 23.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: targetObject
+      value: 
+      objectReference: {fileID: 1016448881}
+    - target: {fileID: 8027955132961857864, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_Name
+      value: Car of Death (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 34.06176
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5107985
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 87.520515
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185248188549235303, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
 --- !u!1 &2131492360
 GameObject:
   m_ObjectHideFlags: 0
@@ -4343,6 +4756,7 @@ MonoBehaviour:
   GiveMePlease: 1
   maskEquipText: {fileID: 450344045}
   maskCooldown: {fileID: 2068781569}
+  maskIconImage: {fileID: 1208293193}
 --- !u!199 &150125956754937604
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -55085,10 +55499,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3250306883628237597, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e707d829be231f4096b7371f1610820, type: 2}
     - target: {fileID: 6224627027329160055, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
       propertyPath: targetObject
       value: 
-      objectReference: {fileID: 1135095170}
+      objectReference: {fileID: 1016448881}
     - target: {fileID: 8027955132961857864, guid: 123e888203db44c4f94d68aabcd35642, type: 3}
       propertyPath: m_Name
       value: Car of Death
@@ -55787,3 +56205,9 @@ SceneRoots:
   - {fileID: 6244951276109204985}
   - {fileID: 661301420333110719}
   - {fileID: 9055280659943448344}
+  - {fileID: 472500359}
+  - {fileID: 2122850684}
+  - {fileID: 276923521}
+  - {fileID: 2094762211}
+  - {fileID: 405753247}
+  - {fileID: 1604728893}
