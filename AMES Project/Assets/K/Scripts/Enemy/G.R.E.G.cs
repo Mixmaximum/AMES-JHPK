@@ -176,6 +176,9 @@ public class GREG : BaseEnemy
             case 2:
                 StartCoroutine(GregSpeedUp());
                 return;
+            case 3:
+                transform.position = destination;
+                return;
         }
     }
 
@@ -202,7 +205,7 @@ public class GREG : BaseEnemy
     int RandNum()
     {
         int randomInteger;
-        randomInteger = Random.Range(1, 3);
+        randomInteger = Random.Range(1, 4);
         return randomInteger;
     }
 

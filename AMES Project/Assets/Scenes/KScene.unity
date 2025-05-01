@@ -3278,6 +3278,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252962787063170004, guid: 2ad6a90173d819c41a903e05bba63bc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 152.52869
       objectReference: {fileID: 0}
@@ -32776,6 +32784,10 @@ PrefabInstance:
     - target: {fileID: 5339167545064161630, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
       propertyPath: m_Drag
       value: 102.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339167545064161630, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
+      propertyPath: m_Mass
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5339167545064161630, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
       propertyPath: m_AngularDrag
