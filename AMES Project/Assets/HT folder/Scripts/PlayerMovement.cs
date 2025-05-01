@@ -14,8 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform groundCheck; // Transform used to check if the player is grounded
 
     [Header("Movement")]
-    [SerializeField] float moveSpeed = 6f; // Movement speed
-    [SerializeField] float movementMultiplier = 10f; // Ground movement force multiplier
+    [SerializeField] public float moveSpeed = 6f; // Movement speed
+    [SerializeField] public float movementMultiplier = 10f; // Ground movement force multiplier
     [SerializeField] float airMovementMultiplier = 0.4f; // Air movement force multiplier
     [SerializeField] float maxVelocity;
 

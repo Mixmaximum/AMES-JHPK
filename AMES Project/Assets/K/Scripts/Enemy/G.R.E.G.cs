@@ -74,7 +74,6 @@ public class GREG : BaseEnemy
         if (Vector3.Distance(destination, transform.position) <= 1.6f && currentCooldown >= maxCooldown)
         {
             currentCooldown = 0f;
-            StartCoroutine(Stun());
             anim.SetTrigger("Attack");
         }
     }
@@ -98,9 +97,12 @@ public class GREG : BaseEnemy
     {
         if (currentCooldown < maxCooldown) // handles enemy attack cooldown
             currentCooldown += Time.deltaTime;
-        PlayerDetection();
-        ChangeDestination();
-        GregRandomAbility();
+        if(!isDead)
+        {
+            PlayerDetection();
+            ChangeDestination();
+            GregRandomAbility();
+        }
     }
 
     public void PlayerDetection() // detects if the player is within range of detection
@@ -202,5 +204,11 @@ public class GREG : BaseEnemy
         int randomInteger;
         randomInteger = Random.Range(1, 3);
         return randomInteger;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && speed > 7f)
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
     }
 }

@@ -26,13 +26,12 @@ public class DataHandler : MonoBehaviour
 
     public IEnumerator GregSlowTime()
     {
+
         Debug.Log("Greg slowed time!");
-        player.GetComponent<PlayerMovement>().walkSpeed = player.GetComponent<PlayerMovement>().walkSpeed * 0.3f;
-        player.GetComponent<PlayerMovement>().walkSpeed = player.GetComponent<PlayerMovement>().sprintSpeed * 0.3f;
+        player.GetComponent<PlayerMovement>().movementMultiplier = 3;
         playerTimeSlowMultiplier = 0.5f;
         yield return new WaitForSeconds(playerTimeSlowDuration);
-        player.GetComponent<PlayerMovement>().walkSpeed = player.GetComponent<PlayerMovement>().walkSpeed * 3.3334f;
-        player.GetComponent<PlayerMovement>().walkSpeed = player.GetComponent<PlayerMovement>().sprintSpeed * 3.3334f;
+        player.GetComponent<PlayerMovement>().movementMultiplier = 9;
         playerTimeSlowMultiplier = 1f;
         Debug.Log("Greg unslowed time!");
         StopCoroutine(GregSlowTime());

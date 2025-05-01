@@ -32769,9 +32769,17 @@ PrefabInstance:
       propertyPath: enemyAttackDetectionRange
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5084723945750046823, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339167545064161630, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
+      propertyPath: m_Drag
+      value: 102.46
+      objectReference: {fileID: 0}
     - target: {fileID: 5339167545064161630, guid: cd8ea4e924c19e44f88bd1d6bcbbd208, type: 3}
       propertyPath: m_AngularDrag
-      value: 0
+      value: 51.24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
