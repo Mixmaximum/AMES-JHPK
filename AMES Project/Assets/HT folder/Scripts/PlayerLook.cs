@@ -44,7 +44,6 @@ public class PlayerLook : MonoBehaviour
         yRotation += mouseX * sensX * multiplier;
         xRotation -= mouseY * sensY * multiplier;
 
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         if (playerMovement.isSliding == true)
         {
@@ -54,10 +53,12 @@ public class PlayerLook : MonoBehaviour
                 rotationChosen = true;
             }
             yRotation = Mathf.Clamp(yRotation, currentYRotation -90f, currentYRotation + 90);
+            xRotation = Mathf.Clamp(xRotation, -90f, 30f);
         }
         else
         {
             rotationChosen = false;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         }
 
 
