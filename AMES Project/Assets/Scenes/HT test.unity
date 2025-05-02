@@ -23901,8 +23901,9 @@ MonoBehaviour:
   wallRun: {fileID: 7674263508659178453}
   rb: {fileID: 8474832577650670026}
   fallingGrav: 8
-  maxFallGrav: 100
+  maxFallGrav: 20
   timeToMaxGrav: 10
+  currentFallGrav: 0
 --- !u!1 &3814575707071845003
 GameObject:
   m_ObjectHideFlags: 0
