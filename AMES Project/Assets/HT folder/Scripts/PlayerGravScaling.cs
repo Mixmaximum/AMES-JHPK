@@ -12,8 +12,8 @@ public class PlayerGravScaling : MonoBehaviour
     [SerializeField] float maxFallGrav;
     [SerializeField] float timeToMaxGrav;
 
-    float currentFallGrav;
-
+    public float currentFallGrav;
+    float timeElapsed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,15 +31,20 @@ public class PlayerGravScaling : MonoBehaviour
 
     void FallingGrav()
     {
-        float t = Time.deltaTime / timeToMaxGrav;
+        float t = timeElapsed / timeToMaxGrav;
         if (!pm.isGrounded && !wallRun.wallRunning)
         {
-            currentFallGrav = Mathf.Lerp(currentFallGrav, maxFallGrav, t);
-            rb.AddForce(Vector3.down * currentFallGrav, ForceMode.Force);
+            if (timeElapsed < timeToMaxGrav)
+            {
+                currentFallGrav = Mathf.Lerp(currentFallGrav, maxFallGrav, t);
+                rb.AddForce(Vector3.down * currentFallGrav, ForceMode.Force);
+                timeElapsed += Time.deltaTime;
+            }
         }
         else
         {
             currentFallGrav = fallingGrav;
+            timeElapsed = 0;
         }
     }
 }
