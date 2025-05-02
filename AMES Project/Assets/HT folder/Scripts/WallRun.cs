@@ -41,6 +41,8 @@ public class WallRun : MonoBehaviour
     private Vector3 wallRunDirection;
     string lastWallName = "";
     int sameWallJumps = 0;
+    int plyrLyr;
+    int layermask;
 
     [SerializeField] private Animator anim;
     [SerializeField] private WallRunCameraShake cameraShake;
@@ -49,6 +51,8 @@ public class WallRun : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pa = GetComponent<PlayerAudio>();
+        plyrLyr = LayerMask.NameToLayer("Player");
+        layermask = ~(1 << plyrLyr);
     }
 
     private void Update()
@@ -115,11 +119,13 @@ public class WallRun : MonoBehaviour
     {
         if (!wallRight)
         {
-            wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance);
+            wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance, layermask);
+            Debug.Log(leftWallHit.ToString());
         }
         if (!wallLeft)
         {
-            wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance);
+            wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance, layermask);
+            Debug.Log(leftWallHit.ToString());
         }
     }
 
