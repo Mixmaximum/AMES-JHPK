@@ -33926,7 +33926,7 @@ GameObject:
   - component: {fileID: 2283521035378221405}
   - component: {fileID: 4735935989349477721}
   - component: {fileID: 3319482117829420272}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerCapsule
   m_TagString: Player Collider
   m_Icon: {fileID: 0}
