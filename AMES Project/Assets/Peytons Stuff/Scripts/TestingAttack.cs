@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class PlayerAttackController : MonoBehaviour
@@ -26,7 +26,6 @@ public class PlayerAttackController : MonoBehaviour
             pa.AttackSound();
             isAttacking = true;
             animator.SetBool("IsAttacking", true);
-            AttackDetection();
         }
 
         if (isAttacking)
@@ -40,7 +39,8 @@ public class PlayerAttackController : MonoBehaviour
         }
     }
 
-    private void AttackDetection()
+    // ✅ This will now be called from the animation event
+    public void AttackDetection()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, attackRange))
