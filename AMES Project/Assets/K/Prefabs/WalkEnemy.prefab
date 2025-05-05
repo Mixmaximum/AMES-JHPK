@@ -10388,13 +10388,13 @@ MonoBehaviour:
   enemyName: Enemy Ninja
   maxHealth: 50
   health: 50
-  speed: 7
+  speed: 8
   damage: 50
   isDead: 0
-  maxCooldown: 1
+  maxCooldown: 0.5
   bodyCleanup: 0
-  enemyVisionRange: 6.56
-  enemyAttackDetectionRange: 3
+  enemyVisionRange: 6.5
+  enemyAttackDetectionRange: 4.5
   deathParticlePrefabs:
   - {fileID: 2366678377337007090}
   - {fileID: 2936047030909399034}
