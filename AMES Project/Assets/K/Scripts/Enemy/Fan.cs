@@ -21,5 +21,6 @@ public class Fan : MonoBehaviour
         anim.speed = GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().timeMultiplier;
         if (GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().timeMultiplier == 0.5f)
             GameObject.FindGameObjectWithTag("Barrier").GetComponent<BoxCollider>().enabled = false;
+        else GameObject.FindGameObjectWithTag("Barrier").GetComponent<BoxCollider>().enabled = true;
     }
 }
