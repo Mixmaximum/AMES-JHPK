@@ -12,9 +12,9 @@ public class PlayerGravScaling : MonoBehaviour
     [SerializeField] float maxFallGrav;
     [SerializeField] float timeToMaxGrav;
 
-    float currentFallGrav;
+    public float currentFallGrav;
+    float timeElapsed;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (maxFallGrav < fallingGrav)
@@ -23,7 +23,6 @@ public class PlayerGravScaling : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         FallingGrav();
@@ -31,15 +30,31 @@ public class PlayerGravScaling : MonoBehaviour
 
     void FallingGrav()
     {
-        float t = Time.deltaTime / timeToMaxGrav;
+        float t = timeElapsed / timeToMaxGrav;
+
         if (!pm.isGrounded && !wallRun.wallRunning)
         {
-            currentFallGrav = Mathf.Lerp(currentFallGrav, maxFallGrav, t);
-            rb.AddForce(Vector3.down * currentFallGrav, ForceMode.Force);
+            if (timeElapsed < timeToMaxGrav)
+            {
+                currentFallGrav = Mathf.Lerp(currentFallGrav, maxFallGrav, t);
+                rb.AddForce(Vector3.down * currentFallGrav, ForceMode.Force);
+
+                // Camera shake based on gravity intensity
+                if (CameraShake.Instance != null)
+                {
+                    float shakeIntensity = Mathf.InverseLerp(fallingGrav, maxFallGrav, currentFallGrav);
+                    float shakeMagnitude = 0.05f * shakeIntensity; // Adjust scale as needed
+                    float shakeDuration = 0.1f;
+                    CameraShake.Instance.Shake(shakeDuration, shakeMagnitude);
+                }
+
+                timeElapsed += Time.deltaTime;
+            }
         }
         else
         {
             currentFallGrav = fallingGrav;
+            timeElapsed = 0;
         }
     }
 }
