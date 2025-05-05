@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1297830042733582579}
   - component: {fileID: 7872849462603354996}
   - component: {fileID: 4617092155161746603}
-  - component: {fileID: 3016567341075113215}
+  - component: {fileID: -2347144332983543493}
   m_Layer: 0
   m_Name: Double Jump Mask 1
   m_TagString: MaskPickup
@@ -111,7 +111,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3016567341075113215
+--- !u!114 &-2347144332983543493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5487585363485335328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d22b894e7b67246b235a3d0618e721, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a5d5624d08de114b9a79d171808f74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maskToGive: {fileID: 0}
