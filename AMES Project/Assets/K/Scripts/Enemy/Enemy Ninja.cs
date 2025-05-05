@@ -60,13 +60,13 @@ public class EnemyNinja : BaseEnemy
 
     public override void Attack() // handles the enemy attacking if the player is within range
     {
-        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= 1.6f)
+        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= 2f)
         {
+            StartCoroutine(Stun());
             anim.SetBool("Close", true);
             if (currentCooldown >= maxCooldown)
             {
                 anim.SetTrigger("Attack");
-                StartCoroutine(Stun());
                 currentCooldown = 0f;
             }
         }
