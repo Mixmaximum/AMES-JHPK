@@ -21,6 +21,8 @@ public class EnableOnPlayerTouch3D : MonoBehaviour
                 objectToEnable.SetActive(true);
                 Debug.Log("Player touched the object. Enabling target object.");
             }
+
+            Destroy(gameObject); // Destroy this trigger object after enabling
         }
     }
 }
