@@ -248,6 +248,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4617092155161746603, guid: 24f9d4667495de94ab5151995a5b8eb1, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5487585363485335328, guid: 24f9d4667495de94ab5151995a5b8eb1, type: 3}
       propertyPath: m_Name
       value: Double Jump Mask 1
@@ -843,6 +847,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1331052671000772652, guid: 1dc0939c16e0dd94ca39b60890acdab5, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2992363377944935615, guid: 1dc0939c16e0dd94ca39b60890acdab5, type: 3}
       propertyPath: m_Name
       value: Double Jump Mask (1)
@@ -3070,6 +3078,10 @@ PrefabInstance:
     - target: {fileID: 2023657801429032678, guid: 7e95c6c64537cf742b06aa038c867609, type: 3}
       propertyPath: m_Name
       value: Speed Mask (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3866719316229128959, guid: 7e95c6c64537cf742b06aa038c867609, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
