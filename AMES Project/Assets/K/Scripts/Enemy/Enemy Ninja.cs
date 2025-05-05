@@ -27,6 +27,7 @@ public class EnemyNinja : BaseEnemy
     [SerializeField] float bodyCleanup;
     [SerializeField] float enemyVisionRange;
     [SerializeField] float enemyAttackDetectionRange = 3.0f;
+    bool playerDetected;
 
     // Multiple particle systems
     [SerializeField] private GameObject[] deathParticlePrefabs;  // Array to hold multiple particle system prefabs
@@ -38,6 +39,9 @@ public class EnemyNinja : BaseEnemy
         anim = GetComponent<Animator>();
         rBody = GetComponent<Rigidbody>();
         currentCooldown = maxCooldown;
+        isDead = false;
+        anim.enabled = true;
+        agent.enabled = true;
     }
 
     public override void Movement() // Handles movement towards the player
@@ -50,19 +54,19 @@ public class EnemyNinja : BaseEnemy
             anim.SetInteger("Walking", (int)agent.velocity.z);
         anim.speed = dH.timeMultiplier;
 
-        if (!isDead && agent.enabled)
+        if (!isDead && agent.enabled && playerDetected)
             transform.LookAt(lookDir, Vector3.up); // handles the enemy looking at the player
     }
 
     public override void Attack() // handles the enemy attacking if the player is within range
     {
-        if (Vector3.Distance(destination, transform.position) <= 1.6f)
+        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= 2f)
         {
+            StartCoroutine(Stun());
             anim.SetBool("Close", true);
             if (currentCooldown >= maxCooldown)
             {
                 anim.SetTrigger("Attack");
-                StartCoroutine(Stun());
                 currentCooldown = 0f;
             }
         }
@@ -101,8 +105,9 @@ public class EnemyNinja : BaseEnemy
         RaycastHit hit;
         Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.forward);
 
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().isSprinting && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 20f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().isSprinting && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 15f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
         {
+            playerDetected = true;
             destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
             lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
             if (!isDead && agent.enabled)
@@ -110,6 +115,7 @@ public class EnemyNinja : BaseEnemy
         }
         else if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().isCrouching && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 2f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
         {
+            playerDetected = true;
             destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
             lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
             if (!isDead && agent.enabled)
@@ -117,11 +123,13 @@ public class EnemyNinja : BaseEnemy
         }
         else if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().moveSpeed != 0 && Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) <= 15f || Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
         {
+            playerDetected = true;
             destination = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x + 0.6f, GameObject.FindGameObjectWithTag("Player").transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z + 1.3f);
             lookDir = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x, this.transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
             if (!isDead && agent.enabled)
                 agent.destination = destination;
         }
+        else playerDetected = false;
     }
 
     private IEnumerator Stun()
