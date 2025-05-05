@@ -10263,9 +10263,10 @@ MonoBehaviour:
   pm: {fileID: 2349288862419533110}
   wallRun: {fileID: 1803145563105211597}
   rb: {fileID: 439908029575202514}
-  fallingGrav: 8
+  fallingGrav: 5
   maxFallGrav: 100
-  timeToMaxGrav: 10
+  timeToMaxGrav: 40
+  currentFallGrav: 0
 --- !u!114 &2215846552175996195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46121,7 +46122,7 @@ Transform:
   m_GameObject: {fileID: 9179063238183630489}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.464, z: 0}
+  m_LocalPosition: {x: 0, y: 1.778, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
