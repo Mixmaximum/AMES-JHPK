@@ -18,7 +18,7 @@ public class CarOfDeath : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().timeMultiplier);
         if (transform.position == target)
         {
             transform.position = startingPos;
