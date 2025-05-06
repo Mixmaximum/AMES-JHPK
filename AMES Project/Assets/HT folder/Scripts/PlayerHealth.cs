@@ -19,6 +19,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] float invincibilityDuration = 2f;
     [Space(5)]
 
+    public GameObject respawnPoint;
+
     float invincibilityTimeRemaining = 0f;
     bool isInvincible = false;
     public float healTimer;
@@ -28,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
     {
         maxHealth = health;
         healthBar.fillAmount = health / maxHealth;
+        respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
     }
 
     // Update is called once per frame
@@ -86,7 +89,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void Die()
     {
-        cam.GetComponent<Animator>().SetBool("Dead", true);
+        health = maxHealth;
+        transform.position = respawnPoint.transform.position;
     }
     private void HandleIFrames()
     {
