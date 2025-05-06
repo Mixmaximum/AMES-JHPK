@@ -26,7 +26,7 @@ public class QuestPopUp : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        mi = GetComponent<MaskInteraction>();
     }
 
     // Update is called once per frame

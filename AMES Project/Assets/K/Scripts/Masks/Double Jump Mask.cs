@@ -33,12 +33,12 @@ public class DoubleJumpMask : Mask
     public override void MaskOnStart()
     {
         base.MaskOnStart();
-        maskIcon = Resources.Load<Sprite>("1.1");
+        maskIcon = Resources.Load<Sprite>("Double Jump");
     }
 
     public override void AbilityOnPickup()
     {
         base.AbilityOnPickup();
-        maskIcon = Resources.Load<Sprite>("1.1");
+        maskIcon = Resources.Load<Sprite>("Double Jump");
     }
 }

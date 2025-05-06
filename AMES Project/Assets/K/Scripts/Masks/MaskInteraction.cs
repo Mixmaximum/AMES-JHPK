@@ -46,7 +46,7 @@ public class MaskInteraction : MonoBehaviour
 
     public void MaskControl()
     {
-        if (Input.GetKeyDown(KeyCode.F) && maskInventory.Count != 0 && maskInventory[cycleCount] != null && equippedMask.currentUses != 0) // hitting f activates the mask ability, also equippedMask must not equal null (without this there would be an reference error)
+        if (Input.GetKeyDown(KeyCode.E) && maskInventory.Count != 0 && maskInventory[cycleCount] != null && equippedMask.currentUses != 0) // hitting f activates the mask ability, also equippedMask must not equal null (without this there would be an reference error)
             equippedMask.MaskAbility(); // runs the masks F ability, if it has one
         if (maskInventory.Count != 0 && maskInventory[cycleCount] != null) // error prevention
         {
@@ -62,7 +62,7 @@ public class MaskInteraction : MonoBehaviour
     public void CycleMasks()
     {
 
-        if(maskInventory.Count != 0 && equippedMask == null) // These lines are basically placeholders for equipping a mask if you have none
+        if(maskInventory.Count != 0 && equippedMask == null && maskInventory[0] != null) // These lines are basically placeholders for equipping a mask if you have none
         {
             maskIconImage.enabled = true;
             equippedMask = maskInventory[0]; 

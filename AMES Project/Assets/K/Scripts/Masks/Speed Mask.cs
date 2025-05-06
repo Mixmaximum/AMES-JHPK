@@ -49,13 +49,13 @@ public class SpeedMask : Mask
     public override void MaskOnStart()
     {
         base.MaskOnStart();
-        maskIcon = Resources.Load<Sprite>("2");
+        maskIcon = Resources.Load<Sprite>("Speed arrows");
     }
 
     public override void AbilityOnPickup()
     {
         base.AbilityOnPickup();
-        maskIcon = Resources.Load<Sprite>("2");
+        maskIcon = Resources.Load<Sprite>("Speed arrows");
     }
 }
 
