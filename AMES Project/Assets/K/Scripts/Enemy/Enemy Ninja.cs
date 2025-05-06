@@ -28,7 +28,6 @@ public class EnemyNinja : BaseEnemy
     [SerializeField] float enemyVisionRange;
     [SerializeField] float enemyAttackDetectionRange = 3.0f;
     bool playerDetected;
-    Ray playerDetection;
 
     // Multiple particle systems
     [SerializeField] private GameObject[] deathParticlePrefabs;  // Array to hold multiple particle system prefabs
@@ -154,8 +153,8 @@ public class EnemyNinja : BaseEnemy
         Debug.Log("I.. I am dead.");
         agent.enabled = false;
         anim.enabled = false;
-        Knockback();
         anim.speed = 0;
+        Knockback();
 
         // Instantiate all death particle systems
         if (deathParticlePrefabs != null && deathParticlePrefabs.Length > 0)
