@@ -28,6 +28,7 @@ public class EnemyNinja : BaseEnemy
     [SerializeField] float enemyVisionRange;
     [SerializeField] float enemyAttackDetectionRange = 3.0f;
     bool playerDetected;
+    Ray playerDetection;
 
     // Multiple particle systems
     [SerializeField] private GameObject[] deathParticlePrefabs;  // Array to hold multiple particle system prefabs
@@ -76,10 +77,7 @@ public class EnemyNinja : BaseEnemy
 
     public void AttackDetection() // detects if the player is within range of an attack
     {
-        RaycastHit hit;
-        Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.forward);
-
-        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= enemyAttackDetectionRange && Physics.Raycast(ray, out hit, enemyVisionRange) && hit.collider.CompareTag("Player"))
+        if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) <= enemyAttackDetectionRange)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().TakeDamage(damage);
             Debug.Log("The player was hit!");

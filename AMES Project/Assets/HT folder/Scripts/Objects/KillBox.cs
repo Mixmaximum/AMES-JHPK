@@ -21,14 +21,14 @@ public class KillBox : MonoBehaviour
         if (collision.gameObject.tag == "Player Collider")
         {
             Debug.Log("Collided with player");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            collision.gameObject.GetComponent<PlayerHealth>().Die();
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player Collider")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            other.gameObject.GetComponent<PlayerHealth>().Die();
         }
     }
 }

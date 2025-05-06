@@ -13,9 +13,9 @@ public class BaseMaskPickup : MonoBehaviour
         Destroy(this.gameObject); // destroy yourself
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
             OnPickup();
     }
 }
