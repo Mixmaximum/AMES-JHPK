@@ -47,13 +47,13 @@ public class SlowTimeMask : Mask
     public override void MaskOnStart()
     {
         base.MaskOnStart();
-        maskIcon = Resources.Load<Sprite>("3");
+        maskIcon = Resources.Load<Sprite>("Time Slow");
     }
 
     public override void AbilityOnPickup()
     {
         base.AbilityOnPickup();
-        maskIcon = Resources.Load<Sprite>("3");
+        maskIcon = Resources.Load<Sprite>("Time Slow");
     }
 }
 
