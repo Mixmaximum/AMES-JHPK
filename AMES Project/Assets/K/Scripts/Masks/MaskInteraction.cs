@@ -19,6 +19,7 @@ public class MaskInteraction : MonoBehaviour
     [SerializeField] TextMeshProUGUI maskEquipText; // text that shows what mask you currently have equipped.
     [SerializeField] Image maskCooldown;
     [SerializeField] Image maskIconImage;
+    [SerializeField] bool Level2Bool;
 
     void Update()
     {
@@ -31,13 +32,14 @@ public class MaskInteraction : MonoBehaviour
             maskCooldown.fillAmount = 100;
         if (equippedMask != null && equippedMask.currentCooldown == 0f && equippedMask.currentUses != 1)
             maskCooldown.fillAmount = 0;
+        
     }
 
     private void Start()
     {
        GiveAllMasks();
-
-       foreach(Mask mask in maskInventory)
+        Level2Masks();
+        foreach (Mask mask in maskInventory)
        mask.MaskOnStart();
 
        if(maskInventory.Count == 0)
@@ -113,6 +115,14 @@ public class MaskInteraction : MonoBehaviour
         {
             maskInventory.Add(ScriptableObject.CreateInstance<SlowTimeMask>());
             maskInventory.Add(ScriptableObject.CreateInstance<SpeedMask>());
+            maskInventory.Add(ScriptableObject.CreateInstance<DoubleJumpMask>());
+        }
+    }
+    private void Level2Masks()
+    {
+        if(Level2Bool)
+        {
+            maskInventory.Add(ScriptableObject.CreateInstance<SlowTimeMask>());
             maskInventory.Add(ScriptableObject.CreateInstance<DoubleJumpMask>());
         }
     }
