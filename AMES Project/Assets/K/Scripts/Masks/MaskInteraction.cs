@@ -62,7 +62,7 @@ public class MaskInteraction : MonoBehaviour
     public void CycleMasks()
     {
 
-        if(maskInventory.Count != 0 && equippedMask == null) // These lines are basically placeholders for equipping a mask if you have none
+        if(maskInventory.Count != 0 && equippedMask == null && maskInventory[0] != null) // These lines are basically placeholders for equipping a mask if you have none
         {
             maskIconImage.enabled = true;
             equippedMask = maskInventory[0]; 
