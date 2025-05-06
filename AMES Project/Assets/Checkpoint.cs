@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+    [SerializeField] PlayerHealth ph;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        ph = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -17,7 +18,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.gameObject.tag == "Player Collider")
         {
-            other.gameObject.GetComponent<PlayerHealth>().respawnPoint = this.gameObject;
+            ph.Die();
         }
     }
 }
