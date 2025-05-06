@@ -3,16 +3,15 @@ using UnityEngine;
 public class Fan : MonoBehaviour
 {
 
-    [SerializeField] int integer;
     Animator anim;
     BoxCollider box;
+    [SerializeField] int damage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         anim = GetComponent<Animator>();
-        if (integer == 1)
-            anim.Play("Fan Animator");
-        else anim.Play("Fan Animator 2");
+        anim.Play("Fan Spin");
+        box = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -20,7 +19,13 @@ public class Fan : MonoBehaviour
     {
         anim.speed = GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().timeMultiplier;
         if (GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().timeMultiplier == 0.5f)
-            GameObject.FindGameObjectWithTag("Barrier").GetComponent<BoxCollider>().enabled = false;
-        else GameObject.FindGameObjectWithTag("Barrier").GetComponent<BoxCollider>().enabled = true;
+            box.enabled = false;
+        else box.enabled = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
     }
 }
