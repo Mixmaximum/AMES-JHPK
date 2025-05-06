@@ -15,6 +15,7 @@ TagManager:
   - Waypoint
   - Car Target
   - Barrier
+  - Starting Respawn Point
   layers:
   - Default
   - TransparentFX

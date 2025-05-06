@@ -3,10 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class KillBox : MonoBehaviour
 {
+    [SerializeField] PlayerHealth ph;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        ph = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -21,14 +22,14 @@ public class KillBox : MonoBehaviour
         if (collision.gameObject.tag == "Player Collider")
         {
             Debug.Log("Collided with player");
-            collision.gameObject.GetComponent<PlayerHealth>().Die();
+            ph.Die();
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player Collider")
         {
-            other.gameObject.GetComponent<PlayerHealth>().Die();
+            ph.Die();
         }
     }
 }
