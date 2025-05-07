@@ -57,4 +57,8 @@ public class PlayerGravScaling : MonoBehaviour
             timeElapsed = 0;
         }
     }
+    public void ResetGrav()
+    {
+        currentFallGrav = fallingGrav;
+    }
 }
