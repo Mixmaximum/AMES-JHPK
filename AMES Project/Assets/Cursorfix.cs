@@ -6,6 +6,7 @@ public class Cursorfix : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     // Update is called once per frame
