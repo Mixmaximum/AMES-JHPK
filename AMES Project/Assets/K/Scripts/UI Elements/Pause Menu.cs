@@ -32,11 +32,11 @@ public class PauseMenu : MonoBehaviour
 
         if (canPause)
         {
-            if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 1)
+            if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1)
             {
                 pauseMenuCanvas.enabled = true;
             }
-            else if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 0)
+            else if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0)
             {
                 pauseMenuCanvas.enabled = false;
                 Canvas2.GetComponent<Canvas>().enabled = false;

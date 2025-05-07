@@ -87,6 +87,7 @@ public class PlayerHealth : MonoBehaviour
     public void Die()
     {
         health = maxHealth;
+        healthBar.fillAmount = health / maxHealth;
         transform.position = respawnPoint.transform.position;
     }
     private void HandleIFrames()
