@@ -6,44 +6,43 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] PlayerAudio pa;
 
-    Animator anim;
+    [SerializeField] Animator anim;
     [SerializeField] int attackRange = 3;
     [SerializeField] int damage;
-    float cooldown;
-    [SerializeField] float maxCooldown = 1.465f;
-    [SerializeField] Image attackCooldownImage;
+    bool isAttacking;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
-        cooldown = maxCooldown;
         pa = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAudio>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && cooldown >= maxCooldown)
-            StartCoroutine(Attack());
-        FillAmountControl();
-        if (cooldown < maxCooldown)
-            cooldown += Time.deltaTime;
-
+        Attack();
         anim.speed = anim.speed * GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().playerTimeSlowMultiplier;
-        if (GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().playerTimeSlowMultiplier == 0.5f)
-            maxCooldown = 3f;
-        else maxCooldown = 1.465f;
     }
 
     
 
-    public IEnumerator Attack() // plays the attack animation
+    public void Attack()
     {
-        pa.AttackSound();
-        anim.SetBool("IsAttacking", true);
-        cooldown = 0;
-        yield return new WaitForSeconds(1f);
-        anim.SetBool("IsAttacking", false);
-        StopCoroutine(Attack());
+        if (Input.GetMouseButtonDown(0) && !isAttacking)
+        {
+            pa.AttackSound();
+            isAttacking = true;
+            anim.SetBool("IsAttacking", true);
+        }
+
+        if (isAttacking)
+        {
+            AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)
+            {
+                isAttacking = false;
+                anim.SetBool("IsAttacking", false);
+            }
+        }
     }
 
     public void AttackDetection() // detects if there is anything infront of the player when they attack
@@ -71,16 +70,5 @@ public class PlayerAttack : MonoBehaviour
         StopCoroutine(Hitstop());
     }
 
-    void FillAmountControl()
-    {
-        attackCooldownImage.fillAmount = cooldown / maxCooldown;
-        if (cooldown == 0)
-            attackCooldownImage.fillAmount = 0;
-
-
-        if (cooldown >= maxCooldown)
-            attackCooldownImage.enabled = false;
-        else attackCooldownImage.enabled = true;
-    }
 
 }
