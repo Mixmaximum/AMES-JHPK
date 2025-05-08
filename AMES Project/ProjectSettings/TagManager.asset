@@ -16,6 +16,8 @@ TagManager:
   - Car Target
   - Barrier
   - Starting Respawn Point
+  - timer
+  - Timer Time
   layers:
   - Default
   - TransparentFX
