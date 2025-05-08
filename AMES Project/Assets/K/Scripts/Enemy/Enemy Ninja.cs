@@ -28,6 +28,8 @@ public class EnemyNinja : BaseEnemy
     [SerializeField] float enemyVisionRange;
     [SerializeField] float enemyAttackDetectionRange = 3.0f;
     bool playerDetected;
+    [SerializeField] AudioSource audSrc;
+    [SerializeField] AudioClip audClip;
 
     // Multiple particle systems
     [SerializeField] private GameObject[] deathParticlePrefabs;  // Array to hold multiple particle system prefabs
@@ -42,6 +44,7 @@ public class EnemyNinja : BaseEnemy
         isDead = false;
         anim.enabled = true;
         agent.enabled = true;
+        audSrc = GetComponent<AudioSource>();
     }
 
     public override void Movement() // Handles movement towards the player
@@ -155,6 +158,8 @@ public class EnemyNinja : BaseEnemy
         anim.enabled = false;
         anim.speed = 0;
         Knockback();
+        audSrc.clip = audClip;
+        audSrc.Play();
 
         // Instantiate all death particle systems
         if (deathParticlePrefabs != null && deathParticlePrefabs.Length > 0)
