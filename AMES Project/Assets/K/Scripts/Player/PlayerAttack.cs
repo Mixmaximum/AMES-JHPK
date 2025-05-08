@@ -65,10 +65,9 @@ public class PlayerAttack : MonoBehaviour
     public IEnumerator Hitstop() // hitstop for more oomph
     {
         anim.enabled = false;
-        Debug.Log("Hit");
+        pa.HitSound();
         yield return new WaitForSeconds(0.09f);
         anim.enabled = true;
-        Debug.Log("Stop!");
         StopCoroutine(Hitstop());
     }
 

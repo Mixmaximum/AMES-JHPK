@@ -15,6 +15,7 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] AudioClip jumpSound;
     [SerializeField] AudioClip wallJumpSound;
     [SerializeField] AudioClip attackSound;
+    [SerializeField] AudioClip hitSound;
 
     bool audioStopped;
     bool soundplayed;
@@ -103,6 +104,12 @@ public class PlayerAudio : MonoBehaviour
     public void AttackSound()
     {
         audioSource2.clip = attackSound;
+        audioSource2.Play();
+    }
+    
+    public void HitSound()
+    {
+        audioSource2.clip = hitSound;
         audioSource2.Play();
     }
 }
