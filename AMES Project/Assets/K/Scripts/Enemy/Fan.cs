@@ -17,10 +17,16 @@ public class Fan : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        anim.speed = GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().timeMultiplier;
         if (GameObject.FindGameObjectWithTag("Handler").GetComponent<DataHandler>().timeMultiplier == 0.5f)
+        {
+            anim.speed = .3f;
             box.enabled = false;
-        else box.enabled = true;
+        }
+        else
+        {
+            box.enabled = true;
+            anim.speed = 1f;
+        } 
     }
 
     private void OnCollisionEnter(Collision collision)
