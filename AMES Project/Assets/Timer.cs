@@ -11,6 +11,7 @@ public class Timer : MonoBehaviour
     void Start()
     {
         delayTimer = startDelay;
+        timerText = GameObject.FindGameObjectWithTag("Timer Time").GetComponent<TextMeshProUGUI>();
         GameObject[] objs = GameObject.FindGameObjectsWithTag("timer");
 
         if (objs.Length > 1)
@@ -34,6 +35,11 @@ public class Timer : MonoBehaviour
             int minutes = Mathf.FloorToInt(timer / 60);
             int seconds = Mathf.FloorToInt(timer % 60);
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+
+        if (timerText == null)
+        {
+            timerText = GameObject.FindGameObjectWithTag("Timer Time").GetComponent<TextMeshProUGUI>();
         }
     }
 }
