@@ -27,6 +27,14 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (timerText == null)
+        {
+            timerText = GameObject.FindGameObjectWithTag("Timer Time").GetComponent<TextMeshProUGUI>();
+        }
+        if (scene.name == sceneWanted && !checkMet)
+        {
+            timerPaused = true;
+        }
         if (!timerPaused)
         {
             timer += Time.deltaTime;
@@ -34,14 +42,6 @@ public class Timer : MonoBehaviour
             int seconds = Mathf.FloorToInt(timer % 60);
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
-        if (timerText == null)
-        {
-            timerText = GameObject.FindGameObjectWithTag("Timer Time").GetComponent<TextMeshProUGUI>();
-        }
         scene = SceneManager.GetActiveScene();
-        if (scene.name == sceneWanted && !checkMet)
-        {
-            timerPaused = true;
-        }
     }
 }
