@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DoubleJumpMask : Mask
@@ -13,6 +14,8 @@ public class DoubleJumpMask : Mask
         
     }
 
+    PlayerGravScaling pGS;
+
     public override void MaskAbility()
     {
         
@@ -23,6 +26,7 @@ public class DoubleJumpMask : Mask
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         rb.AddForce(player.transform.up * 25f, ForceMode.Impulse); // we can always change how high the player can go.
+        pGS.ResetGrav();
     }
 
     public override void MaskUpdate()
@@ -33,12 +37,14 @@ public class DoubleJumpMask : Mask
     public override void MaskOnStart()
     {
         base.MaskOnStart();
+        pGS = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGravScaling>();
         maskIcon = Resources.Load<Sprite>("Double Jump");
     }
 
     public override void AbilityOnPickup()
     {
         base.AbilityOnPickup();
+        pGS = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGravScaling>();
         maskIcon = Resources.Load<Sprite>("Double Jump");
     }
 }
